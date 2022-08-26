@@ -1,6 +1,7 @@
 #output
 dist
 build
+node_modules
 
 #yarn
 .yarn/*
