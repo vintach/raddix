@@ -28,6 +28,7 @@ export interface SwitchProps
     asProps {
   required?: boolean;
   readOnly?: boolean;
+  isDisabled?: boolean;
 }
 
 export interface SwitchThumbProps extends Props, AttrsProps<'span'>, asProps {}

@@ -1,4 +1,9 @@
-import React, { forwardRef, PropsWithChildren, useState } from 'react';
+import React, {
+  forwardRef,
+  MouseEvent,
+  PropsWithChildren,
+  useState
+} from 'react';
 import { SwitchProvider, useSwitch } from './switch.provider';
 import { SwitchProps, SwitchThumbProps, SwitchEvent } from './switch.types';
 import { getChecked } from './switch.utils';
@@ -29,7 +34,8 @@ export const SwitchRoot = forwardRef<
 >((props, ref) => {
   const {
     checked: checkedProp,
-    disabled,
+    disabled: disabledProp,
+    isDisabled,
     required,
     children,
     defaultChecked,
@@ -45,8 +51,13 @@ export const SwitchRoot = forwardRef<
     onChecked
   });
 
-  const handleClick = () => {
-    if (readOnly) return;
+  const disabled = isDisabled ?? disabledProp;
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    if (disabled || readOnly) {
+      e.preventDefault();
+      return;
+    }
     if (checked) return setChecked?.(false);
     if (!checked) return setChecked?.(true);
   };
@@ -60,10 +71,10 @@ export const SwitchRoot = forwardRef<
         aria-checked={checked}
         aria-readonly={readOnly}
         aria-required={required}
-        aria-disabled={disabled}
+        aria-disabled={disabledProp}
         data-state={getChecked(checked)}
         data-disabled={disabled}
-        disabled={disabled}
+        disabled={isDisabled}
         onClick={handleClick}
         {...rest}
       >
