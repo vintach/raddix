@@ -5,16 +5,16 @@ import React, {
   useContext,
   useMemo
 } from 'react';
-import { SwitchPropsBase } from './switch.types';
+import { Props } from './switch.types';
 
-export const SwitchContext = createContext<SwitchPropsBase>({
+export const SwitchContext = createContext<Props>({
   checked: false,
   disabled: false
 });
 
 export const useSwitch = () => useContext(SwitchContext);
 
-export const SwitchProvider: FC<PropsWithChildren<SwitchPropsBase>> = props => {
+export const SwitchProvider: FC<PropsWithChildren<Props>> = props => {
   const { checked, disabled, children } = props;
 
   const config = useMemo(() => ({ checked, disabled }), [checked, disabled]);
