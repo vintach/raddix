@@ -17,10 +17,15 @@ export type AttrsProps<T extends ElementType> =
 
 export interface Props extends DisabledProps, CheckedProps {}
 
+export interface SwitchEvent extends CheckedProps {
+  defaultChecked?: boolean;
+  onChecked?(checked: boolean): void;
+}
+
 export interface SwitchProps
   extends AttrsProps<'button'>,
-    asProps,
-    CheckedProps {
+    SwitchEvent,
+    asProps {
   required?: boolean;
 }
 

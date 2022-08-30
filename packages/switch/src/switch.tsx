@@ -1,7 +1,24 @@
 import React, { forwardRef, PropsWithChildren, useState } from 'react';
 import { SwitchProvider, useSwitch } from './switch.provider';
-import { SwitchProps, SwitchThumbProps } from './switch.types';
+import { SwitchProps, SwitchThumbProps, SwitchEvent } from './switch.types';
 import { getChecked } from './switch.utils';
+
+/*
+ * Hook defines controlled or uncontrolled state
+ */
+const useControlledState = (options: SwitchEvent) => {
+  const { checked, defaultChecked, onChecked } = options;
+  const [inChecked, setInChecked] = useState<boolean | undefined>(
+    defaultChecked
+  );
+  const isChecked = inChecked ?? false;
+
+  if (checked !== undefined) {
+    return [checked, onChecked] as const;
+  } else {
+    return [isChecked, setInChecked] as const;
+  }
+};
 
 /*
  * Switch Root
@@ -15,11 +32,17 @@ export const SwitchRoot = forwardRef<
     disabled,
     required,
     children,
+    defaultChecked,
+    onChecked,
     asChild: Component = 'button',
     ...rest
   } = props;
 
-  const [checked, setChecked] = useState(checkedProp || false);
+  const [checked, setChecked] = useControlledState({
+    checked: checkedProp,
+    defaultChecked,
+    onChecked
+  });
 
   const handleClick = () => {
     if (checked) return setChecked?.(false);
