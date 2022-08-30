@@ -34,6 +34,7 @@ export const SwitchRoot = forwardRef<
     children,
     defaultChecked,
     onChecked,
+    readOnly,
     asChild: Component = 'button',
     ...rest
   } = props;
@@ -45,6 +46,7 @@ export const SwitchRoot = forwardRef<
   });
 
   const handleClick = () => {
+    if (readOnly) return;
     if (checked) return setChecked?.(false);
     if (!checked) return setChecked?.(true);
   };
@@ -56,6 +58,7 @@ export const SwitchRoot = forwardRef<
         type='button'
         role='switch'
         aria-checked={checked}
+        aria-readonly={readOnly}
         aria-required={required}
         aria-disabled={disabled}
         data-state={getChecked(checked)}
