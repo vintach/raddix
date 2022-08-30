@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  forwardRef,
-  PropsWithChildren,
-  useEffect,
-  useState
-} from 'react';
+import React, { forwardRef, PropsWithChildren, useState } from 'react';
 import { SwitchProvider, useSwitch } from './switch.provider';
 import { SwitchProps, SwitchThumbProps } from './switch.types';
 import { getChecked } from './switch.utils';
@@ -12,46 +6,36 @@ import { getChecked } from './switch.utils';
 /*
  * Switch Root
  */
-
 export const SwitchRoot = forwardRef<
-  HTMLInputElement,
+  HTMLButtonElement,
   PropsWithChildren<SwitchProps>
 >((props, ref) => {
   const {
-    checked,
+    checked: checkedProp,
     disabled,
     required,
-    name,
     children,
     asChild: Component = 'button',
     ...rest
   } = props;
 
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [checked, setChecked] = useState(checkedProp || false);
 
   const handleClick = () => {
-    if (isChecked) return setIsChecked(false);
-    if (!isChecked) return setIsChecked(true);
+    if (checked) return setChecked?.(false);
+    if (!checked) return setChecked?.(true);
   };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(e.target.checked);
-  };
-
-  useEffect(() => {
-    if (checked === undefined) return;
-    setIsChecked(checked);
-  }, [checked]);
 
   return (
-    <SwitchProvider checked={isChecked} disabled={disabled}>
+    <SwitchProvider checked={checked} disabled={disabled}>
       <Component
+        ref={ref}
         type='button'
         role='switch'
-        aria-checked={isChecked}
+        aria-checked={checked}
         aria-required={required}
         aria-disabled={disabled}
-        data-state={getChecked(isChecked)}
+        data-state={getChecked(checked)}
         data-disabled={disabled}
         disabled={disabled}
         onClick={handleClick}
@@ -59,24 +43,6 @@ export const SwitchRoot = forwardRef<
       >
         {children}
       </Component>
-      <input
-        type='checkbox'
-        aria-hidden
-        defaultChecked={checked}
-        checked={checked}
-        onChange={handleChange}
-        required={required}
-        disabled={disabled}
-        tabIndex={-1}
-        name={name}
-        style={{
-          width: 1,
-          height: 1,
-          pointerEvents: 'none',
-          opacity: 0,
-          margin: 0
-        }}
-      />
     </SwitchProvider>
   );
 });
@@ -96,6 +62,7 @@ export const SwitchThumb = forwardRef<
 
   return (
     <span
+      ref={ref}
       data-state={getChecked(checked ?? false)}
       data-disabled={disabled}
       {...rest}
