@@ -9,7 +9,7 @@ interface CheckedProps {
 }
 
 interface asProps {
-  asChild?: React.ElementType<any>;
+  asChild?: ElementType<any>;
 }
 
 export type AttrsProps<T extends ElementType> =
