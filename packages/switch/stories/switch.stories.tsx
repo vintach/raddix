@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Switch from '../src';
+import Switch from '@mark-ui/switch';
 import './switch.css';
 
 export default {
