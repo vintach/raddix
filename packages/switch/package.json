@@ -7,6 +7,11 @@
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "directory": "packages/switch",
+    "url": "https://github.com/gdvu/mark-ui.git"
+  },
   "files": [
     "dist",
     "README.md"
