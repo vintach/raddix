@@ -6,4 +6,7 @@ export type AttrsProps<T extends ElementType> =
 export interface ButtonProps extends AttrsProps<'button'> {
   asChild?: React.ElementType<any>;
   isDisabled?: boolean;
+  onPress?: () => any;
+  onPressStart?: () => any;
+  onPressEnd?: () => any;
 }
