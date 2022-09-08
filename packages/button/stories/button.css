@@ -23,7 +23,7 @@
     0 0 0 4.5px #8743ff;
 }
 
-.button:active {
+.button[data-state="pressed"] {
   transform: scale(0.95);
 }
 
