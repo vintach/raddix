@@ -3,7 +3,7 @@
   "packageManager": "yarn@3.2.2",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*/*"
   ],
   "scripts": {
     "storybook": "start-storybook -p 6006",

@@ -72,7 +72,6 @@ const usePress = (props: PressProps): PressResult => {
         return;
       }
 
-      console.log(e);
       let target = e.currentTarget;
 
       if (e.key === 'Enter' || e.key === ' ') {

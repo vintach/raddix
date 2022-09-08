@@ -10,6 +10,6 @@ module.exports = {
     'jest-watch-typeahead/testname'
   ],
   moduleNameMapper: {
-    '@mark-ui/(.+)$': '<rootDir>/packages/$1/src'
+    '@mark-ui/(.+)$': '<rootDir>/packages/components/$1/src'
   }
 };

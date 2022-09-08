@@ -2,7 +2,7 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@mark-ui/switch": ["./packages/switch/src"]
+      "@mark-ui/switch": ["./packages/components/switch/src"]
     }
   }
 }
