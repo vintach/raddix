@@ -25,3 +25,18 @@ export interface HoverResult {
   isHovered: boolean;
   hoverEvents: DOMEvents;
 }
+
+export const useHover = (pros: HoverProps): HoverResult => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const hoverEvents: DOMEvents = {
+    onPointerEnter(e) {
+      setIsHovered(true);
+    },
+    onPointerLeave(e) {
+      setIsHovered(false);
+    }
+  };
+
+  return { hoverEvents, isHovered };
+};
