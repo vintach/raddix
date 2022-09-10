@@ -36,3 +36,76 @@ export interface PressResult {
   isPressed: boolean;
   pressEvents: DOMEvents;
 }
+
+export const usePress = (props: PressProps): PressResult => {
+  const { disabled = false } = props;
+
+  const [isPressed, setIsPressed] = useState(false);
+
+  const pressEvents: DOMEvents = {
+    onKeyDown(e) {
+      e.stopPropagation();
+      if (disabled) {
+        e.preventDefault();
+        return;
+      }
+
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setIsPressed(true);
+      }
+    },
+    onKeyUp(e) {
+      e.stopPropagation();
+      if (disabled) {
+        e.preventDefault();
+        return;
+      }
+
+      let target = e.currentTarget;
+
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setIsPressed(false);
+        target.click();
+      }
+    },
+    onClick(e) {
+      e.stopPropagation();
+      if (disabled) {
+        e.preventDefault();
+        return;
+      }
+    },
+    onMouseDown(e) {
+      if (disabled) {
+        e.preventDefault();
+        return;
+      }
+      setIsPressed(true);
+    },
+    onMouseUp(e) {
+      if (disabled) {
+        e.preventDefault();
+        return;
+      }
+      setIsPressed(false);
+    },
+    onMouseOut(e) {
+      setIsPressed(false);
+    },
+    onBlur(e) {
+      setIsPressed(false);
+    },
+    onPointerUp(e) {
+      setIsPressed(false);
+    },
+    onTouchStart(e) {
+      console.log('Touch');
+    }
+  };
+
+  return { pressEvents, isPressed };
+};
+
+export default usePress;
