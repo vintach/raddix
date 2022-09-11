@@ -16,6 +16,10 @@
     "clean": "rm -rf dist",
     "version": "yarn version"
   },
+  "dependencies": {
+    "@mark-hooks/usehover": "workspace:*",
+    "@mark-hooks/usepress": "workspace:*"
+  },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
