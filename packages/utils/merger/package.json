@@ -1,0 +1,12 @@
+{
+  "name": "@mark-utils/merger",
+  "version": "0.1.0",
+  "packageManager": "yarn@3.2.3",
+  "sideEffects": false,
+  "dependencies": {
+    "clsx": "^1.2.1"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  }
+}

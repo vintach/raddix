@@ -1,0 +1,1 @@
+export { merger } from './merger';
