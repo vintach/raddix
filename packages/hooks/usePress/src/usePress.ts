@@ -3,6 +3,7 @@ import {
   KeyboardEventHandler,
   MouseEventHandler,
   PointerEventHandler,
+  TouchEventHandler,
   useState
 } from 'react';
 
@@ -35,7 +36,6 @@ export interface PressProps {
   onPress?: (e: PressEvent) => void;
   onPressStart?: (e: PressEvent) => void;
   onPressEnd?: (e: PressEvent) => void;
-  onPressChange?: (isPressed: boolean) => void;
   disabled?: boolean;
 }
 
@@ -48,7 +48,8 @@ export interface DOMPressEvents {
   onMouseOut?: MouseEventHandler<HTMLElement>;
   onBlur?: FocusEventHandler<HTMLElement>;
   onPointerUp?: PointerEventHandler<HTMLElement>;
-  onTouchStart?: React.TouchEventHandler<HTMLElement>;
+  onTouchStart?: TouchEventHandler<HTMLElement>;
+  onTouchEnd?: TouchEventHandler<HTMLButtonElement>;
 }
 
 export interface PressResult {
@@ -56,6 +57,10 @@ export interface PressResult {
   pressEvents: DOMPressEvents;
 }
 
+/*
+ * Hook usePress
+ * Support for interactions via mouse, touch, and keyboard
+ */
 export const usePress = (props: PressProps): PressResult => {
   const { disabled = false, onPress, onPressEnd, onPressStart } = props;
 
@@ -141,13 +146,17 @@ export const usePress = (props: PressProps): PressResult => {
         return;
       }
     },
+    // when the mouse button is pressed/released on an element.
     onMouseDown(e) {
       if (disabled) {
         e.preventDefault();
         return;
       }
       handlePressStart(e, 'mouse');
-      setIsPressed(true);
+      if (e.button === 0) {
+        e.stopPropagation();
+        setIsPressed(true);
+      }
     },
     onMouseUp(e) {
       if (disabled) {
@@ -157,17 +166,28 @@ export const usePress = (props: PressProps): PressResult => {
       handlePressEnd(e, 'mouse');
       setIsPressed(false);
     },
-    onMouseOut(e) {
+    // when the mouse pointer leaves an element.
+    onMouseOut() {
       setIsPressed(false);
     },
     onBlur(e) {
       setIsPressed(false);
     },
-    onPointerUp(e) {
-      setIsPressed(false);
-    },
     onTouchStart(e) {
-      console.log('Touch');
+      if (disabled) {
+        e.preventDefault();
+        return;
+      }
+      setIsPressed(true);
+      handlePressStart(e, 'touch');
+    },
+    onTouchEnd(e) {
+      if (disabled) {
+        e.preventDefault();
+        return;
+      }
+      setIsPressed(false);
+      handlePressStart(e, 'touch');
     }
   };
 
