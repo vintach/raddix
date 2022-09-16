@@ -2,7 +2,11 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@mark-ui/switch": ["./packages/components/switch/src"]
+      "@mark-ui/switch": ["./packages/components/switch/src"],
+      "@mark-ui/button": ["./packages/components/button/src"],
+      "@mark-hooks/usepress": ["./packages/hooks/usePress/src"],
+      "@mark-hooks/usehover": ["./packages/hooks/useHover/src"],
+      "@mark-utils/merger": ["./packages/utils/merger/src"]
     }
   }
 }
