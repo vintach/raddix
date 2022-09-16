@@ -1,9 +1,11 @@
 import { useHover } from '@mark-hooks/usehover';
 import { usePress } from '@mark-hooks/usepress';
-import { useMemo } from 'react';
-import { HookButtonProps } from './useButton.types';
+import { ElementType, useMemo } from 'react';
+import { ButtonHook, ButtonHookProps } from './useButton.types';
 
-export const useButton = (props: HookButtonProps) => {
+export const useButton: ButtonHook = <E extends ElementType>(
+  props: ButtonHookProps<E>
+) => {
   const {
     // isDisabled: its value corresponds to the disabled attribute
     isDisabled,
