@@ -1,32 +1,27 @@
 import { useHover } from '@mark-hooks/usehover';
 import { usePress } from '@mark-hooks/usepress';
-import { useMemo } from 'react';
+import { ElementType, useMemo } from 'react';
 
 interface HookButtonProps {
   isDisabled?: boolean;
   disabled?: boolean;
-}
-
-interface HookButtonAttr {
-  disabled?: boolean;
-  'aria-disabled'?: boolean;
-  'data-disabled'?: boolean;
-  'data-state'?: 'pressed' | 'hovered' | 'ready';
+  elemetType?: ElementType;
 }
 
 export const useButton = (props: HookButtonProps) => {
-  const { isDisabled, disabled: disabledProp } = props;
+  const {
+    isDisabled,
+    disabled: disabledProp,
+    elemetType = 'button',
+    ...rest
+  } = props;
 
   const disabled = isDisabled ?? disabledProp;
 
-  const { pressEvents, isPressed } = usePress({
-    disabled
-  });
+  const { pressEvents, isPressed } = usePress({ disabled });
+  const { hoverEvents, isHovered } = useHover({ disabled });
 
-  const { hoverEvents, isHovered } = useHover({
-    disabled
-  });
-
+  // current state of the component
   const getState = useMemo(() => {
     if (isPressed) {
       return 'pressed';
@@ -39,12 +34,30 @@ export const useButton = (props: HookButtonProps) => {
     return 'ready';
   }, [isPressed, isHovered]);
 
-  const buttonAtrr: HookButtonAttr = {
+  // default props depending on the element type
+  let elementTypeProps;
+  if (elemetType === 'button' || elemetType === 'input') {
+    elementTypeProps = {
+      type: 'button',
+      disabled: isDisabled
+    };
+  } else {
+    elementTypeProps = {
+      role: 'button'
+    };
+  }
+
+  const buttonProps = {
+    ...elementTypeProps,
+    ...hoverEvents,
+    ...pressEvents,
     'aria-disabled': disabledProp,
     'data-disabled': disabled,
     'data-state': getState,
-    disabled: isDisabled
+    ...rest
   };
 
-  return { buttonProps: { ...pressEvents, ...hoverEvents, ...buttonAtrr } };
+  return {
+    buttonProps: buttonProps
+  };
 };
