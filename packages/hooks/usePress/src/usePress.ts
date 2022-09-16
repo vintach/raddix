@@ -6,10 +6,29 @@ import {
   useState
 } from 'react';
 
+interface BaseEvent {
+  target: EventTarget;
+  type: string;
+  currentTarget: EventTarget & HTMLElement;
+  shiftKey: boolean;
+  ctrlKey: boolean;
+  metaKey: boolean;
+  altKey: boolean;
+  preventDefault(): void;
+  stopPropagation(): void;
+}
+
+type PressType = 'presstart' | 'pressend' | 'pressup' | 'press';
+type PointerType = 'mouse' | 'keyboard' | 'touch';
+
 export interface PressEvent {
-  target: Element;
-  type: 'presstart' | 'pressend' | 'pressup' | 'press';
-  event: 'mouse' | 'keyboard' | 'touch';
+  type: PressType;
+  pointerType: PointerType;
+  target: EventTarget;
+  shiftKey: boolean;
+  ctrlKey: boolean;
+  metaKey: boolean;
+  altKey: boolean;
 }
 
 export interface PressProps {
@@ -20,7 +39,7 @@ export interface PressProps {
   disabled?: boolean;
 }
 
-export interface DOMEvents {
+export interface DOMPressEvents {
   onClick?: MouseEventHandler<HTMLElement>;
   onKeyDown?: KeyboardEventHandler<HTMLElement>;
   onKeyUp?: KeyboardEventHandler<HTMLElement>;
@@ -34,21 +53,65 @@ export interface DOMEvents {
 
 export interface PressResult {
   isPressed: boolean;
-  pressEvents: DOMEvents;
+  pressEvents: DOMPressEvents;
 }
 
 export const usePress = (props: PressProps): PressResult => {
-  const { disabled = false } = props;
+  const { disabled = false, onPress, onPressEnd, onPressStart } = props;
 
   const [isPressed, setIsPressed] = useState(false);
 
-  const pressEvents: DOMEvents = {
+  const eventOptions = (event: BaseEvent) => {
+    const options = {
+      target: event.target,
+      shiftKey: event.shiftKey,
+      ctrlKey: event.ctrlKey,
+      metaKey: event.metaKey,
+      altKey: event.altKey
+    };
+    return { options };
+  };
+
+  const handlePressStart = (event: BaseEvent, pointerType: PointerType) => {
+    const { options } = eventOptions(event);
+
+    if (onPressStart) {
+      onPressStart({
+        type: 'presstart',
+        pointerType,
+        ...options
+      });
+    }
+  };
+
+  const handlePressEnd = (event: BaseEvent, pointerType: PointerType) => {
+    const { options } = eventOptions(event);
+
+    if (onPress) {
+      onPress({
+        type: 'press',
+        pointerType,
+        ...options
+      });
+    }
+
+    if (onPressEnd) {
+      onPressEnd({
+        type: 'pressend',
+        pointerType,
+        ...options
+      });
+    }
+  };
+
+  const pressEvents: DOMPressEvents = {
     onKeyDown(e) {
       e.stopPropagation();
       if (disabled) {
         e.preventDefault();
         return;
       }
+      handlePressStart(e, 'keyboard');
 
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -61,6 +124,7 @@ export const usePress = (props: PressProps): PressResult => {
         e.preventDefault();
         return;
       }
+      handlePressEnd(e, 'keyboard');
 
       let target = e.currentTarget;
 
@@ -82,6 +146,7 @@ export const usePress = (props: PressProps): PressResult => {
         e.preventDefault();
         return;
       }
+      handlePressStart(e, 'mouse');
       setIsPressed(true);
     },
     onMouseUp(e) {
@@ -89,6 +154,7 @@ export const usePress = (props: PressProps): PressResult => {
         e.preventDefault();
         return;
       }
+      handlePressEnd(e, 'mouse');
       setIsPressed(false);
     },
     onMouseOut(e) {
