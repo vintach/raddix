@@ -1,8 +1,10 @@
-import { useHover } from '@mark-hooks/usehover';
-import { usePress } from '@mark-hooks/usepress';
+import { useHover, HoverProps } from '@mark-hooks/usehover';
+import { usePress, PressProps } from '@mark-hooks/usepress';
 import { ElementType, useMemo } from 'react';
 
-interface HookButtonProps {
+interface HookButtonProps
+  extends Omit<HoverProps, 'disabled'>,
+    Omit<PressProps, 'disabled'> {
   isDisabled?: boolean;
   disabled?: boolean;
   elemetType?: ElementType;
@@ -10,16 +12,34 @@ interface HookButtonProps {
 
 export const useButton = (props: HookButtonProps) => {
   const {
+    // isDisabled: its value corresponds to the disabled attribute
     isDisabled,
+    // disabledProps: its value corresponds to the aria-disabled attribute
     disabled: disabledProp,
     elemetType = 'button',
+    onPress,
+    onPressEnd,
+    onPressStart,
+    onHover,
+    onHoverEnd,
+    onHoverStart,
     ...rest
   } = props;
 
   const disabled = isDisabled ?? disabledProp;
 
-  const { pressEvents, isPressed } = usePress({ disabled });
-  const { hoverEvents, isHovered } = useHover({ disabled });
+  const { pressEvents, isPressed } = usePress({
+    disabled,
+    onPress,
+    onPressStart,
+    onPressEnd
+  });
+  const { hoverEvents, isHovered } = useHover({
+    disabled,
+    onHover,
+    onHoverStart,
+    onHoverEnd
+  });
 
   // current state of the component
   const getState = useMemo(() => {
