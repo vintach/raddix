@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import Button from '../src';
+import Button, { useButton } from '@mark-ui/button';
 import './button.css';
 
 export default {
@@ -7,6 +6,18 @@ export default {
 };
 
 export const Base = () => <Button className='button'>Get Started</Button>;
+
+export const UseButton = () => {
+  const { buttonProps } = useButton({
+    elemetType: 'button',
+    className: 'button',
+    onClick(e) {
+      console.log('Click me!');
+    }
+  });
+
+  return <button {...buttonProps}>Click me</button>;
+};
 
 export const Disabled = () => {
   return (
