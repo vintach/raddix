@@ -1,14 +1,7 @@
-import { useHover, HoverProps } from '@mark-hooks/usehover';
-import { usePress, PressProps } from '@mark-hooks/usepress';
-import { ElementType, useMemo } from 'react';
-
-interface HookButtonProps
-  extends Omit<HoverProps, 'disabled'>,
-    Omit<PressProps, 'disabled'> {
-  isDisabled?: boolean;
-  disabled?: boolean;
-  elemetType?: ElementType;
-}
+import { useHover } from '@mark-hooks/usehover';
+import { usePress } from '@mark-hooks/usepress';
+import { useMemo } from 'react';
+import { HookButtonProps } from './useButton.types';
 
 export const useButton = (props: HookButtonProps) => {
   const {
