@@ -3,3 +3,8 @@ export type {
   PolymorphicHook,
   PolymorphicHookProp
 } from './hook';
+
+export type {
+  PolymorphicComponent,
+  PolymorphicComponentProp
+} from './component';
