@@ -1,35 +1,36 @@
-import { forwardRef, PropsWithChildren } from 'react';
-import { ButtonProps } from './button.types';
-import { useButton } from './useButton';
+import { forwardRef } from 'react';
+import { useButton } from './button.hooks';
+import type { PolymorphicComponentWithRef } from '@mark-types/polymorphic';
 
-export const Button = forwardRef<
-  HTMLButtonElement,
-  PropsWithChildren<ButtonProps>
->((props, ref) => {
-  const {
-    children,
-    disabled,
-    isDisabled,
-    asChild,
-    onPress,
-    onPressStart,
-    onPressEnd,
+export interface ButtonProps {
+  isDisabled?: boolean;
+  disabled?: boolean;
+  onPress?: () => any;
+  onPressStart?: () => any;
+  onPressEnd?: () => any;
+}
+
+export type ButtonComponent = PolymorphicComponentWithRef<
+  'button',
+  ButtonProps
+>;
+
+export const Button = forwardRef((props, ref) => {
+  const { children, as, onPress, onPressStart, onPressEnd, ...rest } = props;
+
+  const Component = as || 'button';
+
+  const { elementProps } = useButton({
+    elementType: Component,
     ...rest
-  } = props;
-
-  const Component = asChild || 'button';
-
-  const { buttonProps } = useButton({
-    disabled,
-    isDisabled
   });
 
   return (
-    <Component ref={ref} {...buttonProps}>
+    <Component ref={ref} {...elementProps}>
       {children}
     </Component>
   );
-});
+}) as ButtonComponent;
 
 Button.displayName = 'Button';
 

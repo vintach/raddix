@@ -1,3 +1,3 @@
 export { default, Button } from './button';
-export { useButton } from './useButton';
-export type { ButtonProps } from './button.types';
+export { useButton } from './button.hooks';
+export type { ButtonProps } from './button';
