@@ -6,5 +6,7 @@ export type {
 
 export type {
   PolymorphicComponent,
-  PolymorphicComponentProp
+  PolymorphicComponentProp,
+  PolymorphicComponentWithRef,
+  PolymorphicComponentPropWithRef
 } from './component';
