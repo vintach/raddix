@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementType } from 'react';
 
-type ElementTypeProp<E extends React.ElementType> = {
+type ElementTypeProp<E extends ElementType> = {
   elementType?: E;
 };
 
