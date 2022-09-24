@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "@mark-hooks/usehover": "workspace:*",
-    "@mark-hooks/usepress": "workspace:*"
+    "@mark-hooks/usepress": "workspace:*",
+    "@mark-types/polymorphic": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
