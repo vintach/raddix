@@ -2169,6 +2169,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@mark-types/polymorphic@workspace:packages/types/polymorphic":
+  version: 0.0.0-use.local
+  resolution: "@mark-types/polymorphic@workspace:packages/types/polymorphic"
+  peerDependencies:
+    react: ">=16.8.0"
+  languageName: unknown
+  linkType: soft
+
 "@mark-ui/button@workspace:packages/components/button":
   version: 0.0.0-use.local
   resolution: "@mark-ui/button@workspace:packages/components/button"

@@ -6,7 +6,8 @@
       "@mark-ui/button": ["./packages/components/button/src"],
       "@mark-hooks/usepress": ["./packages/hooks/usePress/src"],
       "@mark-hooks/usehover": ["./packages/hooks/useHover/src"],
-      "@mark-utils/merger": ["./packages/utils/merger/src"]
+      "@mark-utils/merger": ["./packages/utils/merger/src"],
+      "@mark-types/polymorphic": ["./packages/types/polymorphic/src"]
     }
   }
 }
