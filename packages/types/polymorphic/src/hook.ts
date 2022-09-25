@@ -12,7 +12,8 @@ export type PolymorphicHookProp<E extends ElementType, Props = {}> = Omit<
   ComponentPropsWithoutRef<E>,
   PropsToOmit<E, Props>
 > &
-  ElementTypeProp<E>;
+  ElementTypeProp<E> &
+  Props;
 
 // This will return HTML props
 type NativeHTMLProps<E extends ElementType, Props> = Omit<
