@@ -5,18 +5,21 @@ export default {
   title: 'Components/Button'
 };
 
-export const Base = () => <Button className='button'>Get Started</Button>;
-
-export const UseButton = () => {
-  const { buttonProps } = useButton({
-    elemetType: 'button',
-    className: 'button',
-    onClick(e) {
-      console.log('Click me!');
-    }
+export const Base = () => {
+  const { elementProps } = useButton({
+    className: 'button'
   });
 
-  return <button {...buttonProps}>Click me</button>;
+  return (
+    <>
+      <h2>Default</h2>
+      <Button className='button'>Get Started</Button>
+      <h2>Con useButton</h2>
+      <button {...elementProps}>Click me</button>
+      <h2>Cambiando el atributo as='input'</h2>
+      <Button className='button' as={'input'} value={'Get Started'} />
+    </>
+  );
 };
 
 export const Disabled = () => {
