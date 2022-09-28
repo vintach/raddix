@@ -1,2 +1,2 @@
-export { default, SwitchRoot, SwitchThumb } from './switch';
-export type { SwitchProps, SwitchThumbProps } from './switch.types';
+export { default, useSwitchRoot, useSwitchThumb } from './switch';
+export type { SwitchRootHookProps } from './switch';

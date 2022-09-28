@@ -1,12 +1,39 @@
-import React, {
-  forwardRef,
-  MouseEvent,
-  PropsWithChildren,
-  useState
-} from 'react';
-import { SwitchProvider, useSwitch } from './switch.provider';
-import { SwitchProps, SwitchThumbProps, SwitchEvent } from './switch.types';
+import { MouseEvent, useState } from 'react';
+import { PolymorphicHook } from '@mark-types/polymorphic';
 import { getChecked } from './switch.utils';
+import { merger } from '@mark-utils/merger';
+
+interface DisabledProps {
+  disabled?: boolean;
+  isDisabled?: boolean;
+}
+
+interface CheckedProps {
+  checked?: boolean;
+}
+
+export interface SwitchEvent extends CheckedProps {
+  defaultChecked?: boolean;
+  onChecked?(checked: boolean): void;
+}
+
+export interface SwitchRootHookProps extends SwitchEvent, DisabledProps {
+  required?: boolean;
+  readOnly?: boolean;
+}
+
+interface SwitchResponse {
+  state: Omit<DisabledProps, 'isDisabled'> & CheckedProps;
+}
+
+interface SwitchThumbHookProps extends CheckedProps, DisabledProps {}
+
+export type SwitchRootHook = PolymorphicHook<
+  'button',
+  SwitchRootHookProps,
+  SwitchResponse
+>;
+export type SwitchThumbHook = PolymorphicHook<'span', SwitchThumbHookProps>;
 
 /*
  * Hook defines controlled or uncontrolled state
@@ -26,22 +53,18 @@ const useControlledState = (options: SwitchEvent) => {
 };
 
 /*
- * Switch Root
+ * Hook switch root
  */
-export const SwitchRoot = forwardRef<
-  HTMLButtonElement,
-  PropsWithChildren<SwitchProps>
->((props, ref) => {
+export const useSwitchRoot = (props => {
   const {
     checked: checkedProp,
     disabled: disabledProp,
     isDisabled,
     required,
-    children,
     defaultChecked,
     onChecked,
     readOnly,
-    asChild: Component = 'button',
+    elementType = 'button',
     ...rest
   } = props;
 
@@ -62,58 +85,50 @@ export const SwitchRoot = forwardRef<
     if (!checked) return setChecked?.(true);
   };
 
-  return (
-    <SwitchProvider checked={checked} disabled={disabled}>
-      <Component
-        ref={ref}
-        type='button'
-        role='switch'
-        aria-checked={checked}
-        aria-readonly={readOnly}
-        aria-required={required}
-        aria-disabled={disabledProp}
-        data-state={getChecked(checked)}
-        data-disabled={disabled}
-        disabled={isDisabled}
-        onClick={handleClick}
-        {...rest}
-      >
-        {children}
-      </Component>
-    </SwitchProvider>
-  );
-});
+  const switchProps = {
+    'aria-checked': checked,
+    'aria-readonly': readOnly,
+    'aria-required': required,
+    'aria-disabled': disabledProp,
+    'data-disabled': disabled,
+    'data-state': getChecked(checked),
+    disabled: isDisabled,
+    onClick: handleClick
+  };
 
-SwitchRoot.displayName = 'Switch';
+  return {
+    elementProps: merger(switchProps, rest),
+    state: { checked, disabled }
+  };
+}) as SwitchRootHook;
 
 /*
- * Switch Thumb
+ * Hook switch thumb
  */
-export const SwitchThumb = forwardRef<
-  HTMLSpanElement,
-  PropsWithChildren<SwitchThumbProps>
->((props, ref) => {
-  const { children, ...rest } = props;
+export const useSwitchThumb = (props => {
+  const {
+    checked,
+    disabled: disabledProp,
+    isDisabled,
+    elementType,
+    ...rest
+  } = props;
+  const disabled = isDisabled ?? disabledProp;
 
-  const { checked, disabled } = useSwitch();
+  const switchThumProps = {
+    'data-state': getChecked(checked ?? false),
+    'data-disabled': disabled,
+    ...rest
+  };
 
-  return (
-    <span
-      ref={ref}
-      data-state={getChecked(checked ?? false)}
-      data-disabled={disabled}
-      {...rest}
-    >
-      {children}
-    </span>
-  );
-});
+  return {
+    elementProps: switchThumProps
+  };
+}) as SwitchThumbHook;
 
-SwitchThumb.displayName = 'SwitchThumb';
-
-const Switch = {
-  Root: SwitchRoot,
-  Thumb: SwitchThumb
+const useSwitch = {
+  Root: useSwitchRoot,
+  Thumb: useSwitchThumb
 };
 
-export default Switch;
+export default useSwitch;
