@@ -101,3 +101,27 @@ export const useSwitchRoot = (props => {
     state: { checked, disabled }
   };
 }) as SwitchRootHook;
+
+/*
+ * Hook switch thumb
+ */
+export const useSwitchThumb = (props => {
+  const {
+    checked,
+    disabled: disabledProp,
+    isDisabled,
+    elementType,
+    ...rest
+  } = props;
+  const disabled = isDisabled ?? disabledProp;
+
+  const switchThumProps = {
+    'data-state': getChecked(checked ?? false),
+    'data-disabled': disabled,
+    ...rest
+  };
+
+  return {
+    elementProps: switchThumProps
+  };
+}) as SwitchThumbHook;
