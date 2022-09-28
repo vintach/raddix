@@ -1,8 +1,11 @@
 import { MouseEvent, useState } from 'react';
 import { PolymorphicHook } from '@mark-types/polymorphic';
+import { getChecked } from './switch.utils';
+import { merger } from '@mark-utils/merger';
 
 interface DisabledProps {
   disabled?: boolean;
+  isDisabled?: boolean;
 }
 
 interface CheckedProps {
@@ -17,7 +20,6 @@ export interface SwitchEvent extends CheckedProps {
 interface SwitchRootHookProps extends SwitchEvent, DisabledProps {
   required?: boolean;
   readOnly?: boolean;
-  isDisabled?: boolean;
 }
 
 interface SwitchThumbHookProps extends CheckedProps, DisabledProps {}
@@ -45,7 +47,7 @@ const useControlledState = (options: SwitchEvent) => {
 /*
  * Hook switch root
  */
-export const useSwitchRoot: SwitchRootHook = props => {
+export const useSwitchRoot = (props => {
   const {
     checked: checkedProp,
     disabled: disabledProp,
@@ -76,16 +78,17 @@ export const useSwitchRoot: SwitchRootHook = props => {
   };
 
   const switchProps = {
-    'aria-checked': { checked },
-    'aria-readonly': { readOnly },
-    'aria-required': { required },
-    'aria-disabled': { disabledProp },
-    'data-disabled': { disabled },
-    disabled: { isDisabled },
-    onClick: { handleClick }
+    'aria-checked': checked,
+    'aria-readonly': readOnly,
+    'aria-required': required,
+    'aria-disabled': disabledProp,
+    'data-disabled': disabled,
+    'data-state': getChecked(checked),
+    disabled: isDisabled,
+    onClick: handleClick
   };
 
   return {
-    elementProps: { ...switchProps, ...rest }
+    elementProps: merger(switchProps, rest)
   };
-};
+}) as SwitchRootHook;
