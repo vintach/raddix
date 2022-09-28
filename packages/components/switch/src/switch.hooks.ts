@@ -22,9 +22,17 @@ interface SwitchRootHookProps extends SwitchEvent, DisabledProps {
   readOnly?: boolean;
 }
 
+interface SwitchResponse {
+  state: Omit<DisabledProps, 'isDisabled'> & CheckedProps;
+}
+
 interface SwitchThumbHookProps extends CheckedProps, DisabledProps {}
 
-export type SwitchRootHook = PolymorphicHook<'button', SwitchRootHookProps>;
+export type SwitchRootHook = PolymorphicHook<
+  'button',
+  SwitchRootHookProps,
+  SwitchResponse
+>;
 export type SwitchThumbHook = PolymorphicHook<'span', SwitchThumbHookProps>;
 
 /*
@@ -89,6 +97,7 @@ export const useSwitchRoot = (props => {
   };
 
   return {
-    elementProps: merger(switchProps, rest)
+    elementProps: merger(switchProps, rest),
+    state: { checked, disabled }
   };
 }) as SwitchRootHook;
