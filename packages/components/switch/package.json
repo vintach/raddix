@@ -21,6 +21,10 @@
     "clean": "rm -rf dist",
     "version": "yarn version"
   },
+  "dependencies": {
+    "@mark-types/polymorphic": "workspace:*",
+    "@mark-utils/merger": "workspace:*"
+  },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
