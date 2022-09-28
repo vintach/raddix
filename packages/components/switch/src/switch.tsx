@@ -12,6 +12,8 @@ interface CheckedProps {
   checked?: boolean;
 }
 
+export interface Props extends DisabledProps, CheckedProps {}
+
 export interface SwitchEvent extends CheckedProps {
   defaultChecked?: boolean;
   onChecked?(checked: boolean): void;
@@ -23,10 +25,10 @@ export interface SwitchRootHookProps extends SwitchEvent, DisabledProps {
 }
 
 interface SwitchResponse {
-  state: Omit<DisabledProps, 'isDisabled'> & CheckedProps;
+  state: Props;
 }
 
-interface SwitchThumbHookProps extends CheckedProps, DisabledProps {}
+interface SwitchThumbHookProps extends Props {}
 
 export type SwitchRootHook = PolymorphicHook<
   'button',
@@ -98,7 +100,7 @@ export const useSwitchRoot = (props => {
 
   return {
     elementProps: merger(switchProps, rest),
-    state: { checked, disabled }
+    state: { checked, disabled, isDisabled }
   };
 }) as SwitchRootHook;
 
