@@ -21,13 +21,13 @@ type NativeHTMLProps<E extends ElementType, Props> = Omit<
   PropsToOmit<E, Props>
 >;
 
-export type HookResponse<E extends ElementType, Props = {}> = {
+export type HookResponse<E extends ElementType, Props = {}, Rpta = {}> = {
   elementProps: NativeHTMLProps<E, Props>;
-};
+} & Rpta;
 
 // Type that ensures hooks behave well polymorphically
-export type PolymorphicHook<D extends ElementType, Props = {}> = <
+export type PolymorphicHook<D extends ElementType, Props = {}, Rpta = {}> = <
   E extends ElementType = D
 >(
   props: PolymorphicHookProp<E, Props>
-) => HookResponse<E, Props>;
+) => HookResponse<E, Props, Rpta>;
