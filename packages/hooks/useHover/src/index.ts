@@ -1,1 +1,2 @@
-export { useHover } from './useHover';
+export { default, useHover } from './useHover';
+export type { DOMHoverEvents, HoverProps } from './useHover';
