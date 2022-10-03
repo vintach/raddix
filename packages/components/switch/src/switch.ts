@@ -28,10 +28,17 @@ interface SwitchRootState {
   state: Props;
 }
 
-interface SwitchResponse {
+interface DataAttribute {
   // data attribute
   'data-disabled'?: boolean;
   'data-state'?: 'checked' | 'unchecked';
+}
+
+interface SwitchRootProps extends DataAttribute {
+  'aria-checked'?: boolean;
+  'aria-readonly'?: boolean;
+  'aria-required'?: boolean;
+  'aria-disabled'?: boolean;
 }
 
 interface SwitchThumbHookProps extends Props {}
@@ -40,7 +47,7 @@ export type SwitchRootHook = PolymorphicHook<
   'button',
   SwitchRootHookProps,
   SwitchRootState,
-  SwitchResponse
+  SwitchRootProps
 >;
 export type SwitchThumbHook = PolymorphicHook<'span', SwitchThumbHookProps>;
 
@@ -94,19 +101,37 @@ export const useSwitchRoot = (props => {
     if (!checked) return setChecked?.(true);
   };
 
-  const switchProps = {
+  // default props depending on the element type
+  let elementTypeProps;
+  if (elementType === 'button' || elementType === 'input') {
+    elementTypeProps = {
+      role: 'switch',
+      type: 'button',
+      disabled: isDisabled
+    };
+  } else {
+    elementTypeProps = {
+      role: 'switch'
+    };
+  }
+
+  const switchProps: SwitchRootProps = {
     'aria-checked': checked,
     'aria-readonly': readOnly,
     'aria-required': required,
     'aria-disabled': disabledProp,
     'data-disabled': disabled,
-    'data-state': getChecked(checked),
-    disabled: isDisabled,
-    onClick: handleClick
+    'data-state': getChecked(checked)
+  };
+
+  const elementProps = {
+    ...elementTypeProps,
+    ...switchProps,
+    ...merger({ onClick: handleClick }, rest)
   };
 
   return {
-    elementProps: merger(switchProps, rest),
+    elementProps,
     state: { checked, disabled, isDisabled }
   };
 }) as SwitchRootHook;
