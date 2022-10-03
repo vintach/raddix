@@ -24,8 +24,14 @@ export interface SwitchRootHookProps extends SwitchEvent, DisabledProps {
   readOnly?: boolean;
 }
 
-interface SwitchResponse {
+interface SwitchRootState {
   state: Props;
+}
+
+interface SwitchResponse {
+  // data attribute
+  'data-disabled'?: boolean;
+  'data-state'?: 'checked' | 'unchecked';
 }
 
 interface SwitchThumbHookProps extends Props {}
@@ -33,6 +39,7 @@ interface SwitchThumbHookProps extends Props {}
 export type SwitchRootHook = PolymorphicHook<
   'button',
   SwitchRootHookProps,
+  SwitchRootState,
   SwitchResponse
 >;
 export type SwitchThumbHook = PolymorphicHook<'span', SwitchThumbHookProps>;
