@@ -3,7 +3,7 @@ import { usePress, PressProps } from '@mark-hooks/usepress';
 import { useMemo } from 'react';
 import { PolymorphicHook } from '@mark-types/polymorphic';
 
-type ButtonHookProps = {
+export type ButtonHookProps = {
   isDisabled?: boolean;
   disabled?: boolean;
 } & Omit<HoverProps, 'disabled'> &
@@ -11,7 +11,7 @@ type ButtonHookProps = {
 
 export type ButtonHook = PolymorphicHook<'button', ButtonHookProps>;
 
-export const useButton: ButtonHook = props => {
+export const useButtonRoot = (props => {
   const {
     // isDisabled: its value corresponds to the disabled attribute
     isDisabled,
@@ -81,4 +81,10 @@ export const useButton: ButtonHook = props => {
   return {
     elementProps: buttonProps
   };
+}) as ButtonHook;
+
+const useButton = {
+  Root: useButtonRoot
 };
+
+export default useButton;
