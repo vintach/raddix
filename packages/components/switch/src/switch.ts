@@ -49,7 +49,12 @@ export type SwitchRootHook = PolymorphicHook<
   SwitchRootState,
   SwitchRootProps
 >;
-export type SwitchThumbHook = PolymorphicHook<'span', SwitchThumbHookProps>;
+export type SwitchThumbHook = PolymorphicHook<
+  'span',
+  SwitchThumbHookProps,
+  {},
+  DataAttribute
+>;
 
 /*
  * Hook defines controlled or uncontrolled state
