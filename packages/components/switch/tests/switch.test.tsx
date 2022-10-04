@@ -51,4 +51,23 @@ describe('useSwitch tests', () => {
     expect(resultThumb.current.elementProps['data-state']).toBe('unchecked');
     expect(resultThumb.current.elementProps['data-disabled']).toBe(true);
   });
+
+  it('indicates that the element is immutable', () => {
+    const { result } = renderHook(() =>
+      useSwitchRoot({
+        readOnly: true,
+        defaultChecked: true
+      })
+    );
+    const { result: resultThumb } = renderHook(() =>
+      useSwitchThumb(result.current.state)
+    );
+
+    expect(result.current.elementProps['role']).toBe('switch');
+    expect(result.current.elementProps['aria-checked']).toBe(true);
+    expect(result.current.elementProps['data-state']).toBe('checked');
+    expect(result.current.elementProps['aria-readonly']).toBe(true);
+
+    expect(resultThumb.current.elementProps['data-state']).toBe('checked');
+  });
 });
