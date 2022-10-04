@@ -1,5 +1,21 @@
-import { renderHook } from '@testing-library/react';
-import { useSwitchRoot, useSwitchThumb } from '@mark-ui/switch';
+import { act, renderHook } from '@testing-library/react';
+import {
+  useSwitchRoot,
+  useSwitchThumb,
+  SwitchProvider,
+  useSwitchState
+} from '@mark-ui/switch';
+import { ReactNode } from 'react';
+interface PropsChildren {
+  children?: ReactNode;
+}
+interface PropsProv {
+  disabled?: boolean;
+  checked?: boolean;
+  isDisabled?: boolean;
+}
+
+interface Props extends PropsChildren, PropsProv {}
 
 describe('useSwitch tests', () => {
   it('default values', () => {
@@ -69,5 +85,18 @@ describe('useSwitch tests', () => {
     expect(result.current.elementProps['aria-readonly']).toBe(true);
 
     expect(resultThumb.current.elementProps['data-state']).toBe('checked');
+  });
+
+  it('receiving values from switchProvider', () => {
+    const { result } = renderHook(() => useSwitchState(), {
+      wrapper: ({ children }: { children: ReactNode }) => (
+        <SwitchProvider checked={true} disabled={false}>
+          {children}
+        </SwitchProvider>
+      )
+    });
+
+    expect(result.current.checked).toBe(true);
+    expect(result.current.disabled).toBe(false);
   });
 });
