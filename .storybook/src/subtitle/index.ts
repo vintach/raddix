@@ -1,0 +1,1 @@
+export { SubTitle } from './subtitle';
