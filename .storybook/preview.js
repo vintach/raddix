@@ -1,4 +1,4 @@
-import { SubTitle, Text, Title } from './src';
+import { SubTitle, Text, Title, TextCode } from './src';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -13,7 +13,8 @@ export const parameters = {
     components: {
       h1: Title,
       h2: SubTitle,
-      p: Text
+      p: Text,
+      code: TextCode
     }
   },
   viewMode: 'docs'
