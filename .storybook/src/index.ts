@@ -1,3 +1,5 @@
-export { Title } from './title';
-export { SubTitle } from './subtitle';
-export { Text } from './text';
+export * from './title';
+export * from './subtitle';
+export * from './text';
+export * from './text-code';
+export * from './text-pre';
