@@ -8,12 +8,24 @@ interface TextPreProps {
 }
 
 export const TextPre = (props: TextPreProps) => {
+  const [isCopied, setIsCopied] = useState(false);
+
   const className = props.children.props.className || '';
   const code = props.children.props.children.trim();
   const language = className.replace(/language-/, '');
+  const btnClassName = `text-pre_btn ${isCopied && 'text-pre_btn-success'}`;
+
+  const handleCopy = str => {
+    navigator.clipboard.writeText(str).then(() => setIsCopied(true));
+
+    setTimeout(() => setIsCopied(false), 2000);
+  };
 
   return (
     <div className='text-pre'>
+      <button className={btnClassName} onClick={() => handleCopy(code)}>
+        {isCopied ? '🎉 Copied!' : 'Copy'}
+      </button>
       <Highlight
         {...defaultProps}
         code={code}

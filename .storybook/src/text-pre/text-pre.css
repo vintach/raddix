@@ -1,6 +1,36 @@
 .text-pre {
+  position: relative;
   background-color: #282a36;
   padding: 1.2rem 2.5rem;
   font-size: 1.45rem;
   border-radius: 0.5rem;
+}
+
+.text-pre_btn {
+  position: absolute;
+  right: 2.5rem;
+  top: 2.2rem;
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  transition: all 200ms ease 0s;
+  background-color: #f0f3ff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  color: #323338;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.text-pre_btn:active {
+  transform: scale(0.95);
+}
+
+.text-pre:hover .text-pre_btn {
+  opacity: 1;
+}
+
+.text-pre_btn-success {
+  background-color: #312ff5;
+  color: #f0f3ff;
 }
