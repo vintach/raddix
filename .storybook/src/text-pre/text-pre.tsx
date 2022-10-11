@@ -16,6 +16,10 @@ export const TextPre = (props: TextPreProps) => {
   const btnClassName = `text-pre_btn ${isCopied && 'text-pre_btn-success'}`;
 
   const handleCopy = str => {
+    if (isCopied) {
+      return;
+    }
+
     navigator.clipboard.writeText(str).then(() => setIsCopied(true));
 
     setTimeout(() => setIsCopied(false), 2000);
