@@ -9,9 +9,15 @@
   color: #eee;
   border: 0;
   border-radius: 14px;
-  font-size: 15px;
+  font-size: 1.5rem;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 0.3s;
+}
+
+.icon-small {
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-right: 0.5rem;
 }
 
 .button:hover {
