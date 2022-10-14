@@ -4,7 +4,8 @@ import {
   useSwitchThumb,
   SwitchProvider,
   useSwitchState
-} from '@mark-ui/switch';
+} from '@raddix/switch';
+
 import { ReactNode } from 'react';
 interface PropsChildren {
   children?: ReactNode;
