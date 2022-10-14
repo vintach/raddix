@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@mark-types/polymorphic": "workspace:*",
-    "@mark-utils/merger": "workspace:*"
+    "merge-props": "^5.0.3"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

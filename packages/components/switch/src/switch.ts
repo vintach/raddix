@@ -1,7 +1,7 @@
 import { MouseEvent, useState } from 'react';
 import { PolymorphicHook } from '@mark-types/polymorphic';
 import { getChecked } from './switch.utils';
-import { merger } from '@mark-utils/merger';
+import merger from 'merge-props';
 
 interface DisabledProps {
   disabled?: boolean;
