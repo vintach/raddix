@@ -1,5 +1,5 @@
 {
-  "name": "@mark-ui/button",
+  "name": "@raddix/button",
   "version": "0.1.0",
   "packageManager": "yarn@3.2.2",
   "license": "MIT",
@@ -17,9 +17,9 @@
     "version": "yarn version"
   },
   "dependencies": {
-    "@mark-hooks/usehover": "workspace:*",
-    "@mark-hooks/usepress": "workspace:*",
-    "@mark-types/polymorphic": "workspace:*"
+    "@mark-types/polymorphic": "workspace:*",
+    "@raddix/usehover": "workspace:*",
+    "@raddix/usepress": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

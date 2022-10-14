@@ -1,5 +1,5 @@
 {
-  "name": "@mark-hooks/usepress",
+  "name": "@raddix/usepress",
   "version": "0.1.0",
   "packageManager": "yarn@3.2.3",
   "sideEffects": false,
