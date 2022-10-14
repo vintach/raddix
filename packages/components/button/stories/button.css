@@ -5,13 +5,13 @@
   justify-content: center;
   padding: 0 14px;
   height: 40px;
-  background-color: #8743FF;
+  background-color: var(--color-primary);
   color: #eee;
   border: 0;
   border-radius: 14px;
   font-size: 15px;
-  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-  transition-duration: .3s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
 }
 
 .button:hover {
@@ -19,16 +19,15 @@
 }
 
 .button:focus-visible {
-  box-shadow: 0 0 0 2px #fff,
-    0 0 0 4.5px #8743ff;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4.5px var(--color-primary);
 }
 
-.button[data-state="pressed"] {
+.button[data-state='pressed'] {
   transform: scale(0.95);
 }
 
-.button[data-disabled="true"] {
-  color: #ddd ;
+.button[data-disabled='true'] {
+  color: #ddd;
   opacity: 0.7;
   cursor: no-drop;
 }
