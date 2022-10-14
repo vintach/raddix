@@ -1,5 +1,5 @@
-import { useHover, HoverProps } from '@mark-hooks/usehover';
-import { usePress, PressProps } from '@mark-hooks/usepress';
+import { useHover, HoverProps } from '@raddix/usehover';
+import { usePress, PressProps } from '@raddix/usepress';
 import { useMemo } from 'react';
 import { PolymorphicHook } from '@mark-types/polymorphic';
 

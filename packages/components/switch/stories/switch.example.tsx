@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef } from 'react';
-import useSwitch, { SwitchRootHookProps } from '@mark-ui/switch';
+import useSwitch, { SwitchRootHookProps } from '@raddix/switch';
 import './switch.css';
 
 interface SwitchProps
