@@ -5,15 +5,15 @@ import {
   useContext,
   useMemo
 } from 'react';
-import { Props } from './switch';
+import { SwitchState } from './switch';
 
-export const SwitchContext = createContext<Props>({
+export const SwitchContext = createContext<SwitchState>({
   checked: false
 });
 
 export const useSwitchState = () => useContext(SwitchContext);
 
-export const SwitchProvider: FC<PropsWithChildren<Props>> = props => {
+export const SwitchProvider: FC<PropsWithChildren<SwitchState>> = props => {
   const { checked, disabled, isDisabled, children } = props;
 
   const config = useMemo(
