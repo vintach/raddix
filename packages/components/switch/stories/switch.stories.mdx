@@ -11,9 +11,9 @@ export const Switch = props => {
   const { switchProps, state } = useSwitch.Root(props);
   const { switchThumbProps } = useSwitch.Thumb(state);
   return (
-    <div {...switchProps} className='switch'>
+    <button {...switchProps} className='switch'>
       <span {...switchThumbProps} className='switch-thumb'></span>
-    </div>
+    </button>
   );
 };
 
@@ -123,10 +123,10 @@ Switch supports the integration with HTML tag Label
     {() => {
       return (
         <div className='flex'>
-          <label htmlFor='dev' className='label-switch'>
+          <label htmlFor='dev' className='label-switch' id='dev-3'>
             Living Room Lights
           </label>
-          <Switch defaultChecked id='dev' />
+          <Switch defaultChecked id='dev' aria-labelledby='dev-3' />
         </div>
       );
     }}
