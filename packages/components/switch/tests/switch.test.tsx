@@ -25,11 +25,13 @@ describe('useSwitch tests', () => {
       useSwitchThumb(result.current.state)
     );
 
-    expect(result.current.elementProps['role']).toBe('switch');
-    expect(result.current.elementProps['aria-checked']).toBe(false);
-    expect(result.current.elementProps['data-state']).toBe('unchecked');
+    expect(result.current.switchProps['role']).toBe('switch');
+    expect(result.current.switchProps['aria-checked']).toBe(false);
+    expect(result.current.switchProps['data-state']).toBe('unchecked');
 
-    expect(resultThumb.current.elementProps['data-state']).toBe('unchecked');
+    expect(resultThumb.current.switchThumbProps['data-state']).toBe(
+      'unchecked'
+    );
   });
 
   it('values others than button element', () => {
@@ -42,11 +44,13 @@ describe('useSwitch tests', () => {
       useSwitchThumb(result.current.state)
     );
 
-    expect(result.current.elementProps['role']).toBe('switch');
-    expect(result.current.elementProps['aria-checked']).toBe(false);
-    expect(result.current.elementProps['data-state']).toBe('unchecked');
+    expect(result.current.switchProps['role']).toBe('switch');
+    expect(result.current.switchProps['aria-checked']).toBe(false);
+    expect(result.current.switchProps['data-state']).toBe('unchecked');
 
-    expect(resultThumb.current.elementProps['data-state']).toBe('unchecked');
+    expect(resultThumb.current.switchThumbProps['data-state']).toBe(
+      'unchecked'
+    );
   });
 
   it('indicates that the element is disabled', () => {
@@ -59,14 +63,16 @@ describe('useSwitch tests', () => {
       useSwitchThumb(result.current.state)
     );
 
-    expect(result.current.elementProps['role']).toBe('switch');
-    expect(result.current.elementProps['aria-checked']).toBe(false);
-    expect(result.current.elementProps['data-state']).toBe('unchecked');
-    expect(result.current.elementProps['aria-disabled']).toBe(true);
-    expect(result.current.elementProps['data-disabled']).toBe(true);
+    expect(result.current.switchProps['role']).toBe('switch');
+    expect(result.current.switchProps['aria-checked']).toBe(false);
+    expect(result.current.switchProps['data-state']).toBe('unchecked');
+    expect(result.current.switchProps['aria-disabled']).toBe(true);
+    expect(result.current.switchProps['data-disabled']).toBe(true);
 
-    expect(resultThumb.current.elementProps['data-state']).toBe('unchecked');
-    expect(resultThumb.current.elementProps['data-disabled']).toBe(true);
+    expect(resultThumb.current.switchThumbProps['data-state']).toBe(
+      'unchecked'
+    );
+    expect(resultThumb.current.switchThumbProps['data-disabled']).toBe(true);
   });
 
   it('indicates that the element is immutable', () => {
@@ -80,12 +86,12 @@ describe('useSwitch tests', () => {
       useSwitchThumb(result.current.state)
     );
 
-    expect(result.current.elementProps['role']).toBe('switch');
-    expect(result.current.elementProps['aria-checked']).toBe(true);
-    expect(result.current.elementProps['data-state']).toBe('checked');
-    expect(result.current.elementProps['aria-readonly']).toBe(true);
+    expect(result.current.switchProps['role']).toBe('switch');
+    expect(result.current.switchProps['aria-checked']).toBe(true);
+    expect(result.current.switchProps['data-state']).toBe('checked');
+    expect(result.current.switchProps['aria-readonly']).toBe(true);
 
-    expect(resultThumb.current.elementProps['data-state']).toBe('checked');
+    expect(resultThumb.current.switchThumbProps['data-state']).toBe('checked');
   });
 
   it('receiving values from switchProvider', () => {
