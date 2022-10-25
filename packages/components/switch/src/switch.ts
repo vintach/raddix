@@ -21,7 +21,7 @@ interface SwitchRootBase extends SwitchState, SwitchEvent {
   required?: boolean;
   readOnly?: boolean;
 }
-interface AriaSwitchBase {
+export interface AriaSwitchBase {
   'data-disabled'?: boolean;
   'data-state'?: 'checked' | 'unchecked';
 }
@@ -57,7 +57,7 @@ const useControlledState = (options: ControlledState) => {
  * ------------------------------------------------------------------------------------------*/
 
 type SwitchRootProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  AriaSwitchBase & {};
+  AriaSwitchRoot & {};
 
 export type SwitchRootHookProps<E extends ElementType> =
   ComponentPropsWithoutRef<E> &
