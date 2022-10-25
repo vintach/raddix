@@ -8,12 +8,12 @@ import './switch.css';
 <!--- Component template -->
 
 export const Switch = props => {
-  const { elementProps, state } = useSwitch.Root(props);
-  const { elementProps: switchThumbProps } = useSwitch.Thumb(state);
+  const { switchProps, state } = useSwitch.Root(props);
+  const { switchThumbProps } = useSwitch.Thumb(state);
   return (
-    <button {...elementProps} className='switch'>
+    <div {...switchProps} className='switch'>
       <span {...switchThumbProps} className='switch-thumb'></span>
-    </button>
+    </div>
   );
 };
 
@@ -28,15 +28,7 @@ A control that represents the states on and off.
       layout: 'centered'
     }}
   >
-    {() => {
-      const { elementProps, state } = useSwitch.Root({});
-      const { elementProps: switchThumbProps } = useSwitch.Thumb(state);
-      return (
-        <button {...elementProps} className='switch'>
-          <span {...switchThumbProps} className='switch-thumb'></span>
-        </button>
-      );
-    }}
+    <Switch />
   </Story>
 </Canvas>
 
@@ -63,11 +55,11 @@ Import all or parts of <code>@raddix/switch</code>
 import useSwitch from '@raddix/switch';
 
 const Switch = props => {
-  const { elementProps, state } = useSwitch.Root(props);
-  const { elementProps: switchThumbProps } = useSwitch.Thumb(state);
+  const { switchProps, state } = useSwitch.Root(props);
+  const { switchThumbProps } = useSwitch.Thumb(state);
 
   return (
-    <button {...elementProps} className='switch'>
+    <button {...switchProps} className='switch'>
       <span {...switchThumbProps} className='switch-thumb'></span>
     </button>
   );
