@@ -1,6 +1,7 @@
 import {
   ComponentPropsWithoutRef,
   ElementType,
+  KeyboardEvent,
   MouseEvent,
   useState
 } from 'react';
@@ -108,6 +109,26 @@ export const useSwitchRoot = (props => {
     if (!checked) return setChecked?.(true);
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
+    e.stopPropagation();
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+    }
+  };
+
+  const handleKeyUp = (e: KeyboardEvent<HTMLElement>) => {
+    e.stopPropagation();
+    if (disabled || readOnly) {
+      e.preventDefault();
+      return;
+    }
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (checked) return setChecked?.(false);
+      if (!checked) return setChecked?.(true);
+    }
+  };
+
   // default props depending on the element type
   let elementTypeProps;
   if (elementType === 'button' || elementType === 'input') {
@@ -135,7 +156,10 @@ export const useSwitchRoot = (props => {
   const elementProps = {
     ...elementTypeProps,
     ...switchProps,
-    ...merger({ onClick: handleClick }, rest)
+    ...merger(
+      { onClick: handleClick, onKeyDown: handleKeyDown, onKeyUp: handleKeyUp },
+      rest
+    )
   };
 
   return {
