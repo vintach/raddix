@@ -13,6 +13,10 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v3
 
-      - name: Read .nvmrc
-        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-        id: nvm
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Read Node version
+        run: node --version
