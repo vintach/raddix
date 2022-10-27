@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+          cache: 'yarn'
 
-      - name: Read Node version
-        run: node --version
+      - name: Install dependencies
+        run: yarn install
