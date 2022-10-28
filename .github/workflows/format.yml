@@ -18,14 +18,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
-      - name: Get Yarn cache directory path
-        id: yarn-config
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - name: Read Yarn cache path
-        run: |
-          echo "Read Yarn cache path"
-          echo "Path is ${{steps.yarn-config.outputs.DIR_PATH}}"
-          echo "Finish Read"
+      - name: Yarn Install
+        uses: ./.github/actions/yarn-setup
 
 
