@@ -20,7 +20,6 @@ jobs:
 
       - name: Get Yarn cache directory path
         id: yarn-path-config
-        shell: bash
         run: echo "DIR_PATH=$(yarn config get cacheFolder)"
 
       - name: Read Yarn cache path
