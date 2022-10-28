@@ -20,11 +20,12 @@ jobs:
 
       - name: Get Yarn cache directory path
         id: yarn-config
-        run: echo "DIR_PATH=$(yarn config get cacheFolder)"
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
       - name: Read Yarn cache path
         run: |
           echo "Read Yarn cache path"
-          echo "${{env.DIR_PATH}}"
+          echo "Path is ${{steps.yarn-config.outputs.DIR_PATH}}"
+          echo "Finish Read"
 
 
