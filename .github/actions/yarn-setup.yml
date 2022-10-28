@@ -1,0 +1,12 @@
+name: 'Yarn Install'
+inputs:
+  skip-prisma-postinstall-generate:
+   description: 'Avoid prisma to automatically generate schema on postinstall'
+   required: false
+   default: 'false'
+
+runs-on:
+  using: 'composite'
+  steps:
+   - name: Install dependencies
+     run: yarn install
