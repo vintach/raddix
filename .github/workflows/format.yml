@@ -19,18 +19,13 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Get Yarn cache directory path
-        id: yarn-cache-dir-path
+        id: yarn-path-config
         shell: bash
-        run: echo "DIR=$(yarn config get cacheFolder)"
+        run: echo "DIR_PATH=$(yarn config get cacheFolder)"
 
-      - name: Restore Yarn cache
-        uses: actions/cache@v3
-        with:
-          path: ${{steps.yarn-cache-dir-path.outputs.DIR}}
-          key: yarn-cache-${{hashFiles('yarn.lock')}}
-          restore-keys: |
-            yarn-cache-
+      - name: Read Yarn cache path
+        run: |
+          echo "Read Yarn cache path"
+          echo "${{steps.yarn-path-config.outputs.DIR_PATH}}"
 
-      - name: Install depencies
-        shell: bash
-        run: yarn install
+
