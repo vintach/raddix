@@ -20,15 +20,14 @@ jobs:
 
       - name: Get Yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "dir=$(yarn config get cacheFolder)"
         shell: bash
-        working-directory: tooling
+        run: echo "DIR=$(yarn config get cacheFolder)"
 
       - name: Restore Yarn cache
         uses: actions/cache@v3
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: yarn-cache-${{ hashFiles('**/yarn.lock', '.yarnrc.yml') }}
+          path: ${{ steps.yarn-cache-dir-path.outputs.DIR }}
+          key: yarn-cache-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             yarn-cache-
 
