@@ -19,12 +19,12 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Get Yarn cache directory path
-        id: yarn-path-config
+        id: yarn-config
         run: echo "DIR_PATH=$(yarn config get cacheFolder)"
 
       - name: Read Yarn cache path
         run: |
           echo "Read Yarn cache path"
-          echo "${{steps.yarn-path-config.outputs.DIR_PATH}}"
+          echo "${{env.DIR_PATH}}"
 
 
