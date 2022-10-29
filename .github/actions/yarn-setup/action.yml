@@ -1,12 +1,14 @@
 name: 'Yarn Install'
+description: 'Run yarn install'
 inputs:
   skip-prisma-postinstall-generate:
    description: 'Avoid prisma to automatically generate schema on postinstall'
    required: false
    default: 'false'
 
-runs-on:
+runs:
   using: 'composite'
   steps:
    - name: Install dependencies
+     shell: bash
      run: yarn install
