@@ -9,6 +9,19 @@ inputs:
 runs:
   using: 'composite'
   steps:
+   - name: Get Yarn cache path
+     id: yarn-cache
+     shell: bash
+     run: echo "FILE_PATH=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+   - name: Set Yarn cache
+     uses: actions/cache@v3
+     with:
+       path: ${{ steps.yarn-cache.outputs.FILE_PATH }}
+       key: yarn-download-cache-${{ hashFiles('yarn.lock') }}
+       restore-keys: |
+         yarn-download-cache-
+
    - name: Install dependencies
      shell: bash
      run: yarn install --immutable --inline-builds
