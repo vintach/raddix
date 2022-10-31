@@ -22,7 +22,6 @@
     "version": "yarn version"
   },
   "dependencies": {
-    "@mark-types/polymorphic": "workspace:*",
     "merge-props": "^5.0.3"
   },
   "peerDependencies": {
