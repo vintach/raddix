@@ -11,7 +11,7 @@
     "build-storybook": "build-storybook",
     "new-pkg": "ts-node ./scripts/create-pkg.ts",
     "test": "jest",
-    "build:parcel": "parcel build 'packages/components/*/' --no-cache"
+    "build:parcel": "parcel build 'packages/components/*/' --no-cache --no-source-maps"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
