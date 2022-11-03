@@ -42,7 +42,7 @@ const writePackageJson = (file: string) => {
 };
 
 const generatePackages = async () => {
-  const files = await glob('packages/components/*');
+  const files = await glob('packages/primitives/*');
 
   files.map((file: string) => {
     writePackageJson(file);

@@ -1,12 +1,12 @@
 {
   "name": "@raddix/switch",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "packageManager": "yarn@3.2.2",
   "license": "MIT",
   "source": "src/index.ts",
-  "main": "dist/cjs.index.js",
-  "module": "dist/esm.index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/main.js",
+  "module": "dist/module.js",
+  "types": "dist/types.d.ts",
   "repository": {
     "type": "git",
     "directory": "packages/switch",
@@ -16,6 +16,16 @@
     "dist",
     "README.md"
   ],
+  "targets": {
+    "main": {
+      "isLibrary": true,
+      "optimize": true
+    },
+    "module": {
+      "isLibrary": true,
+      "optimize": true
+    }
+  },
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist",

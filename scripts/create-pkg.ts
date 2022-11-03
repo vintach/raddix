@@ -3,7 +3,7 @@ import { textOfTsConfig } from './text-tsconfig';
 import { createFolder, createFile } from './utils';
 
 const createPackage = () => {
-  const pathMain: string = 'packages/component';
+  const pathMain: string = 'packages/primitives';
 
   // create folder main
   createFolder('packages', 'component');

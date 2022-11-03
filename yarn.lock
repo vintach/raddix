@@ -3125,9 +3125,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@raddix/button@workspace:packages/components/button":
+"@raddix/button@workspace:packages/primitives/button":
   version: 0.0.0-use.local
-  resolution: "@raddix/button@workspace:packages/components/button"
+  resolution: "@raddix/button@workspace:packages/primitives/button"
   dependencies:
     "@mark-types/polymorphic": "workspace:*"
     "@raddix/usehover": "workspace:*"
@@ -3138,9 +3138,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@raddix/switch@workspace:packages/components/switch":
+"@raddix/switch@workspace:packages/primitives/switch":
   version: 0.0.0-use.local
-  resolution: "@raddix/switch@workspace:packages/components/switch"
+  resolution: "@raddix/switch@workspace:packages/primitives/switch"
   dependencies:
     merge-props: ^5.0.3
   peerDependencies:

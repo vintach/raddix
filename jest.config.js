@@ -10,6 +10,6 @@ module.exports = {
     'jest-watch-typeahead/testname'
   ],
   moduleNameMapper: {
-    '@raddix/(.+)$': '<rootDir>/packages/components/$1/src'
+    '@raddix/(.+)$': '<rootDir>/packages/primitives/$1/src'
   }
 };
