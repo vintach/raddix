@@ -52,6 +52,7 @@
     "jest-watch-typeahead": "^2.1.1",
     "parcel": "^2.7.0",
     "prettier": "^2.7.1",
+    "tiny-glob": "^0.2.9",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
     "tslib": "^2.4.0",
