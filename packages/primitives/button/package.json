@@ -12,6 +12,13 @@
     "directory": "packages/primitives/switch",
     "url": "https://github.com/gdvu/raddix.git"
   },
+  "keywords": [
+    "raddix",
+    "button",
+    "button accessibility",
+    "primitives",
+    "wai aria"
+  ],
   "files": [
     "dist",
     "README.md"

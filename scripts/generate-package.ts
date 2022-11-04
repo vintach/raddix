@@ -33,6 +33,7 @@ const writePackageJson = (file: string) => {
     module: pkgJsonRoot.module.replace('dist/', ''),
     types: pkgJsonRoot.types.replace('dist/', ''),
     repository: pkgJsonRoot.repository,
+    keywords: pkgJsonRoot.keywords,
     sideEffects: pkgJsonRoot.sideEffects,
     dependencies: pkgJsonRoot.dependencies,
     peerDependencies: pkgJsonRoot.peerDependencies
