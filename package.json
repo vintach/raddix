@@ -12,7 +12,8 @@
     "new-pkg": "ts-node ./scripts/create-pkg.ts",
     "test": "jest",
     "build:package": "ts-node ./scripts/generate-package.ts",
-    "build:parcel": "parcel build 'packages/primitives/*/' --no-cache --no-source-maps"
+    "build:parcel": "parcel build 'packages/primitives/*/' --no-cache --no-source-maps",
+    "build": "yarn build:parcel && yarn build:package"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
