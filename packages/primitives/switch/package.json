@@ -9,8 +9,8 @@
   "types": "dist/types.d.ts",
   "repository": {
     "type": "git",
-    "directory": "packages/switch",
-    "url": "https://github.com/gdvu/mark-ui.git"
+    "directory": "packages/primitives/switch",
+    "url": "https://github.com/gdvu/raddix.git"
   },
   "files": [
     "dist",
@@ -29,7 +29,11 @@
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist",
-    "version": "yarn version"
+    "version": "yarn version",
+    "publish": "npm publish ./dist"
+  },
+  "publishConfig": {
+    "directory": "dist"
   },
   "dependencies": {
     "merge-props": "^5.0.3"

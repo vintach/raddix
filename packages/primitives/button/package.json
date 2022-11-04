@@ -7,6 +7,11 @@
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "directory": "packages/primitives/switch",
+    "url": "https://github.com/gdvu/raddix.git"
+  },
   "files": [
     "dist",
     "README.md"
@@ -14,7 +19,11 @@
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist",
-    "version": "yarn version"
+    "version": "yarn version",
+    "publish": "npm publish ./dist"
+  },
+  "publishConfig": {
+    "directory": "dist"
   },
   "dependencies": {
     "@mark-types/polymorphic": "workspace:*",
