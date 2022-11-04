@@ -59,15 +59,14 @@ const useControlledState = (options: ControlledState) => {
 type SwitchRootProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
   AriaSwitchRoot & {};
 
-export type SwitchRootHookProps<E extends ElementType> =
-  ComponentPropsWithoutRef<E> &
-    SwitchRootBase & {
-      /**
-       * The HTML element or React element used to render the switch, e.g. 'div', 'span'.
-       * @default 'button'
-       */
-      elementType?: E;
-    };
+type SwitchRootHookProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
+  SwitchRootBase & {
+    /**
+     * The HTML element or React element used to render the switch, e.g. 'div', 'span'.
+     * @default 'button'
+     */
+    elementType?: E;
+  };
 
 interface SwitchResponse<E extends ElementType> {
   /** Props for the switch element. */
