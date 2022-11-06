@@ -4,9 +4,9 @@
   "packageManager": "yarn@3.2.2",
   "license": "MIT",
   "source": "src/index.ts",
-  "main": "dist/index.js",
-  "module": "dist/index.module.js",
-  "types": "dist/index.d.ts",
+  "main": "main.js",
+  "module": "module.js",
+  "types": "types.d.ts",
   "repository": {
     "type": "git",
     "directory": "packages/primitives/switch",
@@ -23,11 +23,20 @@
     "dist",
     "README.md"
   ],
+  "targets": {
+    "main": {
+      "isLibrary": true,
+      "optimize": true
+    },
+    "module": {
+      "isLibrary": true,
+      "optimize": true
+    }
+  },
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist",
-    "version": "yarn version",
-    "publish": "npm publish ./dist"
+    "version": "yarn version"
   },
   "publishConfig": {
     "directory": "dist"
