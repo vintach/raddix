@@ -2177,14 +2177,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mark-types/polymorphic@workspace:*, @mark-types/polymorphic@workspace:packages/types/polymorphic":
-  version: 0.0.0-use.local
-  resolution: "@mark-types/polymorphic@workspace:packages/types/polymorphic"
-  peerDependencies:
-    react: ">=16.8.0"
-  languageName: unknown
-  linkType: soft
-
 "@mdx-js/mdx@npm:^1.6.22":
   version: 1.6.22
   resolution: "@mdx-js/mdx@npm:1.6.22"
@@ -3129,7 +3121,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@raddix/button@workspace:packages/primitives/button"
   dependencies:
-    "@mark-types/polymorphic": "workspace:*"
     "@raddix/usehover": "workspace:*"
     "@raddix/usepress": "workspace:*"
   peerDependencies:

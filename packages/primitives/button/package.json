@@ -42,7 +42,6 @@
     "directory": "dist"
   },
   "dependencies": {
-    "@mark-types/polymorphic": "workspace:*",
     "@raddix/usehover": "workspace:*",
     "@raddix/usepress": "workspace:*"
   },
