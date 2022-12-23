@@ -3129,6 +3129,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@raddix/checkbox@workspace:packages/primitives/checkbox":
+  version: 0.0.0-use.local
+  resolution: "@raddix/checkbox@workspace:packages/primitives/checkbox"
+  dependencies:
+    merge-props: ^5.0.3
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  languageName: unknown
+  linkType: soft
+
 "@raddix/switch@workspace:packages/primitives/switch":
   version: 0.0.0-use.local
   resolution: "@raddix/switch@workspace:packages/primitives/switch"
