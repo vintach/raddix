@@ -4,6 +4,7 @@
     "paths": {
       "@raddix/switch": ["./packages/primitives/switch/src"],
       "@raddix/button": ["./packages/primitives/button/src"],
+      "@raddix/checkbox": ["./packages/primitives/checkbox/src"],
       "@raddix/usepress": ["./packages/hooks/usePress/src"],
       "@raddix/usehover": ["./packages/hooks/useHover/src"],
       "@mark-utils/merger": ["./packages/utils/merger/src"],
