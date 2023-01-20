@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType } from 'react';
+import { ComponentPropsWithoutRef, ElementType, useState } from 'react';
 
 interface AriaCheckboxBase {
   'data-state'?: 'checked' | 'unchecked' | 'indeterminate';
@@ -8,6 +8,26 @@ interface CheckboxState {
   checked?: boolean;
   indeterminate?: boolean;
 }
+
+interface CheckedOptions {
+  checked?: boolean;
+  defaultChecked: boolean;
+  onChecked?(checked: boolean): void;
+}
+
+const useChecked = (options: CheckedOptions) => {
+  const { checked, defaultChecked, onChecked } = options;
+  const [inChecked, setInChecked] = useState<boolean | undefined>(
+    defaultChecked
+  );
+  const isChecked = inChecked ?? false;
+
+  if (checked !== undefined) {
+    return [checked, onChecked] as const;
+  } else {
+    return [isChecked, setInChecked] as const;
+  }
+};
 
 /* -------------------------------------------------------------------------------------------
  * useCheckboxRoot
@@ -41,3 +61,9 @@ export const useCheckboxRoot = (props => {
     checkboxProps: {}
   };
 }) as CheckboxRootHook;
+
+const useCheckbox = {
+  Root: useCheckboxRoot
+};
+
+export default useCheckbox;
