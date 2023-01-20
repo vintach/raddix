@@ -2,6 +2,7 @@ import {
   ChangeEvent,
   ComponentPropsWithoutRef,
   ElementType,
+  useCallback,
   useState
 } from 'react';
 import merger from 'merge-props';
@@ -59,6 +60,20 @@ const useChecked = (options: CheckedOptions) => {
 };
 
 /* -------------------------------------------------------------------------------------------
+ * useIndeterminate
+ * Hook defines checked or unchecked state
+ * ------------------------------------------------------------------------------------------*/
+const useIndeterminate = (options: IndeterminateOptions) => {
+  const { indeterminate, onIndeterminate } = options;
+
+  if (onIndeterminate) {
+    return [indeterminate, onIndeterminate] as const;
+  } else {
+    return [indeterminate] as const;
+  }
+};
+
+/* -------------------------------------------------------------------------------------------
  * useCheckboxRoot
  * ------------------------------------------------------------------------------------------*/
 
@@ -86,8 +101,10 @@ type CheckboxRootHook = <E extends ElementType = 'button'>(
 export const useCheckboxRoot = (props => {
   let {
     checked: checkedProp,
+    indeterminate: indeterminateProp = false,
     defaultChecked = false,
     onChecked,
+    onIndeterminate,
     elementType = 'button'
   } = props;
 
@@ -96,10 +113,19 @@ export const useCheckboxRoot = (props => {
     checked: checkedProp,
     onChecked
   });
+  let [indeterminate, setIndeterminate] = useIndeterminate({
+    indeterminate: indeterminateProp,
+    onIndeterminate
+  });
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     setChecked?.(!checked);
-  };
+
+    if (indeterminate) {
+      setIndeterminate?.(false);
+      setChecked?.(true);
+    }
+  }, [checked, setChecked, indeterminate, setIndeterminate]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     // setChecked?.(!checked);
@@ -127,7 +153,11 @@ export const useCheckboxRoot = (props => {
   }
 
   const checkboxProps: AriaAttrCheckbox = {
-    'data-state': checked ? 'checked' : 'unchecked'
+    'data-state': indeterminate
+      ? 'indeterminate'
+      : checked
+      ? 'checked'
+      : 'unchecked'
   };
 
   const elementProps = {
@@ -138,7 +168,8 @@ export const useCheckboxRoot = (props => {
   return {
     checkboxProps: elementProps,
     state: {
-      checked: checked
+      checked: checked,
+      indeterminate: indeterminate
     }
   };
 }) as CheckboxRootHook;
