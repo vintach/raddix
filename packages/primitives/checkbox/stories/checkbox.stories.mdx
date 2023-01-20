@@ -71,3 +71,73 @@ const Checkbox = props => {
     <Checkbox defaultChecked />
   </Story>
 </Canvas>
+
+### Indeterminate
+
+<!--- Component Indeterminate -->
+
+export const IndeterminateGroup = () => {
+  const [listState, setListState] = useState([false, false]);
+  const allChecked = listState.every(Boolean);
+  const isIndeterminate = listState.some(Boolean) && !allChecked;
+  return (
+    <div>
+      <Checkbox
+        indeterminate={isIndeterminate}
+        checked={allChecked}
+        onChecked={e => setListState([e, e])}
+      />
+      <div className='container'>
+        <div className='item'>
+          <Checkbox
+            checked={listState[0]}
+            onChecked={e => {
+              setListState([e, listState[1]]);
+            }}
+          />
+          <span>React</span>
+        </div>
+        <div className='item'>
+          <Checkbox
+            checked={listState[1]}
+            onChecked={e => {
+              setListState([listState[0], e]);
+            }}
+          />
+          <span>Angular</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const IndeterminateButton = () => {
+  const [indeterminate, setIndeterminate] = useState(false);
+  return (
+    <div className='item'>
+      <Checkbox
+        indeterminate={indeterminate}
+        onIndeterminate={setIndeterminate}
+      />
+      <button
+        className='btn'
+        onClick={() => {
+          setIndeterminate(true);
+          console.log('Yes');
+        }}
+      >
+        Indeterminate
+      </button>
+    </div>
+  );
+};
+
+<Canvas>
+  <Story name='Indeterminate'>
+    <IndeterminateGroup />
+    <br />
+    <hr />
+    <br />
+    <IndeterminateButton />
+  </Story>
+</Canvas>
