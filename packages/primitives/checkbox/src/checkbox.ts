@@ -174,8 +174,57 @@ export const useCheckboxRoot = (props => {
   };
 }) as CheckboxRootHook;
 
+/* -------------------------------------------------------------------------------------------
+ * useCheckboxIndicator
+ * ------------------------------------------------------------------------------------------*/
+
+type CheckboxIndicatorProps<E extends ElementType> =
+  ComponentPropsWithoutRef<E> & DataAttrCheckbox;
+interface CheckboxIndicator<E extends ElementType> {
+  /** Props for the switch element. */
+  checkboxIndicatorProps: CheckboxIndicatorProps<E>;
+}
+
+type UseCheckboxIndicatorProps<E extends ElementType> =
+  ComponentPropsWithoutRef<E> &
+    CheckboxState & {
+      /**
+       * The HTML element or React element used to render the switch, e.g. 'div', 'span'.
+       * @default 'span'
+       */
+      elementType?: E;
+    };
+type UseCheckboxIndicator = <E extends ElementType = 'span'>(
+  props: UseCheckboxIndicatorProps<E>
+) => CheckboxIndicator<E>;
+
+export const useCheckboxIndicator = (props => {
+  const {
+    elementType = 'span',
+    checked,
+    disabled: disabledProp,
+    indeterminate,
+    isDisabled,
+    ...rest
+  } = props;
+  const disabled = isDisabled ?? disabledProp;
+
+  return {
+    checkboxIndicatorProps: {
+      'data-disabled': disabled,
+      'data-state': indeterminate
+        ? 'indeterminate'
+        : checked
+        ? 'checked'
+        : 'unchecked',
+      ...rest
+    }
+  };
+}) as UseCheckboxIndicator;
+
 const useCheckbox = {
-  Root: useCheckboxRoot
+  Root: useCheckboxRoot,
+  Indicator: useCheckboxIndicator
 };
 
 export default useCheckbox;
