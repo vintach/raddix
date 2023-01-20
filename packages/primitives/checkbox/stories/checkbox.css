@@ -37,7 +37,7 @@ button {
   background-color: var(--color-primary);
 }
 
-.checkbox[data-state='checked'] .icon-check {
+.checkbox-indicator[data-state='checked'] {
   box-sizing: border-box;
   position: relative;
   display: block;
@@ -49,7 +49,7 @@ button {
   color: #fff;
 }
 
-.checkbox[data-state='checked'] .icon-check::after {
+.checkbox-indicator[data-state='checked']::after {
   content: '';
   display: block;
   box-sizing: border-box;
@@ -68,7 +68,7 @@ button {
   background-color: var(--color-primary);
 }
 
-.checkbox[data-state='indeterminate'] .icon-check {
+.checkbox-indicator[data-state='indeterminate'] {
   box-sizing: border-box;
   position: relative;
   display: block;
@@ -80,7 +80,7 @@ button {
   color: #fff;
 }
 
-.checkbox[data-state='indeterminate'] .icon-check::after {
+.checkbox-indicator[data-state='indeterminate']::after {
   content: '';
   display: block;
   box-sizing: border-box;

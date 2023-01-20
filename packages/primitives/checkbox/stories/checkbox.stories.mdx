@@ -9,9 +9,10 @@ import './checkbox.css';
 
 export const Checkbox = props => {
   const { checkboxProps, state } = useCheckbox.Root(props);
+  const { checkboxIndicatorProps } = useCheckbox.Indicator(state);
   return (
     <button {...checkboxProps} className='checkbox'>
-      <span className='icon-check'></span>
+      <span {...checkboxIndicatorProps} className='checkbox-indicator'></span>
     </button>
   );
 };
@@ -53,10 +54,11 @@ import useCheckbox from '@raddix/checkbox';
 
 const Checkbox = props => {
   const { checkboxProps, state } = useCheckbox.Root(props);
+  const { checkboxIndicatorProps } = useCheckbox.Indicator(state);
 
   return (
     <button {...checkboxProps} className='checkbox'>
-      <span className='icon-check'></span>
+      <span {...checkboxIndicatorProps} className='checkbox-indicator'></span>
     </button>
   );
 };
