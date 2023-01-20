@@ -1,4 +1,10 @@
-import { ComponentPropsWithoutRef, ElementType, useState } from 'react';
+import {
+  ChangeEvent,
+  ComponentPropsWithoutRef,
+  ElementType,
+  useState
+} from 'react';
+import merger from 'merge-props';
 
 type Checked = { checked?: boolean };
 type Disabled = { disabled?: boolean; isDisabled?: boolean };
@@ -78,10 +84,62 @@ type CheckboxRootHook = <E extends ElementType = 'button'>(
 ) => CheckboxResponse<E>;
 
 export const useCheckboxRoot = (props => {
-  const { checked = false, indeterminate, elementType } = props;
+  let {
+    checked: checkedProp,
+    defaultChecked = false,
+    onChecked,
+    elementType = 'button'
+  } = props;
+
+  const [checked, setChecked] = useChecked({
+    defaultChecked,
+    checked: checkedProp,
+    onChecked
+  });
+
+  const handleClick = () => {
+    setChecked?.(!checked);
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // setChecked?.(!checked);
+  };
+
+  let elementTypeProps;
+  if (elementType === 'input') {
+    elementTypeProps = {
+      type: 'checkbox',
+      ...merger({
+        onChange: handleChange
+      })
+    };
+  } else if (elementType === 'button') {
+    elementTypeProps = {
+      type: 'button',
+      ...merger({
+        onClick: handleClick
+      })
+    };
+  } else {
+    elementTypeProps = {
+      tabIndex: 0
+    };
+  }
+
+  const checkboxProps: AriaAttrCheckbox = {
+    'data-state': checked ? 'checked' : 'unchecked'
+  };
+
+  const elementProps = {
+    ...elementTypeProps,
+    ...checkboxProps
+  };
 
   return {
-    checkboxProps: {}
+    checkboxProps: elementProps,
+    state: {
+      checked: checked
+    }
   };
 }) as CheckboxRootHook;
 
