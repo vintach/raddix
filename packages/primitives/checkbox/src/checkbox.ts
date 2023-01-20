@@ -1,20 +1,43 @@
 import { ComponentPropsWithoutRef, ElementType, useState } from 'react';
 
-interface AriaCheckboxBase {
-  'data-state'?: 'checked' | 'unchecked' | 'indeterminate';
-  'data-disabled'?: boolean;
-}
-interface CheckboxState {
-  checked?: boolean;
-  indeterminate?: boolean;
-}
+type Checked = { checked?: boolean };
+type Disabled = { disabled?: boolean; isDisabled?: boolean };
+type Indeterminate = { indeterminate?: boolean };
 
-interface CheckedOptions {
-  checked?: boolean;
+interface CheckedOptions extends Checked {
   defaultChecked: boolean;
   onChecked?(checked: boolean): void;
 }
 
+interface IndeterminateOptions extends Indeterminate {
+  onIndeterminate?(indeterminate: boolean): void;
+}
+
+export interface CheckboxState extends Checked, Indeterminate, Disabled {}
+
+export interface CheckboxRootBase
+  extends CheckedOptions,
+    IndeterminateOptions,
+    Disabled {
+  required?: boolean;
+  readOnly?: boolean;
+}
+
+interface DataAttrCheckbox {
+  'data-state'?: 'checked' | 'unchecked' | 'indeterminate';
+  'data-disabled'?: boolean;
+}
+interface AriaAttrCheckbox extends DataAttrCheckbox {
+  'aria-checked'?: boolean | 'mixed';
+  'aria-readonly'?: boolean;
+  'aria-required'?: boolean;
+  'aria-disabled'?: boolean;
+}
+
+/* -------------------------------------------------------------------------------------------
+ * useChecked
+ * Hook defines checked or unchecked state
+ * ------------------------------------------------------------------------------------------*/
 const useChecked = (options: CheckedOptions) => {
   const { checked, defaultChecked, onChecked } = options;
   const [inChecked, setInChecked] = useState<boolean | undefined>(
@@ -34,10 +57,10 @@ const useChecked = (options: CheckedOptions) => {
  * ------------------------------------------------------------------------------------------*/
 
 type CheckboxRootProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  AriaCheckboxBase & {};
+  AriaAttrCheckbox & {};
 type CheckboxRootHookProps<E extends ElementType> =
   ComponentPropsWithoutRef<E> &
-    CheckboxState & {
+    CheckboxRootBase & {
       /**
        * The HTML element or React element used to render the switch, e.g. 'div', 'span'.
        * @default 'button'
