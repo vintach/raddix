@@ -1,6 +1,6 @@
 {
   "name": "@raddix/switch",
-  "version": "0.3.1",
+  "version": "0.4.1",
   "packageManager": "yarn@3.2.2",
   "license": "MIT",
   "source": "src/index.ts",
@@ -15,9 +15,8 @@
   "keywords": [
     "raddix",
     "switch",
-    "switch accessibility",
-    "primitives",
-    "wai aria"
+    "react-switch",
+    "accessibility"
   ],
   "files": [
     "dist",
