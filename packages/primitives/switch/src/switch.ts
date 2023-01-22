@@ -8,16 +8,17 @@ import {
 import { getChecked } from './switch.utils';
 import merger from 'merge-props';
 
-type CheckedProps = { checked?: boolean };
-export interface SwitchState extends CheckedProps {
-  disabled?: boolean;
-  isDisabled?: boolean;
-}
-interface SwitchEvent {
+type Checked = { checked?: boolean };
+type Disabled = { disabled?: boolean; isDisabled?: boolean };
+
+interface CheckedOptions extends Checked {
   defaultChecked?: boolean;
   onChecked?(checked: boolean): void;
 }
-interface SwitchRootBase extends SwitchState, SwitchEvent {
+
+export interface SwitchState extends Checked, Disabled {}
+
+export interface SwitchRootBase extends CheckedOptions, Disabled {
   required?: boolean;
   readOnly?: boolean;
 }
@@ -36,9 +37,7 @@ interface AriaSwitchRoot extends AriaSwitchBase {
  * useControlledState
  * Hook defines controlled or uncontrolled state
  * ------------------------------------------------------------------------------------------*/
-interface ControlledState extends CheckedProps, SwitchEvent {}
-
-const useControlledState = (options: ControlledState) => {
+const useControlledState = (options: CheckedOptions) => {
   const { checked, defaultChecked, onChecked } = options;
   const [inChecked, setInChecked] = useState<boolean | undefined>(
     defaultChecked
