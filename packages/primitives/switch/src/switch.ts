@@ -68,7 +68,7 @@ type UseSwitcProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
   };
 
 type SwitchRootHook = <E extends ElementType = 'button'>(
-  props?: UseSwitcProps<E>
+  props: UseSwitcProps<E>
 ) => {
   /** Props for the switch element. */
   switchProps: SwitchProps<E>;
@@ -76,9 +76,7 @@ type SwitchRootHook = <E extends ElementType = 'button'>(
   state: SwitchState;
 };
 
-export const useSwitchRoot = (<E extends ElementType = 'button'>(
-  props: UseSwitcProps<E>
-) => {
+export const useSwitchRoot = (props => {
   const {
     checked: checkedProp,
     disabled: disabledProp,
