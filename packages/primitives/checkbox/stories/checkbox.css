@@ -41,6 +41,10 @@ button {
   background-color: var(--color-primary);
 }
 
+.checkbox[data-disabled] {
+  opacity: 0.4;
+}
+
 .checkbox-indicator[data-checked] {
   box-sizing: border-box;
   position: relative;
