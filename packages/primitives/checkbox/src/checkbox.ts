@@ -6,11 +6,12 @@ import {
   useState
 } from 'react';
 import merger from 'merge-props';
-import { getAriaChecked } from './checkbox.utils';
+import { getAriaChecked, getAttr, getDataChecked } from './checkbox.utils';
 
 type Checked = { checked?: boolean };
 type Disabled = { disabled?: boolean; isDisabled?: boolean };
 type Indeterminate = { indeterminate?: boolean };
+export type Booleanish = boolean | 'true' | 'false';
 
 interface CheckedOptions extends Checked {
   defaultChecked: boolean;
@@ -32,8 +33,9 @@ export interface CheckboxRootBase
 }
 
 interface DataAttrCheckbox {
-  'data-state'?: 'checked' | 'unchecked' | 'indeterminate';
-  'data-disabled'?: boolean;
+  'data-checked'?: Booleanish;
+  'data-indeterminate'?: Booleanish;
+  'data-disabled'?: Booleanish;
 }
 interface AriaAttrCheckbox {
   role: 'checkbox';
@@ -80,7 +82,8 @@ const useIndeterminate = (options: IndeterminateOptions) => {
  * ------------------------------------------------------------------------------------------*/
 
 type CheckboxRootProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  AriaAttrCheckbox & {};
+  AriaAttrCheckbox &
+  DataAttrCheckbox;
 type CheckboxRootHookProps<E extends ElementType> =
   ComponentPropsWithoutRef<E> &
     CheckboxRootBase & {
@@ -107,7 +110,8 @@ export const useCheckboxRoot = (props => {
     defaultChecked = false,
     onChecked,
     onIndeterminate,
-    elementType = 'button'
+    elementType = 'button',
+    ...rest
   } = props;
 
   const [checked, setChecked] = useChecked({
@@ -133,22 +137,29 @@ export const useCheckboxRoot = (props => {
     // setChecked?.(!checked);
   };
 
-  // Aria attribute for elementType other than input checkbox
+  // Aria attribute for element type other than input checkbox
   const ariaAttr: AriaAttrCheckbox = {
     role: 'checkbox',
     'aria-checked': getAriaChecked(checked, indeterminate)
   };
 
-  let elementTypeProps;
+  // Data attribute
+  const dataAttr: DataAttrCheckbox = {
+    'data-checked': getDataChecked(checked, indeterminate),
+    'data-indeterminate': getAttr(indeterminate)
+  };
+
+  // Attributes according to element type
+  let elementProps;
   if (elementType === 'input') {
-    elementTypeProps = {
+    elementProps = {
       type: 'checkbox',
       ...merger({
         onChange: handleChange
       })
     };
   } else if (elementType === 'button') {
-    elementTypeProps = {
+    elementProps = {
       type: 'button',
       ...ariaAttr,
       ...merger({
@@ -156,18 +167,18 @@ export const useCheckboxRoot = (props => {
       })
     };
   } else {
-    elementTypeProps = {
+    elementProps = {
       ...ariaAttr,
       tabIndex: 0
     };
   }
 
-  const elementProps = {
-    ...elementTypeProps
-  };
-
   return {
-    checkboxProps: elementProps,
+    checkboxProps: {
+      ...elementProps,
+      ...dataAttr,
+      ...rest
+    },
     state: {
       checked: checked,
       indeterminate: indeterminate
@@ -202,9 +213,9 @@ type UseCheckboxIndicator = <E extends ElementType = 'span'>(
 export const useCheckboxIndicator = (props => {
   const {
     elementType = 'span',
-    checked,
+    checked = false,
     disabled: disabledProp,
-    indeterminate,
+    indeterminate = false,
     isDisabled,
     ...rest
   } = props;
@@ -213,11 +224,8 @@ export const useCheckboxIndicator = (props => {
   return {
     checkboxIndicatorProps: {
       'data-disabled': disabled,
-      'data-state': indeterminate
-        ? 'indeterminate'
-        : checked
-        ? 'checked'
-        : 'unchecked',
+      'data-checked': getDataChecked(checked, indeterminate),
+      'data-indeterminate': getAttr(indeterminate),
       ...rest
     }
   };

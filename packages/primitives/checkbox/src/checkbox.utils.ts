@@ -1,3 +1,5 @@
+import { Booleanish } from './checkbox';
+
 type AriaChecked = boolean | 'mixed';
 
 export const getAriaChecked = (
@@ -14,3 +16,9 @@ export const getAriaChecked = (
     return false;
   }
 };
+
+export const getAttr = (value: boolean) =>
+  (value ? '' : undefined) as Booleanish | undefined;
+
+export const getDataChecked = (checked: boolean, indeterminate: boolean) =>
+  indeterminate ? undefined : (getAttr(checked) as Booleanish);
