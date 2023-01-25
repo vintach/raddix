@@ -6,6 +6,7 @@ import {
   useState
 } from 'react';
 import merger from 'merge-props';
+import { getAriaChecked } from './checkbox.utils';
 
 type Checked = { checked?: boolean };
 type Disabled = { disabled?: boolean; isDisabled?: boolean };
@@ -34,7 +35,8 @@ interface DataAttrCheckbox {
   'data-state'?: 'checked' | 'unchecked' | 'indeterminate';
   'data-disabled'?: boolean;
 }
-interface AriaAttrCheckbox extends DataAttrCheckbox {
+interface AriaAttrCheckbox {
+  role: 'checkbox';
   'aria-checked'?: boolean | 'mixed';
   'aria-readonly'?: boolean;
   'aria-required'?: boolean;
@@ -64,7 +66,7 @@ const useChecked = (options: CheckedOptions) => {
  * Hook defines checked or unchecked state
  * ------------------------------------------------------------------------------------------*/
 const useIndeterminate = (options: IndeterminateOptions) => {
-  const { indeterminate, onIndeterminate } = options;
+  const { indeterminate = false, onIndeterminate } = options;
 
   if (onIndeterminate) {
     return [indeterminate, onIndeterminate] as const;
@@ -118,17 +120,23 @@ export const useCheckboxRoot = (props => {
     onIndeterminate
   });
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     setChecked?.(!checked);
 
     if (indeterminate) {
       setIndeterminate?.(false);
       setChecked?.(true);
     }
-  }, [checked, setChecked, indeterminate, setIndeterminate]);
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     // setChecked?.(!checked);
+  };
+
+  // Aria attribute for elementType other than input checkbox
+  const ariaAttr: AriaAttrCheckbox = {
+    role: 'checkbox',
+    'aria-checked': getAriaChecked(checked, indeterminate)
   };
 
   let elementTypeProps;
@@ -142,27 +150,20 @@ export const useCheckboxRoot = (props => {
   } else if (elementType === 'button') {
     elementTypeProps = {
       type: 'button',
+      ...ariaAttr,
       ...merger({
         onClick: handleClick
       })
     };
   } else {
     elementTypeProps = {
+      ...ariaAttr,
       tabIndex: 0
     };
   }
 
-  const checkboxProps: AriaAttrCheckbox = {
-    'data-state': indeterminate
-      ? 'indeterminate'
-      : checked
-      ? 'checked'
-      : 'unchecked'
-  };
-
   const elementProps = {
-    ...elementTypeProps,
-    ...checkboxProps
+    ...elementTypeProps
   };
 
   return {
