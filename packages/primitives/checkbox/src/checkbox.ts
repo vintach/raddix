@@ -56,6 +56,7 @@ export const useCheckboxRoot = (props => {
     elementType = 'button',
     disabled: disabledProp,
     isDisabled,
+    readOnly,
     ...rest
   } = props;
 
@@ -72,7 +73,7 @@ export const useCheckboxRoot = (props => {
   const disabled = isDisabled ?? disabledProp;
 
   const handleClick = () => {
-    if (disabled) {
+    if (disabled || readOnly) {
       return;
     }
 
@@ -92,7 +93,8 @@ export const useCheckboxRoot = (props => {
   const ariaAttr: AriaAttrCheckbox = {
     role: 'checkbox',
     'aria-checked': getAriaChecked(checked, indeterminate),
-    'aria-disabled': disabledProp
+    'aria-disabled': disabledProp,
+    'aria-readonly': readOnly
   };
 
   // Data attribute
@@ -108,6 +110,7 @@ export const useCheckboxRoot = (props => {
     elementProps = {
       type: 'checkbox',
       disabled: isDisabled,
+      readOnly: readOnly,
       ...merger({
         onChange: handleChange
       })
