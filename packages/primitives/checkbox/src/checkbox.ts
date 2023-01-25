@@ -47,13 +47,15 @@ const useIndeterminate = (options: IndeterminateOptions) => {
  * ------------------------------------------------------------------------------------------*/
 
 export const useCheckboxRoot = (props => {
-  let {
+  const {
     checked: checkedProp,
     indeterminate: indeterminateProp = false,
     defaultChecked = false,
     onChecked,
     onIndeterminate,
     elementType = 'button',
+    disabled: disabledProp,
+    isDisabled,
     ...rest
   } = props;
 
@@ -62,12 +64,18 @@ export const useCheckboxRoot = (props => {
     checked: checkedProp,
     onChecked
   });
-  let [indeterminate, setIndeterminate] = useIndeterminate({
+  const [indeterminate, setIndeterminate] = useIndeterminate({
     indeterminate: indeterminateProp,
     onIndeterminate
   });
 
+  const disabled = isDisabled ?? disabledProp;
+
   const handleClick = () => {
+    if (disabled) {
+      return;
+    }
+
     setChecked?.(!checked);
 
     if (indeterminate) {
@@ -83,13 +91,15 @@ export const useCheckboxRoot = (props => {
   // Aria attribute for element type other than input checkbox
   const ariaAttr: AriaAttrCheckbox = {
     role: 'checkbox',
-    'aria-checked': getAriaChecked(checked, indeterminate)
+    'aria-checked': getAriaChecked(checked, indeterminate),
+    'aria-disabled': disabledProp
   };
 
   // Data attribute
   const dataAttr: DataAttrCheckbox = {
     'data-checked': getDataChecked(checked, indeterminate),
-    'data-indeterminate': getAttr(indeterminate)
+    'data-indeterminate': getAttr(indeterminate),
+    'data-disabled': getAttr(disabled || false)
   };
 
   // Attributes according to element type
@@ -97,6 +107,7 @@ export const useCheckboxRoot = (props => {
   if (elementType === 'input') {
     elementProps = {
       type: 'checkbox',
+      disabled: isDisabled,
       ...merger({
         onChange: handleChange
       })
@@ -104,6 +115,7 @@ export const useCheckboxRoot = (props => {
   } else if (elementType === 'button') {
     elementProps = {
       type: 'button',
+      disabled: isDisabled,
       ...ariaAttr,
       ...merger({
         onClick: handleClick
