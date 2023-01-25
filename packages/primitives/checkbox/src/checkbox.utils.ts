@@ -1,6 +1,4 @@
-import { Booleanish } from './checkbox';
-
-type AriaChecked = boolean | 'mixed';
+import { AriaChecked, Booleanish } from './types';
 
 export const getAriaChecked = (
   checked: boolean,

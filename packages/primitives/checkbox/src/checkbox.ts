@@ -1,49 +1,14 @@
-import {
-  ChangeEvent,
-  ComponentPropsWithoutRef,
-  ElementType,
-  useCallback,
-  useState
-} from 'react';
+import { ChangeEvent, useState } from 'react';
 import merger from 'merge-props';
 import { getAriaChecked, getAttr, getDataChecked } from './checkbox.utils';
-
-type Checked = { checked?: boolean };
-type Disabled = { disabled?: boolean; isDisabled?: boolean };
-type Indeterminate = { indeterminate?: boolean };
-export type Booleanish = boolean | 'true' | 'false';
-
-interface CheckedOptions extends Checked {
-  defaultChecked: boolean;
-  onChecked?(checked: boolean): void;
-}
-
-interface IndeterminateOptions extends Indeterminate {
-  onIndeterminate?(indeterminate: boolean): void;
-}
-
-export interface CheckboxState extends Checked, Indeterminate, Disabled {}
-
-export interface CheckboxRootBase
-  extends CheckedOptions,
-    IndeterminateOptions,
-    Disabled {
-  required?: boolean;
-  readOnly?: boolean;
-}
-
-interface DataAttrCheckbox {
-  'data-checked'?: Booleanish;
-  'data-indeterminate'?: Booleanish;
-  'data-disabled'?: Booleanish;
-}
-interface AriaAttrCheckbox {
-  role: 'checkbox';
-  'aria-checked'?: boolean | 'mixed';
-  'aria-readonly'?: boolean;
-  'aria-required'?: boolean;
-  'aria-disabled'?: boolean;
-}
+import {
+  AriaAttrCheckbox,
+  CheckboxRootHook,
+  CheckedOptions,
+  DataAttrCheckbox,
+  IndeterminateOptions,
+  UseCheckboxIndicator
+} from './types';
 
 /* -------------------------------------------------------------------------------------------
  * useChecked
@@ -80,28 +45,6 @@ const useIndeterminate = (options: IndeterminateOptions) => {
 /* -------------------------------------------------------------------------------------------
  * useCheckboxRoot
  * ------------------------------------------------------------------------------------------*/
-
-type CheckboxRootProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  AriaAttrCheckbox &
-  DataAttrCheckbox;
-type CheckboxRootHookProps<E extends ElementType> =
-  ComponentPropsWithoutRef<E> &
-    CheckboxRootBase & {
-      /**
-       * The HTML element or React element used to render the switch, e.g. 'div', 'span'.
-       * @default 'button'
-       */
-      elementType?: E;
-    };
-interface CheckboxResponse<E extends ElementType> {
-  /** Props for the switch element. */
-  checkboxProps: CheckboxRootProps<E>;
-  /** Props for the selection state. */
-  state: CheckboxState;
-}
-type CheckboxRootHook = <E extends ElementType = 'button'>(
-  props: CheckboxRootHookProps<E>
-) => CheckboxResponse<E>;
 
 export const useCheckboxRoot = (props => {
   let {
@@ -189,26 +132,6 @@ export const useCheckboxRoot = (props => {
 /* -------------------------------------------------------------------------------------------
  * useCheckboxIndicator
  * ------------------------------------------------------------------------------------------*/
-
-type CheckboxIndicatorProps<E extends ElementType> =
-  ComponentPropsWithoutRef<E> & DataAttrCheckbox;
-interface CheckboxIndicator<E extends ElementType> {
-  /** Props for the switch element. */
-  checkboxIndicatorProps: CheckboxIndicatorProps<E>;
-}
-
-type UseCheckboxIndicatorProps<E extends ElementType> =
-  ComponentPropsWithoutRef<E> &
-    CheckboxState & {
-      /**
-       * The HTML element or React element used to render the switch, e.g. 'div', 'span'.
-       * @default 'span'
-       */
-      elementType?: E;
-    };
-type UseCheckboxIndicator = <E extends ElementType = 'span'>(
-  props: UseCheckboxIndicatorProps<E>
-) => CheckboxIndicator<E>;
 
 export const useCheckboxIndicator = (props => {
   const {
