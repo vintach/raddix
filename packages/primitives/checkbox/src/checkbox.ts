@@ -111,32 +111,29 @@ export const useCheckboxRoot = (props => {
       type: 'checkbox',
       disabled: isDisabled,
       readOnly: readOnly,
-      ...merger({
-        onChange: handleChange
-      })
+      onChange: handleChange
     };
   } else if (elementType === 'button') {
     elementProps = {
       type: 'button',
       disabled: isDisabled,
       ...ariaAttr,
-      ...merger({
-        onClick: handleClick
-      })
+      onClick: handleClick
     };
   } else {
     elementProps = {
       ...ariaAttr,
-      tabIndex: 0
+      tabIndex: 0,
+      onClick: handleClick
     };
   }
 
   return {
-    checkboxProps: {
+    checkboxProps: merger({
       ...elementProps,
       ...dataAttr,
       ...rest
-    },
+    }),
     state: {
       checked: checked,
       indeterminate: indeterminate
