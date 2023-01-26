@@ -66,7 +66,11 @@ const Checkbox = props => {
 
 ## Usage
 
+The following examples show how to use the Checkbox component created in the above example.
+
 ### Default Checked
+
+Checkbox are not selected by default. To be checked by default using <code>defaultChecked</code> prop
 
 <Canvas>
   <Story name='Default Checked'>
@@ -74,7 +78,23 @@ const Checkbox = props => {
   </Story>
 </Canvas>
 
+### Controlled
+
+To control the state, use <code>checked</code> property for initial
+value. The <code>onChecked</code> event is fired when the <code>checked</code> prop receives the new value.
+
+<Canvas>
+  <Story name='Controlled'>
+    {() => {
+      const [checked, setChecked] = useState(true);
+      return <Checkbox checked={checked} onChecked={setChecked} />;
+    }}
+  </Story>
+</Canvas>
+
 ### Indeterminate
+
+The checkbox is partially checked, or indeterminate.
 
 <!--- Component Indeterminate -->
 
@@ -146,6 +166,8 @@ export const IndeterminateButton = () => {
 
 ### Disabled
 
+The <code>disabled</code> prop makes switch un-clickable
+
 <Canvas>
   <Story name='Disabled'>
     <Checkbox defaultChecked disabled />
@@ -154,8 +176,45 @@ export const IndeterminateButton = () => {
 
 ### Read Only
 
+The <code>readOnly</code> prop makes the selection immutable.
+
 <Canvas>
   <Story name='Read Only'>
     <Checkbox defaultChecked readOnly />
+  </Story>
+</Canvas>
+
+### Element Type
+
+<!--- Component template div -->
+
+export const CheckboxDiv = props => {
+  const { checkboxProps, state } = useCheckbox.Root({
+    elementType: 'div',
+    ...props
+  });
+  const { checkboxIndicatorProps } = useCheckbox.Indicator(state);
+  return (
+    <div {...checkboxProps} className='checkbox'>
+      <span {...checkboxIndicatorProps} className='checkbox-indicator'></span>
+    </div>
+  );
+};
+
+<!--- Component template div -->
+
+export const CheckboxInput = props => {
+  const { checkboxProps } = useCheckbox.Root({
+    elementType: 'input',
+    ...props
+  });
+  return <input {...checkboxProps} className='checkbox' />;
+};
+
+<Canvas>
+  <Story name='Read ddd'>
+    <CheckboxDiv indeterminate />
+    <hr />
+    <CheckboxInput indeterminate />
   </Story>
 </Canvas>
