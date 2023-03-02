@@ -208,9 +208,7 @@ export const useSwitchThumb = (props => {
   return { switchThumbProps };
 }) as SwitchThumbHook;
 
-const useSwitch = {
-  Root: useSwitchRoot,
-  Thumb: useSwitchThumb
-};
-
-export default useSwitch;
+export interface UseSwitch {
+  Root: SwitchRootHook,
+  Thumb: SwitchThumbHook
+}
