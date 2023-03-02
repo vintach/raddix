@@ -5,7 +5,7 @@ import {
   useContext,
   useMemo
 } from 'react';
-import { SwitchState } from './switch';
+import { SwitchState } from './types';
 
 export const SwitchContext = createContext<SwitchState>({
   checked: false

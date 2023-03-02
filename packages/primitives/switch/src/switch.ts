@@ -1,37 +1,7 @@
-import {
-  ComponentPropsWithoutRef,
-  ElementType,
-  KeyboardEvent,
-  MouseEvent,
-  useState
-} from 'react';
+import { KeyboardEvent, MouseEvent, useState } from 'react';
 import { getChecked } from './switch.utils';
 import merger from 'merge-props';
-
-type Checked = { checked?: boolean };
-type Disabled = { disabled?: boolean; isDisabled?: boolean };
-
-interface CheckedOptions extends Checked {
-  defaultChecked?: boolean;
-  onChecked?(checked: boolean): void;
-}
-
-export interface SwitchState extends Checked, Disabled {}
-
-export interface SwitchRootBase extends CheckedOptions, Disabled {
-  required?: boolean;
-  readOnly?: boolean;
-}
-export interface AriaSwitchBase {
-  'data-disabled'?: boolean;
-  'data-state'?: 'checked' | 'unchecked';
-}
-interface AriaSwitchRoot extends AriaSwitchBase {
-  'aria-checked'?: boolean;
-  'aria-readonly'?: boolean;
-  'aria-required'?: boolean;
-  'aria-disabled'?: boolean;
-}
+import { CheckedOptions, UseSwitchRoot, UseSwitchThumb } from './types';
 
 /* -------------------------------------------------------------------------------------------
  * useControlledState
@@ -54,27 +24,6 @@ const useControlledState = (options: CheckedOptions) => {
 /* -------------------------------------------------------------------------------------------
  * useSwitchRoot
  * ------------------------------------------------------------------------------------------*/
-
-type SwitchProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  AriaSwitchRoot & {};
-
-type UseSwitcProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  SwitchRootBase & {
-    /**
-     * The HTML element or React element used to render the switch, e.g. 'div', 'span'.
-     * @default 'button'
-     */
-    elementType?: E;
-  };
-
-type SwitchRootHook = <E extends ElementType = 'button'>(
-  props: UseSwitcProps<E>
-) => {
-  /** Props for the switch element. */
-  switchProps: SwitchProps<E>;
-  /** Props for the selection state. */
-  state: SwitchState;
-};
 
 export const useSwitchRoot = (props => {
   const {
@@ -141,7 +90,7 @@ export const useSwitchRoot = (props => {
     };
   }
 
-  const switchProps: AriaSwitchRoot = {
+  const switchProps = {
     'aria-checked': checked,
     'aria-readonly': readOnly,
     'aria-required': required,
@@ -163,31 +112,11 @@ export const useSwitchRoot = (props => {
     switchProps: elementProps,
     state: { checked, disabled, isDisabled }
   };
-}) as SwitchRootHook;
+}) as UseSwitchRoot;
 
 /* -------------------------------------------------------------------------------------------
  * useSwitchThumb
  * ------------------------------------------------------------------------------------------*/
-
-type SwitchThumbProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  AriaSwitchBase;
-
-type SwitchThumbHookProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  SwitchState & {
-    /**
-     * The HTML element or React element used to render the switchThumb, e.g. 'div', 'span'.
-     * @default 'span'
-     */
-    elementType?: E;
-  };
-
-interface SwitchThumbResponse<E extends ElementType> {
-  /** Props for the switchThumb element. */
-  switchThumbProps: SwitchThumbProps<E> & AriaSwitchBase;
-}
-type SwitchThumbHook = <E extends ElementType = 'span'>(
-  props: SwitchThumbHookProps<E>
-) => SwitchThumbResponse<E>;
 
 export const useSwitchThumb = (props => {
   const {
@@ -206,9 +135,4 @@ export const useSwitchThumb = (props => {
   };
 
   return { switchThumbProps };
-}) as SwitchThumbHook;
-
-export interface UseSwitch {
-  Root: SwitchRootHook,
-  Thumb: SwitchThumbHook
-}
+}) as UseSwitchThumb;

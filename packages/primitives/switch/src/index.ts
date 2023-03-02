@@ -1,10 +1,9 @@
-import { UseSwitch, useSwitchRoot, useSwitchThumb } from './switch';
+import { useSwitchRoot, useSwitchThumb } from './switch';
+import { UseSwitch } from './types';
 
-export { useSwitchThumb, useSwitchRoot as useSwitch  } from './switch';
+export { useSwitchThumb, useSwitchRoot as useSwitch } from './switch';
 export { useSwitchState, SwitchProvider } from './switch.provider';
-export type { SwitchRootBase as UseSwitchProps, SwitchState } from './switch';
-
-
+export type { SwitchRootBase as UseSwitchProps, SwitchState } from './types';
 
 const useSwitch: UseSwitch = {
   Root: useSwitchRoot,
