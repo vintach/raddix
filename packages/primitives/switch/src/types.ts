@@ -39,6 +39,14 @@ export interface CheckedOptions extends Checked {
   onChecked?(checked: boolean): void;
 }
 
+export interface SwitchOptions {
+  /**
+   * Return data attributes on those components that have a state
+   * @default true
+   */
+  dataAttr?: boolean;
+}
+
 export interface SwitchState extends Checked, Disabled {}
 
 export interface SwitchRootBase extends CheckedOptions, Disabled {
@@ -67,7 +75,8 @@ type SwitchRootProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
   AriaAttrSwitch;
 
 type UseSwitchRootProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  SwitchRootBase & {
+  SwitchRootBase &
+  SwitchOptions & {
     /**
      * The HTML element or React element used to render the switch, e.g. 'div', 'span'.
      * @default 'button'
@@ -94,7 +103,8 @@ type SwitchThumbProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
   DataAttrSwitch;
 
 type UseSwitchThumbProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  SwitchState & {
+  SwitchState &
+  SwitchOptions & {
     /**
      * The HTML element or React element used to render the switchThumb, e.g. 'div', 'span'.
      * @default 'span'

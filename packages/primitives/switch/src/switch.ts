@@ -1,5 +1,5 @@
 import { KeyboardEvent, MouseEvent, useState } from 'react';
-import { getAttr, getChecked } from './switch.utils';
+import { getAttr, getChecked, getOptions } from './switch.utils';
 import merger from 'merge-props';
 import {
   AriaAttrSwitch,
@@ -41,6 +41,7 @@ export const useSwitchRoot = (props => {
     onChecked,
     readOnly,
     elementType = 'button',
+    dataAttr = true,
     ...rest
   } = props;
 
@@ -90,11 +91,7 @@ export const useSwitchRoot = (props => {
     'aria-disabled': disabledProp
   };
 
-  // Data attribute
-  const dataAttr: DataAttrSwitch = {
-    'data-state': getChecked(checked),
-    'data-disabled': getAttr(disabled || false)
-  };
+  const elementOptions = getOptions(checked, disabled ?? false, { dataAttr });
 
   // default props depending on the element type
   let elementProps;
@@ -118,8 +115,8 @@ export const useSwitchRoot = (props => {
   return {
     switchProps: merger({
       ...elementProps,
-      ...dataAttr,
-      ...rest
+      ...rest,
+      ...elementOptions
     }),
     state: { checked, disabled, isDisabled }
   };
@@ -131,23 +128,20 @@ export const useSwitchRoot = (props => {
 
 export const useSwitchThumb = (props => {
   const {
-    checked,
+    checked = false,
     disabled: disabledProp,
     isDisabled,
     elementType = 'span',
+    dataAttr = true,
     ...rest
   } = props;
   const disabled = isDisabled ?? disabledProp;
 
-  // Data attribute
-  const dataAttr: DataAttrSwitch = {
-    'data-state': getChecked(checked ?? false),
-    'data-disabled': getAttr(disabled || false)
-  };
+  const elementOptions = getOptions(checked, disabled ?? false, { dataAttr });
 
   return {
     switchThumbProps: {
-      ...dataAttr,
+      ...elementOptions,
       ...rest
     }
   };
