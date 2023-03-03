@@ -47,7 +47,7 @@ export interface SwitchRootBase extends CheckedOptions, Disabled {
 }
 
 export interface DataAttrSwitch {
-  'data-checked'?: Booleanish;
+  'data-state'?: 'checked' | 'unchecked';
   'data-disabled'?: Booleanish;
 }
 export interface AriaAttrSwitch {

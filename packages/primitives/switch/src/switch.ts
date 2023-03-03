@@ -1,7 +1,13 @@
 import { KeyboardEvent, MouseEvent, useState } from 'react';
-import { getChecked } from './switch.utils';
+import { getAttr, getChecked } from './switch.utils';
 import merger from 'merge-props';
-import { CheckedOptions, UseSwitchRoot, UseSwitchThumb } from './types';
+import {
+  AriaAttrSwitch,
+  CheckedOptions,
+  DataAttrSwitch,
+  UseSwitchRoot,
+  UseSwitchThumb
+} from './types';
 
 /* -------------------------------------------------------------------------------------------
  * useControlledState
@@ -75,41 +81,46 @@ export const useSwitchRoot = (props => {
     }
   };
 
-  // default props depending on the element type
-  let elementTypeProps;
-  if (elementType === 'button' || elementType === 'input') {
-    elementTypeProps = {
-      role: 'switch',
-      type: 'button',
-      disabled: isDisabled
-    };
-  } else {
-    elementTypeProps = {
-      role: 'switch',
-      tabIndex: 0
-    };
-  }
-
-  const switchProps = {
+  // Aria attribute for element type other than input checkbox
+  const ariaAttr: AriaAttrSwitch = {
+    role: 'switch',
     'aria-checked': checked,
     'aria-readonly': readOnly,
     'aria-required': required,
-    'aria-disabled': disabledProp,
-    'data-disabled': disabled,
-    'data-state': getChecked(checked)
+    'aria-disabled': disabledProp
   };
 
-  const elementProps = {
-    ...elementTypeProps,
-    ...switchProps,
-    ...merger(
-      { onClick: handleClick, onKeyDown: handleKeyDown, onKeyUp: handleKeyUp },
-      rest
-    )
+  // Data attribute
+  const dataAttr: DataAttrSwitch = {
+    'data-state': getChecked(checked),
+    'data-disabled': getAttr(disabled || false)
   };
+
+  // default props depending on the element type
+  let elementProps;
+  if (elementType === 'button' || elementType === 'input') {
+    elementProps = {
+      type: 'button',
+      ...ariaAttr,
+      disabled: isDisabled,
+      onClick: handleClick
+    };
+  } else {
+    elementProps = {
+      ...ariaAttr,
+      tabIndex: 0,
+      onClick: handleClick,
+      onKeyDown: handleKeyDown,
+      onKeyUp: handleKeyUp
+    };
+  }
 
   return {
-    switchProps: elementProps,
+    switchProps: merger({
+      ...elementProps,
+      ...dataAttr,
+      ...rest
+    }),
     state: { checked, disabled, isDisabled }
   };
 }) as UseSwitchRoot;
@@ -128,11 +139,16 @@ export const useSwitchThumb = (props => {
   } = props;
   const disabled = isDisabled ?? disabledProp;
 
-  const switchThumbProps = {
+  // Data attribute
+  const dataAttr: DataAttrSwitch = {
     'data-state': getChecked(checked ?? false),
-    'data-disabled': disabled,
-    ...rest
+    'data-disabled': getAttr(disabled || false)
   };
 
-  return { switchThumbProps };
+  return {
+    switchThumbProps: {
+      ...dataAttr,
+      ...rest
+    }
+  };
 }) as UseSwitchThumb;
