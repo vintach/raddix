@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 import {
-  useSwitchRoot,
+  useSwitch,
   useSwitchThumb,
   SwitchProvider,
   useSwitchState
@@ -20,7 +20,7 @@ interface Props extends PropsChildren, PropsProv {}
 
 describe('useSwitch tests', () => {
   it('default values', () => {
-    const { result } = renderHook(() => useSwitchRoot({}));
+    const { result } = renderHook(() => useSwitch({}));
     const { result: resultThumb } = renderHook(() =>
       useSwitchThumb(result.current.state)
     );
@@ -36,7 +36,7 @@ describe('useSwitch tests', () => {
 
   it('values others than button element', () => {
     const { result } = renderHook(() =>
-      useSwitchRoot({
+      useSwitch({
         elementType: 'div'
       })
     );
@@ -55,7 +55,7 @@ describe('useSwitch tests', () => {
 
   it('indicates that the element is disabled', () => {
     const { result } = renderHook(() =>
-      useSwitchRoot({
+      useSwitch({
         disabled: true
       })
     );
@@ -77,7 +77,7 @@ describe('useSwitch tests', () => {
 
   it('indicates that the element is immutable', () => {
     const { result } = renderHook(() =>
-      useSwitchRoot({
+      useSwitch({
         readOnly: true,
         defaultChecked: true
       })
