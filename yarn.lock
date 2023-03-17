@@ -3151,6 +3151,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@raddix/use-toggle@workspace:packages/utilities/use-toggle":
+  version: 0.0.0-use.local
+  resolution: "@raddix/use-toggle@workspace:packages/utilities/use-toggle"
+  peerDependencies:
+    react: ">=16.8.0"
+  languageName: unknown
+  linkType: soft
+
 "@raddix/usehover@workspace:*, @raddix/usehover@workspace:packages/hooks/useHover":
   version: 0.0.0-use.local
   resolution: "@raddix/usehover@workspace:packages/hooks/useHover"
