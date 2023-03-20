@@ -1,16 +1,15 @@
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { compilerOptions } = require('./tsconfig.json');
+
 module.exports = {
+  preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  roots: ['<rootDir>/packages'],
   testMatch: ['**/?(*.)+(test).+(ts|tsx|js)'],
-  transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
-  },
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
   ],
-  moduleNameMapper: {
-    '@raddix/(.+)$': '<rootDir>/packages/primitives/$1/src',
-    '@raddix/(.+)$': '<rootDir>/packages/utilities/$1/src'
-  }
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: '<rootDir>/'
+  })
 };
