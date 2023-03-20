@@ -1,0 +1,26 @@
+{
+  "name": "@raddix/use-keyboard",
+  "description": "Handles keyboard interactions for a focusable element.",
+  "version": "1.0.0",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "main": "dist/main.js",
+  "module": "dist/module.js",
+  "types": "dist/types.d.ts",
+  "packageManager": "yarn@3.2.3",
+  "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",
+  "homepage": "https://www.raddix.website",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gdvu/raddix.git"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  }
+}

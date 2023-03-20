@@ -8,6 +8,7 @@
       "@raddix/usepress": ["./packages/hooks/usePress/src"],
       "@raddix/usehover": ["./packages/hooks/useHover/src"],
       "@raddix/use-toggle": ["./packages/utilities/use-toggle/src"],
+      "@raddix/use-keyboard": ["packages/interactions/use-keyboard/src"],
       "@mark-utils/merger": ["./packages/utils/merger/src"],
       "@mark-types/polymorphic": ["./packages/types/polymorphic/src"]
     }
