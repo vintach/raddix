@@ -1,16 +1,15 @@
+import { KeyboardEvent } from 'react';
 import { Keys } from './keys';
 
-type KeyboardHandler = (event: React.KeyboardEvent | KeyboardEvent) => void;
+type KeyboardHandler<T extends HTMLElement = HTMLElement> = (
+  event: KeyboardEvent<T>
+) => void;
 
-type HandleKeyboard = ((event: React.KeyboardEvent<HTMLElement>) => void)[];
-
-type UseKeyboard = (
-  handler: KeyboardHandler,
+export const useKeyboard = <E extends HTMLElement = HTMLElement>(
+  handler: KeyboardHandler<E>,
   shortcut?: Keys[]
-) => HandleKeyboard;
-
-export const useKeyboard: UseKeyboard = (handler, shortcut) => {
-  const handleKeyboard = (event: React.KeyboardEvent<HTMLElement>) => {
+): KeyboardHandler<E> => {
+  const handleKeyboard = (event: KeyboardEvent<E>) => {
     if (!shortcut || shortcut.length === 0) {
       handler(event);
       return;
@@ -21,5 +20,5 @@ export const useKeyboard: UseKeyboard = (handler, shortcut) => {
     }
   };
 
-  return [handleKeyboard];
+  return handleKeyboard;
 };
