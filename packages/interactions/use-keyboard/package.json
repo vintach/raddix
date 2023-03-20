@@ -1,6 +1,6 @@
 {
   "name": "@raddix/use-keyboard",
-  "description": "Handles interactions and keyboard shortcuts for a focusable element.",
+  "description": "Handles keyboard interactions for a focusable element.",
   "version": "1.0.0",
   "license": "MIT",
   "source": "src/index.ts",
