@@ -3151,6 +3151,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@raddix/use-keyboard@workspace:packages/interactions/use-keyboard":
+  version: 0.0.0-use.local
+  resolution: "@raddix/use-keyboard@workspace:packages/interactions/use-keyboard"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  languageName: unknown
+  linkType: soft
+
 "@raddix/use-toggle@workspace:packages/utilities/use-toggle":
   version: 0.0.0-use.local
   resolution: "@raddix/use-toggle@workspace:packages/utilities/use-toggle"
