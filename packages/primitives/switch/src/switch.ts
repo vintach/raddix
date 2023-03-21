@@ -1,12 +1,6 @@
-import { KeyboardEvent, MouseEvent } from 'react';
-import {
-  getAttr,
-  getChecked,
-  getOptions,
-  getSwitchProps
-} from './switch.utils';
+import { getOptions, getSwitchProps } from './switch.utils';
 import merger from 'merge-props';
-import { AriaAttrSwitch, Event, UseSwitch, UseSwitchProps } from './types';
+import { Event, UseSwitchProps } from './types';
 import { useToggle } from '@raddix/use-toggle';
 import { useKeyboard } from '@raddix/use-keyboard';
 
@@ -18,8 +12,8 @@ export const useSwitch = (props: UseSwitchProps = {}) => {
   const {
     checked: initialChecked = false,
     onChecked,
-    disabled = false,
-    readOnly = false,
+    disabled,
+    readOnly,
     elementType = 'button',
     ...rest
   } = props;
@@ -47,16 +41,27 @@ export const useSwitch = (props: UseSwitchProps = {}) => {
     onChange: eventHandler
   });
 
-  const elementOptions = getOptions(checked, disabled ?? false, {
-    dataAttr: false
+  const dataProps = getOptions(checked, disabled ?? false, {
+    dataAttr: true
   });
+
+  const inputProps = {
+    tabIndex: -1,
+    type: 'checkbox',
+    checked,
+    disabled,
+    onChange: eventHandler
+  };
 
   return {
     switchProps: merger({
       ...switchProps,
-      ...rest,
-      ...elementOptions
+      ...rest
     }),
-    state: { checked, disabled }
+    inputProps,
+    dataProps,
+    state: { checked, disabled, setChecked }
   };
 };
+
+export default useSwitch;
