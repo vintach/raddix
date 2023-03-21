@@ -1,148 +1,62 @@
-import { KeyboardEvent, MouseEvent, useState } from 'react';
-import { getAttr, getChecked, getOptions } from './switch.utils';
-import merger from 'merge-props';
+import { KeyboardEvent, MouseEvent } from 'react';
 import {
-  AriaAttrSwitch,
-  CheckedOptions,
-  DataAttrSwitch,
-  UseSwitchRoot,
-  UseSwitchThumb
-} from './types';
+  getAttr,
+  getChecked,
+  getOptions,
+  getSwitchProps
+} from './switch.utils';
+import merger from 'merge-props';
+import { AriaAttrSwitch, Event, UseSwitch, UseSwitchProps } from './types';
+import { useToggle } from '@raddix/use-toggle';
+import { useKeyboard } from '@raddix/use-keyboard';
 
 /* -------------------------------------------------------------------------------------------
- * useControlledState
- * Hook defines controlled or uncontrolled state
- * ------------------------------------------------------------------------------------------*/
-const useControlledState = (options: CheckedOptions) => {
-  const { checked, defaultChecked, onChecked } = options;
-  const [inChecked, setInChecked] = useState<boolean | undefined>(
-    defaultChecked
-  );
-  const isChecked = inChecked ?? false;
-
-  if (checked !== undefined) {
-    return [checked, onChecked] as const;
-  } else {
-    return [isChecked, setInChecked] as const;
-  }
-};
-
-/* -------------------------------------------------------------------------------------------
- * useSwitchRoot
+ * useSwitch
  * ------------------------------------------------------------------------------------------*/
 
-export const useSwitchRoot = (props => {
+export const useSwitch = (props: UseSwitchProps = {}) => {
   const {
-    checked: checkedProp,
-    disabled: disabledProp,
-    isDisabled,
-    required,
-    defaultChecked,
+    checked: initialChecked = false,
     onChecked,
-    readOnly,
+    disabled = false,
+    readOnly = false,
     elementType = 'button',
-    dataAttr = true,
     ...rest
   } = props;
 
-  const [checked, setChecked] = useControlledState({
-    checked: checkedProp,
-    defaultChecked,
-    onChecked
+  const [checked, setChecked, toggle] = useToggle(initialChecked);
+
+  const eventHandler = (e: Event) => {
+    if (disabled || readOnly) {
+      e.preventDefault();
+      return;
+    }
+    toggle();
+  };
+
+  const onKeyDown = useKeyboard(e => e.preventDefault(), ['Enter', ' ']);
+  const onKeyUp = useKeyboard(e => eventHandler(e), ['Enter', ' ']);
+
+  const switchProps = getSwitchProps(elementType, {
+    checked,
+    disabled,
+    readOnly,
+    onClick: eventHandler,
+    onKeyDown,
+    onKeyUp,
+    onChange: eventHandler
   });
 
-  const disabled = isDisabled ?? disabledProp;
-
-  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    if (disabled || readOnly) {
-      e.preventDefault();
-      return;
-    }
-    if (checked) return setChecked?.(false);
-    if (!checked) return setChecked?.(true);
-  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
-    e.stopPropagation();
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-    }
-  };
-
-  const handleKeyUp = (e: KeyboardEvent<HTMLElement>) => {
-    e.stopPropagation();
-    if (disabled || readOnly) {
-      e.preventDefault();
-      return;
-    }
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      if (checked) return setChecked?.(false);
-      if (!checked) return setChecked?.(true);
-    }
-  };
-
-  // Aria attribute for element type other than input checkbox
-  const ariaAttr: AriaAttrSwitch = {
-    role: 'switch',
-    'aria-checked': checked,
-    'aria-readonly': readOnly,
-    'aria-required': required,
-    'aria-disabled': disabledProp
-  };
-
-  const elementOptions = getOptions(checked, disabled ?? false, { dataAttr });
-
-  // default props depending on the element type
-  let elementProps;
-  if (elementType === 'button' || elementType === 'input') {
-    elementProps = {
-      type: 'button',
-      ...ariaAttr,
-      disabled: isDisabled,
-      onClick: handleClick
-    };
-  } else {
-    elementProps = {
-      ...ariaAttr,
-      tabIndex: 0,
-      onClick: handleClick,
-      onKeyDown: handleKeyDown,
-      onKeyUp: handleKeyUp
-    };
-  }
+  const elementOptions = getOptions(checked, disabled ?? false, {
+    dataAttr: false
+  });
 
   return {
     switchProps: merger({
-      ...elementProps,
+      ...switchProps,
       ...rest,
       ...elementOptions
     }),
-    state: { checked, disabled, isDisabled }
+    state: { checked, disabled }
   };
-}) as UseSwitchRoot;
-
-/* -------------------------------------------------------------------------------------------
- * useSwitchThumb
- * ------------------------------------------------------------------------------------------*/
-
-export const useSwitchThumb = (props => {
-  const {
-    checked = false,
-    disabled: disabledProp,
-    isDisabled,
-    elementType = 'span',
-    dataAttr = true,
-    ...rest
-  } = props;
-  const disabled = isDisabled ?? disabledProp;
-
-  const elementOptions = getOptions(checked, disabled ?? false, { dataAttr });
-
-  return {
-    switchThumbProps: {
-      ...elementOptions,
-      ...rest
-    }
-  };
-}) as UseSwitchThumb;
+};
