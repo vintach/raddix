@@ -1,6 +1,6 @@
 import { ArgsTable, Story, Canvas, Meta } from '@storybook/addon-docs';
 import { useState } from 'react';
-import useSwitch from '@raddix/switch';
+import { useSwitch } from '@raddix/switch';
 import './switch.css';
 
 <Meta title='Inputs/useSwitch' />
@@ -8,11 +8,10 @@ import './switch.css';
 <!--- Component template -->
 
 export const Switch = props => {
-  const { switchProps, state } = useSwitch.Root(props);
-  const { switchThumbProps } = useSwitch.Thumb(state);
+  const { switchProps, dataProps } = useSwitch(props);
   return (
-    <button {...switchProps} className='switch'>
-      <span {...switchThumbProps} className='switch-thumb'></span>
+    <button {...switchProps} {...dataProps} className='switch'>
+      <span {...dataProps} className='switch-thumb'></span>
     </button>
   );
 };
@@ -55,12 +54,11 @@ Import all or parts of <code>@raddix/switch</code>
 import useSwitch from '@raddix/switch';
 
 const Switch = props => {
-  const { switchProps, state } = useSwitch.Root(props);
-  const { switchThumbProps } = useSwitch.Thumb(state);
+  const { switchProps, dataProps } = useSwitch(props);
 
   return (
     <button {...switchProps} className='switch'>
-      <span {...switchThumbProps} className='switch-thumb'></span>
+      <span {...dataProps} className='switch-thumb'></span>
     </button>
   );
 };
@@ -70,27 +68,13 @@ const Switch = props => {
 
 The following examples show how to use the Switch component created in the above example.
 
-### Default Checked
+### Checked
 
-Switches are not selected by default. To be checked by default using <code>defaultChecked</code> prop
+Switches are not selected by default. To be checked by default using <code>checked</code> prop
 
 <Canvas>
   <Story name='Default Checked'>
-    <Switch defaultChecked />
-  </Story>
-</Canvas>
-
-### Controlled value
-
-To control the state, use <code>checked</code> property for initial
-value. The <code>onChecked</code> event is fired when the <code>checked</code> prop receives the new value.
-
-<Canvas>
-  <Story name='Controlled value'>
-    {() => {
-      const [checked, setChecked] = useState(true);
-      return <Switch checked={checked} onChecked={setChecked} />;
-    }}
+    <Switch checked />
   </Story>
 </Canvas>
 
@@ -100,7 +84,7 @@ The <code>readOnly</code> prop makes the selection immutable.
 
 <Canvas>
   <Story name='Read only'>
-    <Switch defaultChecked readOnly />
+    <Switch checked readOnly />
   </Story>
 </Canvas>
 
@@ -110,7 +94,7 @@ The <code>disabled</code> prop makes switch un-clickable
 
 <Canvas>
   <Story name='Disabled'>
-    <Switch defaultChecked disabled />
+    <Switch checked disabled />
   </Story>
 </Canvas>
 

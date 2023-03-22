@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType } from 'react';
+import { ChangeEvent, ElementType, KeyboardEvent, MouseEvent } from 'react';
 
 /* -------------------------------------------------------------------------------------------
  * Global Types
@@ -20,23 +20,24 @@ interface Disabled {
    * @default false
    */
   disabled?: boolean;
-  /**
-   * switch is disabled if true (but not focusable).
-   * @default false
-   */
-  isDisabled?: boolean;
 }
 
-export interface CheckedOptions extends Checked {
-  /**
-   * Tswitch is on if true (uncontrolled).
-   * @default false
-   */
-  defaultChecked?: boolean;
-  /**
-   * Event to update the value checked property.
-   */
-  onChecked?(checked: boolean): void;
+interface ReadOnly {
+  readOnly?: boolean;
+}
+
+export interface SwitchState extends Checked, Disabled {}
+
+export type Event =
+  | MouseEvent<HTMLElement>
+  | KeyboardEvent<HTMLElement>
+  | ChangeEvent<HTMLElement>;
+
+export interface Options extends Checked, Disabled, ReadOnly {
+  onClick?: (e: MouseEvent<HTMLElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLElement>) => void;
+  onKeyUp?: (e: KeyboardEvent<HTMLElement>) => void;
+  onKeyDown?: (e: KeyboardEvent<HTMLElement>) => void;
 }
 
 export interface SwitchOptions {
@@ -47,19 +48,12 @@ export interface SwitchOptions {
   dataAttr?: boolean;
 }
 
-export interface SwitchState extends Checked, Disabled {}
-
-export interface SwitchRootBase extends CheckedOptions, Disabled {
-  required?: boolean;
-  readOnly?: boolean;
-}
-
 export interface DataAttrSwitch {
   'data-state'?: 'checked' | 'unchecked';
   'data-disabled'?: Booleanish;
 }
 export interface AriaAttrSwitch {
-  role: 'switch';
+  role?: 'switch';
   'aria-checked'?: boolean;
   'aria-readonly'?: boolean;
   'aria-required'?: boolean;
@@ -70,61 +64,27 @@ export interface AriaAttrSwitch {
  * useSwitchRoot Types
  * ------------------------------------------------------------------------------------------*/
 
-type SwitchRootProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  DataAttrSwitch &
-  AriaAttrSwitch;
+export interface UseSwitchProps extends Checked, Disabled, ReadOnly {
+  /**
+   * The HTML element or React element used to render the switch, e.g. 'div', 'span'.
+   * @default 'button'
+   */
+  elementType?: ElementType;
+  /**
+   * Event to update the value checked property.
+   */
+  onChecked?(checked: boolean): void;
+}
 
-type UseSwitchRootProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  SwitchRootBase &
-  SwitchOptions & {
-    /**
-     * The HTML element or React element used to render the switch, e.g. 'div', 'span'.
-     * @default 'button'
-     */
-    elementType?: E;
-  };
-
-interface SwitchResponse<E extends ElementType = 'button'> {
+interface SwitchResponse {
   /** Props for the switch element. */
-  switchProps: SwitchRootProps<E>;
+  switchProps: SwitchProps;
   /** Props for the selection state. */
   state: SwitchState;
 }
 
-export type UseSwitchRoot = <E extends ElementType = 'button'>(
-  props: UseSwitchRootProps<E>
-) => SwitchResponse<E>;
+export type UseSwitch = (props?: UseSwitchProps) => SwitchResponse;
 
-/* -------------------------------------------------------------------------------------------
- * useSwitchThumb Types
- * ------------------------------------------------------------------------------------------*/
-
-type SwitchThumbProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  DataAttrSwitch;
-
-type UseSwitchThumbProps<E extends ElementType> = ComponentPropsWithoutRef<E> &
-  SwitchState &
-  SwitchOptions & {
-    /**
-     * The HTML element or React element used to render the switchThumb, e.g. 'div', 'span'.
-     * @default 'span'
-     */
-    elementType?: E;
-  };
-
-interface SwitchThumbResponse<E extends ElementType> {
-  /** Props for the switchThumb element. */
-  switchThumbProps: SwitchThumbProps<E>;
-}
-export type UseSwitchThumb = <E extends ElementType = 'span'>(
-  props: UseSwitchThumbProps<E>
-) => SwitchThumbResponse<E>;
-
-/* -------------------------------------------------------------------------------------------
- * useSwitch Types
- * ------------------------------------------------------------------------------------------*/
-
-export interface UseSwitch {
-  Root: UseSwitchRoot;
-  Thumb: UseSwitchThumb;
+export interface SwitchProps extends AriaAttrSwitch, Options {
+  tabIndex?: number;
 }

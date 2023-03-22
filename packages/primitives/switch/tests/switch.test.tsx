@@ -1,114 +1,61 @@
-// import { act, renderHook } from '@testing-library/react';
-// import {
-//   useSwitch,
-//   useSwitchThumb,
-//   SwitchProvider,
-//   useSwitchState
-// } from '@raddix/switch';
+import { act, fireEvent, render, screen } from '@testing-library/react';
+import { useSwitch, UseSwitchProps } from '@raddix/switch';
+import '@testing-library/jest-dom';
 
-// import { ReactNode } from 'react';
-// interface PropsChildren {
-//   children?: ReactNode;
-// }
-// interface PropsProv {
-//   disabled?: boolean;
-//   checked?: boolean;
-//   isDisabled?: boolean;
-// }
+const Switch = (props: UseSwitchProps) => {
+  const { switchProps } = useSwitch(props);
 
-test('false', () => {
-  const expected = 'fizz';
-  expect(expected).toBe('fizz');
+  return <button {...switchProps}></button>;
+};
+
+describe('useSwitch tests:', () => {
+  test('the switch should be shown in the document', () => {
+    render(<Switch />);
+
+    const switchs = screen.getByRole('switch');
+
+    expect(switchs).toBeInTheDocument();
+  });
+
+  test('should display checked in true', () => {
+    render(<Switch checked />);
+
+    const switchs = screen.getByRole('switch', {
+      checked: true
+    });
+
+    expect(switchs).toBeInTheDocument();
+  });
+
+  test('should be disabled', () => {
+    render(<Switch disabled />);
+
+    const switchs = screen.getByRole('switch');
+
+    expect(switchs).toBeDisabled();
+  });
+
+  test('should be the immutable selection.', () => {
+    render(<Switch readOnly />);
+
+    const switchs = screen.getByRole('switch', { checked: false });
+
+    fireEvent.click(switchs);
+
+    expect(switchs).not.toBeChecked();
+    expect(switchs).not.toBeDisabled();
+  });
+
+  test('should support keyboard interactions: Space and Enter', () => {
+    render(<Switch checked />);
+
+    const switchs = screen.getByRole('switch', { checked: true });
+    expect(switchs).toBeChecked();
+
+    fireEvent.keyUp(switchs, { key: 'Enter' });
+    expect(switchs).not.toBeChecked();
+
+    fireEvent.keyUp(switchs, { key: ' ' });
+    expect(switchs).toBeChecked();
+  });
 });
-
-// interface Props extends PropsChildren, PropsProv {}
-
-// describe('useSwitch tests', () => {
-//   it('default values', () => {
-//     const { result } = renderHook(() => useSwitch({}));
-//     const { result: resultThumb } = renderHook(() =>
-//       useSwitchThumb(result.current.state)
-//     );
-
-//     expect(result.current.switchProps['role']).toBe('switch');
-//     expect(result.current.switchProps['aria-checked']).toBe(false);
-//     expect(result.current.switchProps['data-state']).toBe('unchecked');
-
-//     expect(resultThumb.current.switchThumbProps['data-state']).toBe(
-//       'unchecked'
-//     );
-//   });
-
-//   it('values others than button element', () => {
-//     const { result } = renderHook(() =>
-//       useSwitch({
-//         elementType: 'div'
-//       })
-//     );
-//     const { result: resultThumb } = renderHook(() =>
-//       useSwitchThumb(result.current.state)
-//     );
-
-//     expect(result.current.switchProps['role']).toBe('switch');
-//     expect(result.current.switchProps['aria-checked']).toBe(false);
-//     expect(result.current.switchProps['data-state']).toBe('unchecked');
-
-//     expect(resultThumb.current.switchThumbProps['data-state']).toBe(
-//       'unchecked'
-//     );
-//   });
-
-//   it('indicates that the element is disabled', () => {
-//     const { result } = renderHook(() =>
-//       useSwitch({
-//         disabled: true
-//       })
-//     );
-//     const { result: resultThumb } = renderHook(() =>
-//       useSwitchThumb(result.current.state)
-//     );
-
-//     expect(result.current.switchProps['role']).toBe('switch');
-//     expect(result.current.switchProps['aria-checked']).toBe(false);
-//     expect(result.current.switchProps['data-state']).toBe('unchecked');
-//     expect(result.current.switchProps['aria-disabled']).toBe(true);
-//     expect(result.current.switchProps['data-disabled']).toBe(true);
-
-//     expect(resultThumb.current.switchThumbProps['data-state']).toBe(
-//       'unchecked'
-//     );
-//     expect(resultThumb.current.switchThumbProps['data-disabled']).toBe(true);
-//   });
-
-//   it('indicates that the element is immutable', () => {
-//     const { result } = renderHook(() =>
-//       useSwitch({
-//         readOnly: true,
-//         defaultChecked: true
-//       })
-//     );
-//     const { result: resultThumb } = renderHook(() =>
-//       useSwitchThumb(result.current.state)
-//     );
-
-//     expect(result.current.switchProps['role']).toBe('switch');
-//     expect(result.current.switchProps['aria-checked']).toBe(true);
-//     expect(result.current.switchProps['data-state']).toBe('checked');
-//     expect(result.current.switchProps['aria-readonly']).toBe(true);
-
-//     expect(resultThumb.current.switchThumbProps['data-state']).toBe('checked');
-//   });
-
-//   it('receiving values from switchProvider', () => {
-//     const { result } = renderHook(() => useSwitchState(), {
-//       wrapper: ({ children }: { children: ReactNode }) => (
-//         <SwitchProvider checked={true} disabled={false}>
-//           {children}
-//         </SwitchProvider>
-//       )
-//     });
-
-//     expect(result.current.checked).toBe(true);
-//     expect(result.current.disabled).toBe(false);
-//   });
-// });
