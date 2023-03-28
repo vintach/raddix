@@ -1,6 +1,6 @@
 {
   "name": "@raddix/switch",
-  "version": "0.6.0",
+  "version": "1.0.0-beta.2",
   "packageManager": "yarn@3.2.2",
   "license": "MIT",
   "source": "src/index.ts",
@@ -19,8 +19,7 @@
     "accessibility"
   ],
   "files": [
-    "dist",
-    "README.md"
+    "dist"
   ],
   "targets": {
     "main": {
@@ -33,15 +32,13 @@
     }
   },
   "sideEffects": false,
-  "scripts": {
-    "clean": "rm -rf dist",
-    "version": "yarn version"
-  },
   "publishConfig": {
     "directory": "dist"
   },
   "dependencies": {
-    "merge-props": "^5.0.3"
+    "@raddix/use-keyboard": "workspace:*",
+    "@raddix/use-toggle": "workspace:*",
+    "merge-props": "5.0.3"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
