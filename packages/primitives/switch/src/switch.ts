@@ -1,5 +1,4 @@
 import { getOptions, getSwitchProps } from './switch.utils';
-import merger from 'merge-props';
 import { Event, UseSwitchProps } from './types';
 import { useToggle } from '@raddix/use-toggle';
 import { useKeyboard } from '@raddix/use-keyboard';
@@ -54,10 +53,10 @@ export const useSwitch = (props: UseSwitchProps = {}) => {
   };
 
   return {
-    switchProps: merger({
+    switchProps: {
       ...switchProps,
       ...rest
-    }),
+    },
     inputProps,
     dataProps,
     state: { checked, disabled, setChecked }
