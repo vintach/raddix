@@ -1,4 +1,13 @@
-import { ChangeEvent, ElementType, KeyboardEvent, MouseEvent } from 'react';
+import {
+  ChangeEvent,
+  ComponentPropsWithoutRef,
+  KeyboardEvent,
+  MouseEvent,
+  ElementType,
+  InputHTMLAttributes,
+  Dispatch,
+  SetStateAction
+} from 'react';
 
 /* -------------------------------------------------------------------------------------------
  * Global Types
@@ -26,27 +35,11 @@ interface ReadOnly {
   readOnly?: boolean;
 }
 
-export interface SwitchState extends Checked, Disabled {}
-
-export type Event =
-  | MouseEvent<HTMLElement>
-  | KeyboardEvent<HTMLElement>
-  | ChangeEvent<HTMLElement>;
-
-export interface Options extends Checked, Disabled, ReadOnly {
-  onClick?: (e: MouseEvent<HTMLElement>) => void;
-  onChange?: (e: ChangeEvent<HTMLElement>) => void;
-  onKeyUp?: (e: KeyboardEvent<HTMLElement>) => void;
-  onKeyDown?: (e: KeyboardEvent<HTMLElement>) => void;
+export interface SwitchState extends Checked, Disabled {
+  setChecked: Dispatch<SetStateAction<boolean>>;
 }
 
-export interface SwitchOptions {
-  /**
-   * Return data attributes on those components that have a state
-   * @default true
-   */
-  dataAttr?: boolean;
-}
+export type Event = MouseEvent | KeyboardEvent | ChangeEvent;
 
 export interface DataAttrSwitch {
   'data-state'?: 'checked' | 'unchecked';
@@ -64,27 +57,29 @@ export interface AriaAttrSwitch {
  * useSwitchRoot Types
  * ------------------------------------------------------------------------------------------*/
 
-export interface UseSwitchProps extends Checked, Disabled, ReadOnly {
-  /**
-   * The HTML element or React element used to render the switch, e.g. 'div', 'span'.
-   * @default 'button'
-   */
-  elementType?: ElementType;
-  /**
-   * Event to update the value checked property.
-   */
-  onChecked?(checked: boolean): void;
-}
+export interface UseSwitchProps extends Checked, Disabled, ReadOnly {}
 
-interface SwitchResponse {
-  /** Props for the switch element. */
-  switchProps: SwitchProps;
-  /** Props for the selection state. */
+export type Element<E = any> = ElementType<E>;
+export type As<E extends ElementType> = {
+  /**
+   * The HTML element or React element used to render the switch, e.g. 'div', 'button'.
+   * @default 'input'
+   */
+  as?: E;
+};
+
+export type UseProps<E extends ElementType> = As<E> & UseSwitchProps;
+
+type SwitchProps<E extends ElementType> = UseSwitchProps &
+  Omit<ComponentPropsWithoutRef<E>, keyof UseSwitchProps>;
+
+export type UseResponse<E extends ElementType> = {
+  switchProps: SwitchProps<E>;
+  dataProps: DataAttrSwitch;
   state: SwitchState;
-}
+  inputProps: InputHTMLAttributes<HTMLInputElement>;
+};
 
-export type UseSwitch = (props?: UseSwitchProps) => SwitchResponse;
-
-export interface SwitchProps extends AriaAttrSwitch, Options {
-  tabIndex?: number;
-}
+export type UseSwitch = <E extends ElementType = 'div'>(
+  props?: UseProps<E>
+) => UseResponse<E>;
