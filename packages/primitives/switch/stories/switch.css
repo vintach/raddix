@@ -21,7 +21,7 @@
   background-color: var(--color-primary);
 }
 
-.switch[data-disabled='true'] {
+.switch[data-disabled] {
   opacity: 0.4;
 }
 
