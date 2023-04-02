@@ -3,7 +3,10 @@ import { useSwitch, UseSwitchProps } from '@raddix/switch';
 import '@testing-library/jest-dom';
 
 const Switch = (props: UseSwitchProps) => {
-  const { switchProps } = useSwitch(props);
+  const { switchProps, dataProps, inputProps, state } = useSwitch({
+    as: 'button',
+    ...props
+  });
 
   return <button {...switchProps}></button>;
 };

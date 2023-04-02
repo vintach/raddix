@@ -5,10 +5,11 @@ import './switch.css';
 
 <Meta title='Inputs/useSwitch' />
 
-<!--- Component template -->
-
 export const Switch = props => {
-  const { switchProps, dataProps } = useSwitch(props);
+  const { switchProps, dataProps } = useSwitch({
+    as: 'button',
+    ...props
+  });
   return (
     <button {...switchProps} {...dataProps} className='switch'>
       <span {...dataProps} className='switch-thumb'></span>

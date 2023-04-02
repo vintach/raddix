@@ -3146,7 +3146,6 @@ __metadata:
   dependencies:
     "@raddix/use-keyboard": "workspace:*"
     "@raddix/use-toggle": "workspace:*"
-    merge-props: 5.0.3
   peerDependencies:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
@@ -12321,7 +12320,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"merge-props@npm:5.0.3, merge-props@npm:^5.0.3":
+"merge-props@npm:^5.0.3":
   version: 5.0.3
   resolution: "merge-props@npm:5.0.3"
   checksum: 051fa9912fe8becb547bf2561b83ec98d7429782f623638384afefdd9f60926b93e1c1923a2922b24d21d840cdd86bb040d4c0023d83677cf3ee115e02c77730

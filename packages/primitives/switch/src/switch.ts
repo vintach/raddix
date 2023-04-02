@@ -1,6 +1,6 @@
-import { getOptions, getSwitchProps } from './switch.utils';
-import merger from 'merge-props';
-import { Event, UseSwitchProps } from './types';
+import { ChangeEvent, MouseEvent, useCallback } from 'react';
+import { getAttr, getChecked } from './switch.utils';
+import { Element, Event, UseProps, UseSwitch } from './types';
 import { useToggle } from '@raddix/use-toggle';
 import { useKeyboard } from '@raddix/use-keyboard';
 
@@ -8,42 +8,57 @@ import { useKeyboard } from '@raddix/use-keyboard';
  * useSwitch
  * ------------------------------------------------------------------------------------------*/
 
-export const useSwitch = (props: UseSwitchProps = {}) => {
+export const useSwitch = (<E extends Element = 'div'>(props: UseProps<E>) => {
   const {
     checked: initialChecked = false,
-    onChecked,
     disabled,
     readOnly,
-    elementType = 'button',
-    ...rest
+    as = 'div',
+    onChange: handleChange
   } = props;
 
   const [checked, setChecked, toggle] = useToggle(initialChecked);
 
-  const eventHandler = (e: Event) => {
-    if (disabled || readOnly) {
-      e.preventDefault();
-      return;
-    }
-    toggle();
-  };
+  const nativeProps: boolean = Boolean(as === 'button' || as === 'input');
+  const nativeInput: boolean = as === 'input';
+  const tabIndex = disabled ? -1 : 0;
+
+  const eventHandler = useCallback(
+    (e: Event) => {
+      if (disabled || readOnly) {
+        e.preventDefault();
+        return;
+      }
+      toggle();
+
+      const eventChange = e as ChangeEvent;
+      handleChange && handleChange(eventChange);
+    },
+    [disabled, readOnly, toggle]
+  );
 
   const onKeyDown = useKeyboard(e => e.preventDefault(), ['Enter', ' ']);
   const onKeyUp = useKeyboard(e => eventHandler(e), ['Enter', ' ']);
+  const onClick = (e: MouseEvent) => (nativeInput ? {} : eventHandler(e));
+  const onChange = (e: ChangeEvent) => (!nativeInput ? {} : eventHandler(e));
 
-  const switchProps = getSwitchProps(elementType, {
-    checked,
-    disabled,
-    readOnly,
-    onClick: eventHandler,
+  const switchProps = {
+    role: 'switch',
+    tabIndex: !nativeProps ? tabIndex : undefined,
+    'aria-checked': !nativeInput ? checked : undefined,
+    'aria-readonly': readOnly,
+    'aria-disabled': !nativeProps ? disabled : undefined,
+    disabled: nativeProps ? disabled : undefined,
+    onClick,
     onKeyDown,
     onKeyUp,
-    onChange: eventHandler
-  });
+    onChange
+  };
 
-  const dataProps = getOptions(checked, disabled ?? false, {
-    dataAttr: true
-  });
+  const dataAttr = {
+    'data-state': getChecked(checked),
+    'data-disabled': getAttr(disabled ?? false)
+  };
 
   const inputProps = {
     tabIndex: -1,
@@ -54,14 +69,11 @@ export const useSwitch = (props: UseSwitchProps = {}) => {
   };
 
   return {
-    switchProps: merger({
-      ...switchProps,
-      ...rest
-    }),
+    switchProps: switchProps,
     inputProps,
-    dataProps,
+    dataProps: dataAttr,
     state: { checked, disabled, setChecked }
   };
-};
+}) as UseSwitch;
 
 export default useSwitch;
