@@ -28,4 +28,4 @@ pnpm add @raddix/use-keyboard
 
 ## Documentation
 
-For full documentation, visit [raddix.website/use-keyboard](https://www.raddix.website/interactions/use-keyboard)
+For full documentation, visit [raddix.website/use-keyboard](https://www.raddix.website/docs/interactions/use-keyboard)

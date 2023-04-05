@@ -28,4 +28,4 @@ pnpm add @raddix/use-toggle
 
 ## Documentation
 
-For full documentation, visit [raddix.website/use-toggle](https://www.raddix.website/utilities/use-toggle)
+For full documentation, visit [raddix.website/use-toggle](https://www.raddix.website/docs/utilities/use-toggle)

@@ -33,9 +33,7 @@ pnpm add @raddix/switch
 
 ## Usage
 
-This is a simple example of how to use it.
-To see the options and more modes of
-use <a href="https://www.raddix.website/docs/aria/switch">here</a>.
+This is a simple example of how to use it. To see the options and more modes of use <a href="https://www.raddix.website/docs/aria/switch">here</a>.
 
 ```jsx
 import { useSwitch } from '@raddix/switch';

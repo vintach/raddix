@@ -1,7 +1,7 @@
 {
   "name": "@raddix/use-toggle",
   "description": "A simple hook that toggles its value from true to false.",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "license": "MIT",
   "source": "src/index.ts",
   "main": "dist/main.js",
