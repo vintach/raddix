@@ -5,8 +5,7 @@ import {
   CheckboxRootHook,
   CheckedOptions,
   DataAttrCheckbox,
-  IndeterminateOptions,
-  UseCheckboxIndicator
+  IndeterminateOptions
 } from './types';
 
 /* -------------------------------------------------------------------------------------------
@@ -42,10 +41,10 @@ const useIndeterminate = (options: IndeterminateOptions) => {
 };
 
 /* -------------------------------------------------------------------------------------------
- * useCheckboxRoot
+ * useCheckbox
  * ------------------------------------------------------------------------------------------*/
 
-export const useCheckboxRoot = (props => {
+export const useCheckbox = (props => {
   const {
     checked: checkedProp,
     indeterminate: indeterminateProp = false,
@@ -139,35 +138,5 @@ export const useCheckboxRoot = (props => {
     }
   };
 }) as CheckboxRootHook;
-
-/* -------------------------------------------------------------------------------------------
- * useCheckboxIndicator
- * ------------------------------------------------------------------------------------------*/
-
-export const useCheckboxIndicator = (props => {
-  const {
-    elementType = 'span',
-    checked = false,
-    disabled: disabledProp,
-    indeterminate = false,
-    isDisabled,
-    ...rest
-  } = props;
-  const disabled = isDisabled ?? disabledProp;
-
-  return {
-    checkboxIndicatorProps: {
-      'data-disabled': disabled,
-      'data-checked': getDataChecked(checked, indeterminate),
-      'data-indeterminate': getAttr(indeterminate),
-      ...rest
-    }
-  };
-}) as UseCheckboxIndicator;
-
-const useCheckbox = {
-  Root: useCheckboxRoot,
-  Indicator: useCheckboxIndicator
-};
 
 export default useCheckbox;

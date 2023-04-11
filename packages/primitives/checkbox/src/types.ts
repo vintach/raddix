@@ -100,27 +100,3 @@ interface CheckboxResponse<E extends ElementType> {
 export type CheckboxRootHook = <E extends ElementType = 'button'>(
   props: CheckboxRootHookProps<E>
 ) => CheckboxResponse<E>;
-
-/* -------------------------------------------------------------------------------------------
- * useCheckboxIndicator Types
- * ------------------------------------------------------------------------------------------*/
-
-type CheckboxIndicatorProps<E extends ElementType> =
-  ComponentPropsWithoutRef<E> & DataAttrCheckbox;
-interface CheckboxIndicator<E extends ElementType> {
-  /** Props for the switch element. */
-  checkboxIndicatorProps: CheckboxIndicatorProps<E>;
-}
-
-type UseCheckboxIndicatorProps<E extends ElementType> =
-  ComponentPropsWithoutRef<E> &
-    CheckboxState & {
-      /**
-       * The HTML element or React element used to render the switch, e.g. 'div', 'span'.
-       * @default 'span'
-       */
-      elementType?: E;
-    };
-export type UseCheckboxIndicator = <E extends ElementType = 'span'>(
-  props: UseCheckboxIndicatorProps<E>
-) => CheckboxIndicator<E>;
