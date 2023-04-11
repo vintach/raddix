@@ -1,5 +1,4 @@
 import { ChangeEvent, useState } from 'react';
-import merger from 'merge-props';
 import { getAriaChecked, getAttr, getDataChecked } from './checkbox.utils';
 import {
   AriaAttrCheckbox,
@@ -129,11 +128,11 @@ export const useCheckboxRoot = (props => {
   }
 
   return {
-    checkboxProps: merger({
+    checkboxProps: {
       ...elementProps,
       ...dataAttr,
       ...rest
-    }),
+    },
     state: {
       checked: checked,
       indeterminate: indeterminate
