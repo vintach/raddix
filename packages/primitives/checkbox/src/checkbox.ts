@@ -2,29 +2,13 @@ import { ChangeEvent, useState } from 'react';
 import { getAriaChecked, getAttr, getDataChecked } from './checkbox.utils';
 import {
   AriaAttrCheckbox,
-  CheckboxRootHook,
-  CheckedOptions,
+  UseCheckbox,
   DataAttrCheckbox,
-  IndeterminateOptions
+  IndeterminateOptions,
+  Element,
+  UseProps
 } from './types';
-
-/* -------------------------------------------------------------------------------------------
- * useChecked
- * Hook defines checked or unchecked state
- * ------------------------------------------------------------------------------------------*/
-const useChecked = (options: CheckedOptions) => {
-  const { checked, defaultChecked, onChecked } = options;
-  const [inChecked, setInChecked] = useState<boolean | undefined>(
-    defaultChecked
-  );
-  const isChecked = inChecked ?? false;
-
-  if (checked !== undefined) {
-    return [checked, onChecked] as const;
-  } else {
-    return [isChecked, setInChecked] as const;
-  }
-};
+import { useToggle } from '@raddix/use-toggle';
 
 /* -------------------------------------------------------------------------------------------
  * useIndeterminate
@@ -44,31 +28,25 @@ const useIndeterminate = (options: IndeterminateOptions) => {
  * useCheckbox
  * ------------------------------------------------------------------------------------------*/
 
-export const useCheckbox = (props => {
+export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
   const {
-    checked: checkedProp,
+    checked: initialChecked,
     indeterminate: indeterminateProp = false,
     defaultChecked = false,
     onChecked,
     onIndeterminate,
     elementType = 'button',
-    disabled: disabledProp,
+    disabled,
     isDisabled,
     readOnly,
     ...rest
   } = props;
 
-  const [checked, setChecked] = useChecked({
-    defaultChecked,
-    checked: checkedProp,
-    onChecked
-  });
+  const [checked, setChecked, toggle] = useToggle(initialChecked);
   const [indeterminate, setIndeterminate] = useIndeterminate({
     indeterminate: indeterminateProp,
     onIndeterminate
   });
-
-  const disabled = isDisabled ?? disabledProp;
 
   const handleClick = () => {
     if (disabled || readOnly) {
@@ -91,7 +69,7 @@ export const useCheckbox = (props => {
   const ariaAttr: AriaAttrCheckbox = {
     role: 'checkbox',
     'aria-checked': getAriaChecked(checked, indeterminate),
-    'aria-disabled': disabledProp,
+    'aria-disabled': disabled,
     'aria-readonly': readOnly
   };
 
@@ -137,6 +115,6 @@ export const useCheckbox = (props => {
       indeterminate: indeterminate
     }
   };
-}) as CheckboxRootHook;
+}) as UseCheckbox;
 
 export default useCheckbox;
