@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import { getAriaChecked, getAttr, getDataChecked } from './checkbox.utils';
 import {
-  AriaAttrCheckbox,
   UseCheckbox,
   DataAttrCheckbox,
   IndeterminateOptions,
@@ -35,11 +34,9 @@ export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
     defaultChecked = false,
     onChecked,
     onIndeterminate,
-    elementType = 'button',
+    as = 'div',
     disabled,
-    isDisabled,
-    readOnly,
-    ...rest
+    readOnly
   } = props;
 
   const [checked, setChecked, toggle] = useToggle(initialChecked);
@@ -48,16 +45,19 @@ export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
     onIndeterminate
   });
 
+  const nativeProps: boolean = Boolean(as === 'button' || as === 'input');
+  const nativeInput: boolean = as === 'input';
+  const tabIndex = disabled ? -1 : 0;
+
   const handleClick = () => {
     if (disabled || readOnly) {
       return;
     }
-
-    setChecked?.(!checked);
+    toggle();
 
     if (indeterminate) {
       setIndeterminate?.(false);
-      setChecked?.(true);
+      setChecked(true);
     }
   };
 
@@ -65,13 +65,7 @@ export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
     // setChecked?.(!checked);
   };
 
-  // Aria attribute for element type other than input checkbox
-  const ariaAttr: AriaAttrCheckbox = {
-    role: 'checkbox',
-    'aria-checked': getAriaChecked(checked, indeterminate),
-    'aria-disabled': disabled,
-    'aria-readonly': readOnly
-  };
+  const onClick = (e: MouseEvent) => (nativeInput ? {} : handleClick());
 
   // Data attribute
   const dataAttr: DataAttrCheckbox = {
@@ -81,39 +75,21 @@ export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
   };
 
   // Attributes according to element type
-  let elementProps;
-  if (elementType === 'input') {
-    elementProps = {
-      type: 'checkbox',
-      disabled: isDisabled,
-      readOnly: readOnly,
-      onChange: handleChange
-    };
-  } else if (elementType === 'button') {
-    elementProps = {
-      type: 'button',
-      disabled: isDisabled,
-      ...ariaAttr,
-      onClick: handleClick
-    };
-  } else {
-    elementProps = {
-      ...ariaAttr,
-      tabIndex: 0,
-      onClick: handleClick
-    };
-  }
+  const checkboxProps = {
+    role: 'checkbox',
+    tabIndex: !nativeProps ? tabIndex : undefined,
+    'aria-checked': !nativeInput
+      ? getAriaChecked(checked, indeterminate)
+      : undefined,
+    'aria-readonly': readOnly,
+    'aria-disabled': !nativeProps ? disabled : undefined,
+    disabled: nativeProps ? disabled : undefined,
+    onClick
+  };
 
   return {
-    checkboxProps: {
-      ...elementProps,
-      ...dataAttr,
-      ...rest
-    },
-    state: {
-      checked: checked,
-      indeterminate: indeterminate
-    }
+    checkboxProps,
+    state: { checked, indeterminate }
   };
 }) as UseCheckbox;
 
