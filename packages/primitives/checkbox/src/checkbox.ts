@@ -89,6 +89,7 @@ export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
 
   return {
     checkboxProps,
+    dataProps: dataAttr,
     state: { checked, indeterminate }
   };
 }) as UseCheckbox;

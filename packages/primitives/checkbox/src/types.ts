@@ -89,6 +89,7 @@ export type UseProps<E extends ElementType> = UseCheckboxProps & {
 interface CheckboxResponse<E extends ElementType> {
   /** Props for the switch element. */
   checkboxProps: CheckboxProps<E>;
+  dataProps: DataAttrCheckbox;
   /** Props for the selection state. */
   state: CheckboxState;
 }
