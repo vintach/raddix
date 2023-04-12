@@ -3117,23 +3117,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@raddix/button@workspace:packages/primitives/button":
-  version: 0.0.0-use.local
-  resolution: "@raddix/button@workspace:packages/primitives/button"
-  dependencies:
-    "@raddix/usehover": "workspace:*"
-    "@raddix/usepress": "workspace:*"
-  peerDependencies:
-    react: ">=16.8.0"
-    react-dom: ">=16.8.0"
-  languageName: unknown
-  linkType: soft
-
 "@raddix/checkbox@workspace:packages/primitives/checkbox":
   version: 0.0.0-use.local
   resolution: "@raddix/checkbox@workspace:packages/primitives/checkbox"
-  dependencies:
-    merge-props: ^5.0.3
   peerDependencies:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
@@ -3170,7 +3156,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@raddix/usehover@workspace:*, @raddix/usehover@workspace:packages/hooks/useHover":
+"@raddix/usehover@workspace:packages/hooks/useHover":
   version: 0.0.0-use.local
   resolution: "@raddix/usehover@workspace:packages/hooks/useHover"
   peerDependencies:
@@ -3178,7 +3164,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@raddix/usepress@workspace:*, @raddix/usepress@workspace:packages/hooks/usePress":
+"@raddix/usepress@workspace:packages/hooks/usePress":
   version: 0.0.0-use.local
   resolution: "@raddix/usepress@workspace:packages/hooks/usePress"
   peerDependencies:
@@ -12317,13 +12303,6 @@ __metadata:
   version: 1.0.1
   resolution: "merge-descriptors@npm:1.0.1"
   checksum: 5abc259d2ae25bb06d19ce2b94a21632583c74e2a9109ee1ba7fd147aa7362b380d971e0251069f8b3eb7d48c21ac839e21fa177b335e82c76ec172e30c31a26
-  languageName: node
-  linkType: hard
-
-"merge-props@npm:^5.0.3":
-  version: 5.0.3
-  resolution: "merge-props@npm:5.0.3"
-  checksum: 051fa9912fe8becb547bf2561b83ec98d7429782f623638384afefdd9f60926b93e1c1923a2922b24d21d840cdd86bb040d4c0023d83677cf3ee115e02c77730
   languageName: node
   linkType: hard
 
