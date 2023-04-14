@@ -1,4 +1,3 @@
-import { ChangeEvent, useState } from 'react';
 import { getAriaChecked, getAttr, getDataChecked } from './checkbox.utils';
 import {
   UseCheckbox,
@@ -29,9 +28,8 @@ const useIndeterminate = (options: IndeterminateOptions) => {
 
 export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
   const {
-    checked: initialChecked,
+    checked: initialChecked = false,
     indeterminate: indeterminateProp = false,
-    defaultChecked = false,
     onChecked,
     onIndeterminate,
     as = 'div',
@@ -59,10 +57,6 @@ export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
       setIndeterminate?.(false);
       setChecked(true);
     }
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // setChecked?.(!checked);
   };
 
   const onClick = (e: MouseEvent) => (nativeInput ? {} : handleClick());
