@@ -1,19 +1,16 @@
 import { ArgsTable, Story, Canvas, Meta } from '@storybook/addon-docs';
 import { useState, useEffect } from 'react';
-import useCheckbox from '@raddix/checkbox';
+import { useCheckbox } from '@raddix/checkbox';
 import './checkbox.css';
 
 <Meta title='Inputs/useCheckbox' />
 
-<!--- Component template -->
-
 export const Checkbox = props => {
-  const { checkboxProps, state } = useCheckbox.Root(props);
-  const { checkboxIndicatorProps } = useCheckbox.Indicator(state);
+  const { checkboxProps, dataProps, state } = useCheckbox(props);
   return (
-    <button {...checkboxProps} className='checkbox'>
-      <span {...checkboxIndicatorProps} className='checkbox-indicator'></span>
-    </button>
+    <div {...checkboxProps} {...dataProps} className='checkbox'>
+      <span {...dataProps} className='checkbox-indicator'></span>
+    </div>
   );
 };
 
@@ -95,8 +92,6 @@ value. The <code>onChecked</code> event is fired when the <code>checked</code> p
 ### Indeterminate
 
 The checkbox is partially checked, or indeterminate.
-
-<!--- Component Indeterminate -->
 
 export const IndeterminateGroup = () => {
   const [listState, setListState] = useState([false, false]);
@@ -181,40 +176,5 @@ The <code>readOnly</code> prop makes the selection immutable.
 <Canvas>
   <Story name='Read Only'>
     <Checkbox defaultChecked readOnly />
-  </Story>
-</Canvas>
-
-### Element Type
-
-<!--- Component template div -->
-
-export const CheckboxDiv = props => {
-  const { checkboxProps, state } = useCheckbox.Root({
-    elementType: 'div',
-    ...props
-  });
-  const { checkboxIndicatorProps } = useCheckbox.Indicator(state);
-  return (
-    <div {...checkboxProps} className='checkbox'>
-      <span {...checkboxIndicatorProps} className='checkbox-indicator'></span>
-    </div>
-  );
-};
-
-<!--- Component template div -->
-
-export const CheckboxInput = props => {
-  const { checkboxProps } = useCheckbox.Root({
-    elementType: 'input',
-    ...props
-  });
-  return <input {...checkboxProps} className='checkbox' />;
-};
-
-<Canvas>
-  <Story name='Read ddd'>
-    <CheckboxDiv indeterminate />
-    <hr />
-    <CheckboxInput indeterminate />
   </Story>
 </Canvas>

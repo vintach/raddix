@@ -3120,6 +3120,8 @@ __metadata:
 "@raddix/checkbox@workspace:packages/primitives/checkbox":
   version: 0.0.0-use.local
   resolution: "@raddix/checkbox@workspace:packages/primitives/checkbox"
+  dependencies:
+    "@raddix/use-toggle": "workspace:*"
   peerDependencies:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"

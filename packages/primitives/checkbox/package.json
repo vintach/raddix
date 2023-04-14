@@ -27,6 +27,9 @@
     }
   },
   "sideEffects": false,
+  "dependencies": {
+    "@raddix/use-toggle": "workspace:*"
+  },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
