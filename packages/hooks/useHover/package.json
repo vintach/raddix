@@ -1,8 +1,0 @@
-{
-  "name": "@raddix/usehover",
-  "packageManager": "yarn@3.2.3",
-  "sideEffects": false,
-  "peerDependencies": {
-    "react": ">=16.8.0"
-  }
-}

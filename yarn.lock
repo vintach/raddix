@@ -3158,22 +3158,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@raddix/usehover@workspace:packages/hooks/useHover":
-  version: 0.0.0-use.local
-  resolution: "@raddix/usehover@workspace:packages/hooks/useHover"
-  peerDependencies:
-    react: ">=16.8.0"
-  languageName: unknown
-  linkType: soft
-
-"@raddix/usepress@workspace:packages/hooks/usePress":
-  version: 0.0.0-use.local
-  resolution: "@raddix/usepress@workspace:packages/hooks/usePress"
-  peerDependencies:
-    react: ">=16.8.0"
-  languageName: unknown
-  linkType: soft
-
 "@sinclair/typebox@npm:^0.24.1":
   version: 0.24.51
   resolution: "@sinclair/typebox@npm:0.24.51"
