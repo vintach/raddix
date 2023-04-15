@@ -17,6 +17,13 @@ There are many ways to contribute to the project. Code is just one possible mean
 - **Issues**: Look for issues tagged with help wanted and/or good first issue.
 - **Write**: Add features, suggest improvements, and bug fixed.
 
+## Considerations
+
+- `.storybook`: all storybook config files
+- `assets`: files static of raddix
+- `packages`: all packages of react hooks
+- `tsconfig.base.json`: Typescript base configuration
+- `tsconfig.json`: Paths configuration
 
 ## Pull Request Guide
 
