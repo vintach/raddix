@@ -30,7 +30,6 @@ export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
   const {
     checked: initialChecked = false,
     indeterminate: indeterminateProp = false,
-    onChecked,
     onIndeterminate,
     as = 'div',
     disabled,
@@ -59,7 +58,7 @@ export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
     }
   };
 
-  const onClick = (e: MouseEvent) => (nativeInput ? {} : handleClick());
+  const onClick = () => (nativeInput ? {} : handleClick());
 
   // Data attribute
   const dataAttr: DataAttrCheckbox = {

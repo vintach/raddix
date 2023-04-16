@@ -4,5 +4,6 @@
     "declarationDir": "types",
     "outDir": "dist"
   },
-  "exclude": ["dist", "node_modules", "tests", "stories"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["dist", "node_modules"]
 }
