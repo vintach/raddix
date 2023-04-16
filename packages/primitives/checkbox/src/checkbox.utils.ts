@@ -1,4 +1,4 @@
-import { AriaChecked, Booleanish } from './types';
+import type { AriaChecked, Booleanish } from './types';
 
 export const getAriaChecked = (
   checked: boolean,

@@ -3,10 +3,12 @@ module.exports = {
     browser: true,
     node: true
   },
-  extends: ['plugin:react/recommended',
-    "plugin:prettier/recommended",
+  extends: [
+    'plugin:react/recommended',
+    "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:prettier/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -117,5 +119,26 @@ module.exports = {
     ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",
-  }
+  },
+  overrides: [
+    /**
+     * -----------------------------------------------------
+     * STORYBOOK
+     * -----------------------------------------------------
+     */
+    {
+      files: ["*.stories.ts", "*.stories.tsx"],
+      extends: ["plugin:storybook/recommended"],
+      rules: {
+        "@typescript-eslint/consistent-type-assertions": [
+          "error",
+          {
+            assertionStyle: "as",
+            objectLiteralTypeAssertions: "allow",
+          },
+        ],
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+      },
+    },
+    ]
   }
