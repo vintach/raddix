@@ -7,6 +7,7 @@ export const Checkbox: React.FC<CheckboxInputAttributes> = props => {
   return (
     <input
       {...restProps}
+      type='checkbox'
       className={className}
       onChange={onChange}
       onClick={onClick}
