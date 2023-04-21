@@ -1,5 +1,5 @@
-import { KeyboardEvent } from 'react';
-import { Keys } from './keys';
+import type { KeyboardEvent } from 'react';
+import type { Keys } from './keys';
 
 type KeyboardHandler<T extends HTMLElement = HTMLElement> = (
   event: KeyboardEvent<T>

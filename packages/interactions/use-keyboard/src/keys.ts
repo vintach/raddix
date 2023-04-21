@@ -74,6 +74,5 @@ export type Keys = LiteralUnion<
   | WhitespaceKeys
   | NavigationKeys
   | FunctionKeys
-  | NumericKeypadKeys,
-  string
+  | NumericKeypadKeys
 >;
