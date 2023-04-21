@@ -1,3 +1,2 @@
-export * from './checkbox';
-export { default } from './checkbox';
+export { useCheckbox } from './checkbox';
 export type { UseCheckboxProps } from './types';
