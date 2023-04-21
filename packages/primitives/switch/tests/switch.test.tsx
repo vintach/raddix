@@ -1,9 +1,10 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
-import { useSwitch, UseSwitchProps } from '@raddix/switch';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { useSwitch } from '@raddix/switch';
+import type { UseSwitchProps } from '@raddix/switch';
 import '@testing-library/jest-dom';
 
 const Switch = (props: UseSwitchProps) => {
-  const { switchProps, dataProps, inputProps, state } = useSwitch({
+  const { switchProps } = useSwitch({
     as: 'button',
     ...props
   });
