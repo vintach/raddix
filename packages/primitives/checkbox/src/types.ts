@@ -1,10 +1,8 @@
-import { ComponentPropsWithoutRef, ElementType } from 'react';
+import type { ComponentPropsWithoutRef, ElementType } from 'react';
 
 /* -------------------------------------------------------------------------------------------
  * Global Types
  * ------------------------------------------------------------------------------------------*/
-
-export type Element<E = any> = ElementType<E>;
 
 interface Checked {
   /**
@@ -28,7 +26,7 @@ interface Indeterminate {
   indeterminate?: boolean;
 }
 export type AriaChecked = boolean | 'mixed';
-export type Booleanish = boolean | 'true' | 'false';
+export type Booleanish = '' | undefined;
 
 export interface CheckedOptions extends Checked {
   /**

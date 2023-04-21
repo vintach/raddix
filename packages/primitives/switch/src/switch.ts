@@ -1,7 +1,7 @@
-import type { ChangeEvent, MouseEvent } from 'react';
+import type { ChangeEvent, MouseEvent, ElementType } from 'react';
 import { useCallback } from 'react';
 import { getAttr, getChecked } from './switch.utils';
-import type { Element, Event, UseProps, UseSwitch } from './types';
+import type { Event, UseProps, UseSwitch } from './types';
 import { useToggle } from '@raddix/use-toggle';
 import { useKeyboard } from '@raddix/use-keyboard';
 
@@ -9,11 +9,13 @@ import { useKeyboard } from '@raddix/use-keyboard';
  * useSwitch
  * ------------------------------------------------------------------------------------------*/
 
-export const useSwitch = (<E extends Element = 'div'>(props: UseProps<E>) => {
+export const useSwitch = (<E extends ElementType = 'div'>(
+  props: UseProps<E> = {}
+) => {
   const {
     checked: initialChecked = false,
-    disabled,
-    readOnly,
+    disabled = false,
+    readOnly = false,
     as = 'div',
     onChange: handleChange
   } = props;
@@ -33,30 +35,15 @@ export const useSwitch = (<E extends Element = 'div'>(props: UseProps<E>) => {
       toggle();
 
       const eventChange = e as ChangeEvent;
-      handleChange && handleChange(eventChange);
+      handleChange?.(eventChange);
     },
-    [disabled, readOnly, toggle]
+    [disabled, readOnly, toggle, handleChange]
   );
 
-  const onKeyDown = useKeyboard(
-    e => {
-      e.preventDefault();
-    },
-    ['Enter', ' ']
-  );
-  const onKeyUp = useKeyboard(
-    e => {
-      eventHandler(e);
-    },
-    ['Enter', ' ']
-  );
-  const onClick = (e: MouseEvent) => {
-    nativeInput ? {} : eventHandler(e);
-  };
-
-  const onChange = (e: ChangeEvent) => {
-    !nativeInput ? {} : eventHandler(e);
-  };
+  const onKeyDown = useKeyboard(e => e.preventDefault(), ['Enter', ' ']);
+  const onKeyUp = useKeyboard(e => eventHandler(e), ['Enter', ' ']);
+  const onClick = (e: MouseEvent) => (nativeInput ? {} : eventHandler(e));
+  const onChange = (e: ChangeEvent) => (!nativeInput ? {} : eventHandler(e));
 
   const switchProps = {
     role: 'switch',
@@ -73,7 +60,7 @@ export const useSwitch = (<E extends Element = 'div'>(props: UseProps<E>) => {
 
   const dataAttr = {
     'data-state': getChecked(checked),
-    'data-disabled': getAttr(disabled ?? false)
+    'data-disabled': getAttr(disabled)
   };
 
   const inputProps = {
@@ -85,11 +72,9 @@ export const useSwitch = (<E extends Element = 'div'>(props: UseProps<E>) => {
   };
 
   return {
-    switchProps: switchProps,
+    switchProps,
     inputProps,
     dataProps: dataAttr,
     state: { checked, disabled, setChecked }
   };
 }) as UseSwitch;
-
-export default useSwitch;

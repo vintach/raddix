@@ -1,4 +1,4 @@
-import {
+import type {
   ChangeEvent,
   ComponentPropsWithoutRef,
   KeyboardEvent,
@@ -13,7 +13,8 @@ import {
  * Global Types
  * ------------------------------------------------------------------------------------------*/
 
-export type Booleanish = boolean | 'true' | 'false';
+export type Booleanish = '' | undefined;
+export type DataState = 'checked' | 'unchecked';
 
 interface Checked {
   /**
@@ -40,10 +41,9 @@ export interface SwitchState extends Checked, Disabled {
 }
 
 export type Event = MouseEvent | KeyboardEvent | ChangeEvent;
-export type Element<E = any> = ElementType<E>;
 
 export interface DataAttrSwitch {
-  'data-state'?: 'checked' | 'unchecked';
+  'data-state'?: DataState;
   'data-disabled'?: Booleanish;
 }
 export interface AriaAttrSwitch {
@@ -70,13 +70,13 @@ export interface UseSwitchProps
     ReadOnly,
     UseSwitchOptions {}
 
-export type As<E extends ElementType> = {
+export interface As<E extends ElementType> {
   /**
    * The HTML element or React element used to render the switch, e.g. 'div', 'button'.
    * @default 'div'
    */
   as?: E;
-};
+}
 
 export type UseProps<E extends ElementType> = As<E> & UseSwitchProps;
 
@@ -85,12 +85,12 @@ export type Props = Omit<UseSwitchProps, keyof UseSwitchOptions>;
 type SwitchProps<E extends ElementType> = Props &
   Omit<ComponentPropsWithoutRef<E>, keyof Props>;
 
-export type UseResponse<E extends ElementType> = {
+export interface UseResponse<E extends ElementType> {
   switchProps: SwitchProps<E>;
   dataProps: DataAttrSwitch;
   state: SwitchState;
   inputProps: InputHTMLAttributes<HTMLInputElement>;
-};
+}
 
 export type UseSwitch = <E extends ElementType = 'div'>(
   props?: UseProps<E>

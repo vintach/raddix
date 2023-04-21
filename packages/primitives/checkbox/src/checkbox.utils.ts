@@ -15,8 +15,9 @@ export const getAriaChecked = (
   }
 };
 
-export const getAttr = (value: boolean) =>
-  (value ? '' : undefined) as Booleanish | undefined;
+export const getAttr = (value: boolean): Booleanish => (value ? '' : undefined);
 
-export const getDataChecked = (checked: boolean, indeterminate: boolean) =>
-  indeterminate ? undefined : (getAttr(checked) as Booleanish);
+export const getDataChecked = (
+  checked: boolean,
+  indeterminate: boolean
+): Booleanish => (indeterminate ? undefined : getAttr(checked));

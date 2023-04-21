@@ -1,10 +1,14 @@
 import { fireEvent, render } from '@testing-library/react';
-import React from 'react';
 import { useKeyboard } from '@raddix/use-keyboard';
 
 interface ComponentProps {
   onKeyUp: (event: React.KeyboardEvent | KeyboardEvent) => void;
   shortcuts?: string[];
+}
+
+interface EventProp {
+  type: string;
+  key: string;
 }
 
 const Component: React.FC<ComponentProps> = ({ onKeyUp, shortcuts }) => {
@@ -15,8 +19,8 @@ const Component: React.FC<ComponentProps> = ({ onKeyUp, shortcuts }) => {
 
 describe('useKeyboard test:', () => {
   test('should handle keyboard events', () => {
-    let events: any[] = [];
-    let tree = render(
+    const events: EventProp[] = [];
+    const tree = render(
       <Component onKeyUp={e => events.push({ type: e.type, key: e.key })} />
     );
 
@@ -35,8 +39,8 @@ describe('useKeyboard test:', () => {
   });
 
   test('should handle keyboard events only if enter and space keys are pressed', () => {
-    let events: any[] = [];
-    let tree = render(
+    const events: EventProp[] = [];
+    const tree = render(
       <Component
         onKeyUp={e => events.push({ type: e.type, key: e.key })}
         shortcuts={['Enter', ' ']}
