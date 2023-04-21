@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "lib": ["dom", "ES2020"],
+    "lib": ["dom", "es2016"],
     "jsx": "react-jsx",
     "module": "ESNext",
     "rootDir": ".",
@@ -9,7 +8,6 @@
     "baseUrl": "./",
     "allowJs": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -22,7 +20,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-  },
-
+    "noEmit": true
+  }
 }
