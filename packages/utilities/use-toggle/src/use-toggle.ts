@@ -8,13 +8,9 @@ export const useToggle = (
    */
   initialState?: boolean
 ): [boolean, Dispatch<SetStateAction<boolean>>, () => void] => {
-  const [state, setState] = useState<boolean>(
-    initialState === undefined || false
-  );
+  const [state, setState] = useState<boolean>(initialState ?? false);
 
-  const toggle = useCallback(() => {
-    setState(x => !x);
-  }, []);
+  const toggle = useCallback(() => setState(x => !x), []);
 
   return [state, setState, toggle];
 };
