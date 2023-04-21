@@ -3,17 +3,30 @@ module.exports = {
     browser: true,
     node: true
   },
+  settings: {
+    react: {
+      version: 'detect'
+    },
+    'import/resolver': {
+      typescript: {},
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
+      }
+    }
+  },
   extends: [
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:prettier/recommended',
-    "plugin:import/errors",
+    'plugin:import/errors',
+    'plugin:react/jsx-runtime'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.json'
+    project: './tsconfig.json',
+    tsconfigRootDir: './'
   },
   ignorePatterns: ['**/*.js'],
   rules: {
@@ -21,14 +34,14 @@ module.exports = {
     curly: 'error',
     'no-console': 'error',
     'import/no-default-export': ['error'],
-    '@typescript-eslint/array-type': ['error', { default: 'generic' }],
+    '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     '@typescript-eslint/consistent-type-exports': 'error',
     '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/consistent-indexed-object-style': 'error',
     '@typescript-eslint/consistent-type-assertions': [
       'error',
-      { assertionStyle: 'never' },
+      { assertionStyle: 'as' }
     ],
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     'no-empty-function': 'off',
@@ -36,7 +49,6 @@ module.exports = {
     '@typescript-eslint/method-signature-style': 'error',
     '@typescript-eslint/no-base-to-string': 'error',
     '@typescript-eslint/no-confusing-non-null-assertion': 'error',
-    '@typescript-eslint/no-confusing-void-expression': 'error',
     '@typescript-eslint/no-dynamic-delete': 'error',
     '@typescript-eslint/no-floating-promises': 'error',
     '@typescript-eslint/no-invalid-void-type': 'error',
@@ -89,7 +101,7 @@ module.exports = {
     'lines-between-class-members': [
       'error',
       'always',
-      { exceptAfterSingleLine: true },
+      { exceptAfterSingleLine: true }
     ],
     'no-constructor-return': 'off',
     'no-nested-ternary': 'off',
@@ -100,26 +112,26 @@ module.exports = {
       {
         blankLine: 'always',
         prev: ['class', 'function', 'block-like'],
-        next: ['class', 'function', 'block-like'],
+        next: ['class', 'function', 'block-like']
       },
       {
         blankLine: 'always',
         prev: ['multiline-expression'],
-        next: ['*'],
+        next: ['*']
       },
       {
         blankLine: 'always',
         prev: ['*'],
-        next: ['multiline-expression'],
+        next: ['multiline-expression']
       },
       {
         blankLine: 'always',
         prev: ['import'],
-        next: ['class'],
-      },
+        next: ['class']
+      }
     ],
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'error',
+    'react-hooks/exhaustive-deps': 'error'
   },
   overrides: [
     /**
@@ -135,11 +147,11 @@ module.exports = {
           'error',
           {
             assertionStyle: 'as',
-            objectLiteralTypeAssertions: 'allow',
-          },
+            objectLiteralTypeAssertions: 'allow'
+          }
         ],
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-      },
-    },
-    ]
-  }
+        '@typescript-eslint/explicit-module-boundary-types': 'off'
+      }
+    }
+  ]
+};
