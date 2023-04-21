@@ -1,6 +1,7 @@
-import { ChangeEvent, MouseEvent, useCallback } from 'react';
+import type { ChangeEvent, MouseEvent } from 'react';
+import { useCallback } from 'react';
 import { getAttr, getChecked } from './switch.utils';
-import { Element, Event, UseProps, UseSwitch } from './types';
+import type { Element, Event, UseProps, UseSwitch } from './types';
 import { useToggle } from '@raddix/use-toggle';
 import { useKeyboard } from '@raddix/use-keyboard';
 
@@ -19,7 +20,7 @@ export const useSwitch = (<E extends Element = 'div'>(props: UseProps<E>) => {
 
   const [checked, setChecked, toggle] = useToggle(initialChecked);
 
-  const nativeProps: boolean = Boolean(as === 'button' || as === 'input');
+  const nativeProps = Boolean(as === 'button' || as === 'input');
   const nativeInput: boolean = as === 'input';
   const tabIndex = disabled ? -1 : 0;
 
@@ -37,10 +38,25 @@ export const useSwitch = (<E extends Element = 'div'>(props: UseProps<E>) => {
     [disabled, readOnly, toggle]
   );
 
-  const onKeyDown = useKeyboard(e => e.preventDefault(), ['Enter', ' ']);
-  const onKeyUp = useKeyboard(e => eventHandler(e), ['Enter', ' ']);
-  const onClick = (e: MouseEvent) => (nativeInput ? {} : eventHandler(e));
-  const onChange = (e: ChangeEvent) => (!nativeInput ? {} : eventHandler(e));
+  const onKeyDown = useKeyboard(
+    e => {
+      e.preventDefault();
+    },
+    ['Enter', ' ']
+  );
+  const onKeyUp = useKeyboard(
+    e => {
+      eventHandler(e);
+    },
+    ['Enter', ' ']
+  );
+  const onClick = (e: MouseEvent) => {
+    nativeInput ? {} : eventHandler(e);
+  };
+
+  const onChange = (e: ChangeEvent) => {
+    !nativeInput ? {} : eventHandler(e);
+  };
 
   const switchProps = {
     role: 'switch',

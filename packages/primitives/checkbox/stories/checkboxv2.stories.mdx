@@ -1,0 +1,14 @@
+import { Meta } from '@storybook/addon-docs';
+import { useCheckbox } from '@raddix/checkbox';
+import './checkbox.css';
+
+<Meta title='Inputs/useCheckbox' />
+
+export const Checkbox = props => {
+  const { checkboxProps, dataProps, state } = useCheckbox(props);
+  return (
+    <div {...checkboxProps} {...dataProps} className='checkbox'>
+      <span {...dataProps} className='checkbox-indicator'></span>
+    </div>
+  );
+};

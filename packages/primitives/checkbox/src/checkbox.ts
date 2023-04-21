@@ -1,5 +1,5 @@
 import { getAriaChecked, getAttr, getDataChecked } from './checkbox.utils';
-import {
+import type {
   UseCheckbox,
   DataAttrCheckbox,
   IndeterminateOptions,
@@ -30,7 +30,6 @@ export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
   const {
     checked: initialChecked = false,
     indeterminate: indeterminateProp = false,
-    onChecked,
     onIndeterminate,
     as = 'div',
     disabled,
@@ -43,7 +42,7 @@ export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
     onIndeterminate
   });
 
-  const nativeProps: boolean = Boolean(as === 'button' || as === 'input');
+  const nativeProps = Boolean(as === 'button' || as === 'input');
   const nativeInput: boolean = as === 'input';
   const tabIndex = disabled ? -1 : 0;
 
@@ -59,7 +58,9 @@ export const useCheckbox = (<E extends Element = 'div'>(props: UseProps<E>) => {
     }
   };
 
-  const onClick = (e: MouseEvent) => (nativeInput ? {} : handleClick());
+  const onClick = () => {
+    nativeInput ? {} : handleClick();
+  };
 
   // Data attribute
   const dataAttr: DataAttrCheckbox = {
