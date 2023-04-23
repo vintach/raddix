@@ -1,10 +1,6 @@
 {
   "name": "raddix",
-  "packageManager": "yarn@3.2.4",
   "private": true,
-  "workspaces": [
-    "packages/*/*"
-  ],
   "license": "MIT",
   "scripts": {
     "storybook": "start-storybook -p 6006",
@@ -13,7 +9,7 @@
     "test": "jest",
     "build:package": "ts-node ./scripts/generate-package.ts",
     "build:parcel": "parcel build 'packages/primitives/*/' --no-cache --no-source-maps",
-    "build": "yarn build:parcel && yarn build:package"
+    "build": "pnpm build:parcel && pnpm build:package"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
@@ -70,8 +66,7 @@
     "react-dom": "^18.2.0"
   },
   "engines": {
-    "node": ">=12",
-    "yarn": ">=2"
+    "node": ">=12"
   },
   "resolutions": {
     "typescript": "~4.7"
