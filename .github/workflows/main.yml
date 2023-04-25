@@ -1,0 +1,31 @@
+name: 'CI'
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+
+      - name: Install
+        uses: ./.github/actions/install
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Run tests
+        run: pnpm test
