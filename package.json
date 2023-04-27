@@ -9,7 +9,8 @@
     "test": "jest",
     "build:package": "ts-node ./scripts/generate-package.ts",
     "build:parcel": "parcel build 'packages/primitives/*/' --no-cache --no-source-maps",
-    "build": "pnpm build:parcel && pnpm build:package"
+    "build": "pnpm build:parcel && pnpm build:package",
+    "lint": "eslint packages/**/** --ext .js,.ts,.tsx"
   },
   "devDependencies": {
     "@babel/core": "7.21.4",
