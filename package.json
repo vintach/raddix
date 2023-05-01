@@ -11,6 +11,7 @@
     "build:parcel": "parcel build 'packages/primitives/*/' --no-cache --no-source-maps",
     "build": "pnpm build:parcel && pnpm build:package",
     "lint": "turbo run lint",
+    "clean": "turbo run clean && rm -rf node_modules",
     "format:check": "prettier --check packages/**/**/*.{ts,tsx,css} --cache",
     "format:write": "prettier --write packages/**/**/*.{ts,tsx,css} --cache"
   },

@@ -15,7 +15,8 @@
   },
   "sideEffects": false,
   "scripts": {
-    "lint": "eslint \"{src,tests}/*.{ts,tsx,css}\""
+    "lint": "eslint \"{src,tests}/*.{ts,tsx,css}\"",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "files": [
     "dist",
