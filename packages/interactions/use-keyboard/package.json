@@ -7,7 +7,6 @@
   "main": "dist/main.js",
   "module": "dist/module.js",
   "types": "dist/types.d.ts",
-  "packageManager": "yarn@3.2.3",
   "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",
   "homepage": "https://www.raddix.website",
   "repository": {
@@ -15,6 +14,9 @@
     "url": "https://github.com/gdvu/raddix.git"
   },
   "sideEffects": false,
+  "scripts": {
+    "lint": "eslint \"{src,tests}/*.{ts,tsx,css}\""
+  },
   "files": [
     "dist",
     "README.md"

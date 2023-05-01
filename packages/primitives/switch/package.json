@@ -1,7 +1,6 @@
 {
   "name": "@raddix/switch",
   "version": "1.0.1",
-  "packageManager": "yarn@3.2.2",
   "license": "MIT",
   "source": "src/index.ts",
   "main": "dist/main.js",
@@ -34,6 +33,9 @@
   "sideEffects": false,
   "publishConfig": {
     "directory": "dist"
+  },
+  "scripts": {
+    "lint": "eslint \"{src,tests}/*.{ts,tsx,css}\""
   },
   "dependencies": {
     "@raddix/use-keyboard": "workspace:*",
