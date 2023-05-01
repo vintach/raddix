@@ -10,7 +10,7 @@
     "build:package": "ts-node ./scripts/generate-package.ts",
     "build:parcel": "parcel build 'packages/primitives/*/' --no-cache --no-source-maps",
     "build": "pnpm build:parcel && pnpm build:package",
-    "lint": "eslint packages/**/** --ext .js,.ts,.tsx",
+    "lint": "turbo run lint",
     "format:check": "prettier --check packages/**/**/*.{ts,tsx,css} --cache",
     "format:write": "prettier --write packages/**/**/*.{ts,tsx,css} --cache"
   },
