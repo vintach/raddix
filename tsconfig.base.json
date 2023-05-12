@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "es2016"],
+    "lib": ["dom", "ESNext"],
     "jsx": "react-jsx",
     "module": "ESNext",
-    "rootDir": ".",
+    "target": "ESNext",
     "moduleResolution": "node",
     "baseUrl": "./",
     "allowJs": true,
@@ -11,6 +11,7 @@
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "strict": true,
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,

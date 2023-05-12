@@ -5,7 +5,9 @@
       "@raddix/switch": ["./packages/primitives/switch/src"],
       "@raddix/checkbox": ["./packages/primitives/checkbox/src"],
       "@raddix/use-toggle": ["./packages/utilities/use-toggle/src"],
-      "@raddix/use-keyboard": ["packages/interactions/use-keyboard/src"]
+      "@raddix/use-keyboard": ["./packages/interactions/use-keyboard/src"]
     }
-  }
+  },
+  "include": ["packages"],
+  "exclude": ["**/node_modules", "**/dist", "**/.turbo"]
 }
