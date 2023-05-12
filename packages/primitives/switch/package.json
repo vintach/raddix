@@ -2,10 +2,7 @@
   "name": "@raddix/switch",
   "version": "1.0.1",
   "license": "MIT",
-  "source": "src/index.ts",
-  "main": "dist/main.js",
-  "module": "dist/module.js",
-  "types": "dist/types.d.ts",
+  "main": "src/index.ts",
   "repository": {
     "type": "git",
     "directory": "packages/primitives/switch",
@@ -36,7 +33,8 @@
   },
   "scripts": {
     "lint": "eslint \"{src,tests}/*.{ts,tsx,css}\"",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "build": "tsup src --dts"
   },
   "dependencies": {
     "@raddix/use-keyboard": "workspace:*",
@@ -45,5 +43,13 @@
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
+  },
+  "tsup": {
+    "clean": true,
+    "target": "es2019",
+    "format": [
+      "cjs",
+      "esm"
+    ]
   }
 }
