@@ -3,10 +3,7 @@
   "description": "A simple hook that toggles its value from true to false.",
   "version": "1.0.0",
   "license": "MIT",
-  "source": "src/index.ts",
-  "main": "dist/main.js",
-  "module": "dist/module.js",
-  "types": "dist/types.d.ts",
+  "main": "src/index.ts",
   "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",
   "homepage": "https://www.raddix.website",
   "repository": {
@@ -16,7 +13,8 @@
   "sideEffects": false,
   "scripts": {
     "lint": "eslint \"{src,tests}/*.{ts,tsx,css}\"",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "build": "tsup src --dts"
   },
   "files": [
     "dist",
@@ -25,5 +23,13 @@
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
+  },
+  "tsup": {
+    "clean": true,
+    "target": "es2019",
+    "format": [
+      "cjs",
+      "esm"
+    ]
   }
 }
