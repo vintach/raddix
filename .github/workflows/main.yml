@@ -17,6 +17,9 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
 
+      - name: Run build
+        run: pnpm build
+
   tests:
     name: Tests
     runs-on: ubuntu-20.04
