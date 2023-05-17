@@ -92,6 +92,9 @@ importers:
       babel-loader:
         specifier: 9.1.2
         version: 9.1.2(@babel/core@7.21.4)(webpack@5.80.0)
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
       eslint:
         specifier: 8.39.0
         version: 8.39.0
@@ -5978,6 +5981,13 @@ packages:
       source-map: 0.6.1
     dev: true
 
+  /clean-package@2.2.0:
+    resolution: {integrity: sha512-vLv8kRqvh4smPDpqAYFPLEijTppAd/cfCz4yBcUGoVl/JKu6ZWKhlo+G/cAmwlSa29RudfBeuyiNEzas8bTwEQ==}
+    hasBin: true
+    dependencies:
+      dot-prop: 6.0.1
+    dev: true
+
   /clean-stack@2.2.0:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
     engines: {node: '>=6'}
@@ -6723,6 +6733,13 @@ packages:
     dependencies:
       no-case: 3.0.4
       tslib: 2.5.0
+    dev: true
+
+  /dot-prop@6.0.1:
+    resolution: {integrity: sha512-tE7ztYzXHIeyvc7N+hR3oi7FIbf/NIjVP9hmAt3yMXzrQ072/fpjGLx2GxNxGxUl5V73MEqYzioOMoVhGMJ5cA==}
+    engines: {node: '>=10'}
+    dependencies:
+      is-obj: 2.0.0
     dev: true
 
   /dotenv-expand@5.1.0:
@@ -8854,6 +8871,11 @@ packages:
   /is-number@7.0.0:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
+    dev: true
+
+  /is-obj@2.0.0:
+    resolution: {integrity: sha512-drqDG3cbczxxEJRoOXcOjtdp1J/lyp1mNn0xaznRs8+muBhgQcrnbspox5X5fOw0HnMnbfDzvnEMEtqDEJEo8w==}
+    engines: {node: '>=8'}
     dev: true
 
   /is-object@1.0.2:
