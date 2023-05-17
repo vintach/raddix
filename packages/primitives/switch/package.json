@@ -34,7 +34,9 @@
   "scripts": {
     "lint": "eslint \"{src,tests}/*.{ts,tsx,css}\"",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "build": "tsup src --dts"
+    "build": "tsup src --dts",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
   "dependencies": {
     "@raddix/use-keyboard": "workspace:*",
@@ -44,6 +46,7 @@
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
+  "clean-package": "../../../clean-package.config.json",
   "tsup": {
     "clean": true,
     "target": "es2019",
