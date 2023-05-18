@@ -13,7 +13,8 @@
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
     "format:check": "prettier --check packages/**/**/*.{ts,tsx,css} --cache",
-    "format:write": "prettier --write packages/**/**/*.{ts,tsx,css} --cache"
+    "format:write": "prettier --write packages/**/**/*.{ts,tsx,css} --cache",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/core": "7.21.4",
@@ -52,9 +53,11 @@
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-storybook": "0.6.11",
+    "husky": "8.0.3",
     "jest": "29.5.0",
     "jest-environment-jsdom": "29.5.0",
     "jest-watch-typeahead": "2.2.2",
+    "lint-staged": "13.2.2",
     "prettier": "2.8.8",
     "tiny-glob": "0.2.9",
     "ts-jest": "29.1.0",
