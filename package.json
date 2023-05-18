@@ -14,7 +14,11 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "format:check": "prettier --check packages/**/**/*.{ts,tsx,css} --cache",
     "format:write": "prettier --write packages/**/**/*.{ts,tsx,css} --cache",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "version": "changeset version",
+    "release": "changeset publish",
+    "version:beta": "changeset version --snapshot beta",
+    "release:beta": "changeset publish --tag beta"
   },
   "devDependencies": {
     "@babel/core": "7.21.4",
