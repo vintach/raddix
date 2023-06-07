@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "storybook:build": "storybook build",
+    "storybook:docs": "storybook dev --docs",
     "new-pkg": "ts-node ./scripts/create-pkg.ts",
     "test": "jest",
     "build:package": "ts-node ./scripts/generate-package.ts",
