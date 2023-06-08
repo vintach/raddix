@@ -17,7 +17,7 @@ const convertTsConfigPathsToWebpackAliases = () => {
 
 const config: StorybookConfig = {
   stories: [
-    '../packages/**/**/*.stories.mdx',
+    '../packages/**/**/*.mdx',
     '../packages/**/**/*.stories.@(js|jsx|ts|tsx)'
   ],
   addons: [
