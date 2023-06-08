@@ -1,0 +1,63 @@
+import { ArgsTable, Story, Canvas, Meta } from '@storybook/blocks';
+import * as SwitchStories from './switch.stories.tsx';
+
+<Meta of={SwitchStories} />
+
+# useSwitch
+
+A control that represents the states on and off.
+
+## Features
+
+- Full support for browser features.
+- Full keyboard navigation.
+- Labeling support for screen readers.
+- Can be controlled or uncontrolled.
+
+## Installation
+
+Install the primitive from your command line.
+
+```sh
+yarn add @raddix/switch
+```
+
+## Anatomy
+
+Import all or parts of <code>@raddix/switch</code>
+
+```jsx
+import useSwitch from '@raddix/switch';
+
+const Switch = props => {
+  const { switchProps, dataProps } = useSwitch(props);
+
+  return (
+    <button {...switchProps} className='switch'>
+      <span {...dataProps} className='switch-thumb'></span>
+    </button>
+  );
+};
+```
+
+## Usage
+
+The following examples show how to use the Switch component created in the above example.
+
+### Checked
+
+Switches are not selected by default. To be checked by default using <code>checked</code> prop
+
+<Canvas of={SwitchStories.Checked} />
+
+### Read only
+
+The <code>readOnly</code> prop makes the selection immutable.
+
+<Canvas of={SwitchStories.ReadOnly} />
+
+### Disabled
+
+The <code>disabled</code> prop makes switch un-clickable
+
+<Canvas of={SwitchStories.Disabled} />

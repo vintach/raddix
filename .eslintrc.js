@@ -150,6 +150,7 @@ module.exports = {
             objectLiteralTypeAssertions: 'allow'
           }
         ],
+        'import/no-default-export': ['off'],
         '@typescript-eslint/explicit-module-boundary-types': 'off'
       }
     }
