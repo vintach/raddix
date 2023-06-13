@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 overrides:
   typescript: ~4.9
@@ -192,6 +196,15 @@ importers:
         specifier: '>=16.8.0'
         version: 18.2.0(react@18.2.0)
     publishDirectory: dist
+
+  packages/utilities/use-active-nav-item:
+    dependencies:
+      react:
+        specifier: '>=16.8.0'
+        version: 18.2.0
+      react-dom:
+        specifier: '>=16.8.0'
+        version: 18.2.0(react@18.2.0)
 
   packages/utilities/use-toggle:
     dependencies:
