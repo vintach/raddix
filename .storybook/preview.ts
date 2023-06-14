@@ -1,6 +1,8 @@
 import type { Preview } from '@storybook/react';
 import { SubTitle, Text, Title, TextCode, TextPre } from './src';
 
+import './src/tailwind.css';
+
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -21,3 +23,5 @@ const preview: Preview = {
     }
   }
 };
+
+export default preview;
