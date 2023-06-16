@@ -10,6 +10,12 @@
     "type": "git",
     "url": "https://github.com/gdvu/raddix.git"
   },
+  "keywords": [
+    "raddix",
+    "active-nav",
+    "active-item",
+    "active-heading"
+  ],
   "sideEffects": false,
   "scripts": {
     "lint": "eslint \"{src,tests}/*.{ts,tsx,css}\"",
