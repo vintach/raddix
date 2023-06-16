@@ -1,7 +1,7 @@
 {
   "name": "@raddix/use-active-nav-item",
   "description": "Indicates which navigation element is active.",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "license": "MIT",
   "main": "src/index.ts",
   "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",
