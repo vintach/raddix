@@ -153,6 +153,18 @@ module.exports = {
         'import/no-default-export': ['off'],
         '@typescript-eslint/explicit-module-boundary-types': 'off'
       }
+    },
+    /**
+     * -----------------------------------------------------
+     * EXAMPLES
+     * -----------------------------------------------------
+     */
+    {
+      files: ['./packages/**/**/examples/*.{ts,tsx}'],
+      rules: {
+        'import/no-default-export': ['off'],
+        '@typescript-eslint/explicit-module-boundary-types': 'off'
+      }
     }
   ]
 };
