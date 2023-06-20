@@ -1,6 +1,6 @@
 {
-  "name": "@raddix/use-active-nav-item",
-  "description": "Indicates which navigation element is active.",
+  "name": "@raddix/use-scroll-spy",
+  "description": "Automatically update navigation based on scroll position.",
   "version": "0.1.0",
   "license": "MIT",
   "main": "src/index.ts",
@@ -11,10 +11,10 @@
     "url": "https://github.com/gdvu/raddix.git"
   },
   "keywords": [
-    "raddix",
-    "active-nav",
-    "active-item",
-    "active-heading"
+    "scrollspy",
+    "react-use-scrollspy",
+    "react-scrollspy",
+    "hook-scrollspy"
   ],
   "sideEffects": false,
   "scripts": {
