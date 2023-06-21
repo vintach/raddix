@@ -41,4 +41,4 @@ const App = () => {
 
 ## Documentation
 
-For full documentation, visit [raddix.website/use-scroll-spy](https://www.raddix.website/docs/utilities/use-toggle)
+For full documentation, visit [raddix.website/use-scroll-spy](https://www.raddix.website/docs/utilities/use-scroll-spy)
