@@ -3,9 +3,7 @@
   "compilerOptions": {
     "paths": {
       "@raddix/switch": ["./packages/primitives/switch/src"],
-      "@raddix/use-active-nav-item": [
-        "./packages/utilities/use-active-nav-item/src"
-      ],
+      "@raddix/use-scroll-spy": ["./packages/utilities/use-scroll-spy/src"],
       "@raddix/use-toggle": ["./packages/utilities/use-toggle/src"],
       "@raddix/use-keyboard": ["./packages/interactions/use-keyboard/src"]
     }

@@ -1,4 +1,4 @@
-import { useActiveNavItem } from '@raddix/use-active-nav-item';
+import { useScrollSpy } from '@raddix/use-scroll-spy';
 
 const Section = ({ name, bg }: { bg: string; name: string }) => (
   <section
@@ -12,7 +12,7 @@ const Section = ({ name, bg }: { bg: string; name: string }) => (
 export const SectionIndicator = () => {
   const navList = ['home', 'work', 'about', 'contact'];
 
-  const navActive = useActiveNavItem(navList, { threshold: 0.6 });
+  const navActive = useScrollSpy(navList, { threshold: 0.6 });
 
   return (
     <div className='bg-black'>

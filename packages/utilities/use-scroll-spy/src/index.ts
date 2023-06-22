@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useActiveNavItem = (
+export const useScrollSpy = (
   items: string[],
   options?: IntersectionObserverInit
 ): string => {
@@ -8,9 +8,7 @@ export const useActiveNavItem = (
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
-      entries.forEach(e =>
-        e.isIntersecting ? setActiveId(e.target.id) : null
-      );
+      entries.forEach(e => e.isIntersecting && setActiveId(e.target.id));
     }, options);
 
     items.forEach(id => {

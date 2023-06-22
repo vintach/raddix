@@ -209,7 +209,7 @@ importers:
         version: 18.2.0(react@18.2.0)
     publishDirectory: dist
 
-  packages/utilities/use-active-nav-item:
+  packages/utilities/use-scroll-spy:
     dependencies:
       react:
         specifier: '>=16.8.0'

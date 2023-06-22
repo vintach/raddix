@@ -4,7 +4,7 @@ import { SectionIndicator } from '../examples/section-indicator';
 
 const meta: Meta<typeof SectionIndicator> = {
   component: SectionIndicator,
-  title: 'useActiveNavItem'
+  title: 'useScrollSpy'
 };
 
 export default meta;
