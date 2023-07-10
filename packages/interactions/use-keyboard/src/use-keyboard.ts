@@ -24,22 +24,21 @@ export const useKeyboard = <E extends HTMLElement = HTMLElement>(
   } = options;
 
   const eventHandler = (event: KeyboardEvent<E>) => {
-    if (preventDefault) {
-      event.preventDefault();
+    if (shortcut && shortcut.length > 0) {
+      const match = shortcut.includes(event[checker]);
+
+      if (!match) return;
     }
 
     if (stopPropagation) {
       event.stopPropagation();
     }
 
-    if (!shortcut || shortcut.length === 0) {
-      handler(event);
-      return;
+    if (preventDefault) {
+      event.preventDefault();
     }
 
-    if (shortcut.includes(event[checker])) {
-      handler(event);
-    }
+    handler(event);
   };
 
   return eventHandler;
