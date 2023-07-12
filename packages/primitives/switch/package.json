@@ -15,22 +15,10 @@
     "accessibility"
   ],
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
-  "targets": {
-    "main": {
-      "isLibrary": true,
-      "optimize": true
-    },
-    "module": {
-      "isLibrary": true,
-      "optimize": true
-    }
-  },
   "sideEffects": false,
-  "publishConfig": {
-    "directory": "dist"
-  },
   "scripts": {
     "lint": "eslint \"{src,tests}/*.{ts,tsx,css}\"",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
