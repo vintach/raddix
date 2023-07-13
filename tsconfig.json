@@ -5,7 +5,10 @@
       "@raddix/switch": ["./packages/primitives/switch/src"],
       "@raddix/use-scroll-spy": ["./packages/utilities/use-scroll-spy/src"],
       "@raddix/use-toggle": ["./packages/utilities/use-toggle/src"],
-      "@raddix/use-keyboard": ["./packages/interactions/use-keyboard/src"]
+      "@raddix/use-keyboard": ["./packages/interactions/use-keyboard/src"],
+      "@raddix/use-click-outside": [
+        "./packages/interactions/use-click-outside/src"
+      ]
     }
   },
   "include": ["packages"],
