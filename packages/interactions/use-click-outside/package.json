@@ -1,6 +1,6 @@
 {
   "name": "@raddix/use-click-outside",
-  "description": "",
+  "description": "Lisen clicks outside of a specific element",
   "version": "0.0.0",
   "license": "MIT",
   "source": "src/index.ts",
