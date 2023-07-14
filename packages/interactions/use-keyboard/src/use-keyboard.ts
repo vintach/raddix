@@ -1,9 +1,7 @@
 import type { KeyboardEvent } from 'react';
 import type { Keys } from './keys';
 
-type KeyboardHandler<T extends HTMLElement = HTMLElement> = (
-  event: KeyboardEvent<T>
-) => void;
+type KeyboardHandler = (event: KeyboardEvent) => void;
 
 interface Options {
   stopPropagation?: boolean;
@@ -11,19 +9,20 @@ interface Options {
   checker?: 'key' | 'code';
 }
 
-export const useKeyboard = <E extends HTMLElement = HTMLElement>(
-  handler: KeyboardHandler<E>,
+type UseKeyboard = (
+  handler: KeyboardHandler,
   shortcut?: Keys[],
   options?: Options
-): KeyboardHandler<E> => {
-  options = {};
+) => KeyboardHandler;
+
+export const useKeyboard: UseKeyboard = (handler, shortcut, options = {}) => {
   const {
     preventDefault = false,
     stopPropagation = true,
     checker = 'key'
   } = options;
 
-  const eventHandler = (event: KeyboardEvent<E>) => {
+  const eventHandler = (event: KeyboardEvent) => {
     if (shortcut && shortcut.length > 0) {
       const match = shortcut.includes(event[checker]);
 
