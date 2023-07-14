@@ -2,7 +2,7 @@ import { fireEvent, render } from '@testing-library/react';
 import { useKeyboard } from '@raddix/use-keyboard';
 
 interface ComponentProps {
-  onKeyUp: (event: React.KeyboardEvent | KeyboardEvent) => void;
+  onKeyboard: (event: React.KeyboardEvent | KeyboardEvent) => void;
   shortcuts?: string[];
 }
 
@@ -11,17 +11,25 @@ interface EventProp {
   key: string;
 }
 
-const Component: React.FC<ComponentProps> = ({ onKeyUp, shortcuts }) => {
-  const onkeyUp = useKeyboard(onKeyUp, shortcuts);
+const Component: React.FC<ComponentProps> = ({ onKeyboard, shortcuts }) => {
+  const onkeyUp = useKeyboard(onKeyboard, shortcuts);
 
   return <button onKeyUp={onkeyUp} data-testid='btn' />;
 };
 
+const Component2: React.FC<ComponentProps> = ({ onKeyboard, shortcuts }) => {
+  const onKeyDown = useKeyboard(onKeyboard, shortcuts, {
+    checker: 'code'
+  });
+
+  return <button onKeyDown={onKeyDown} data-testid='btn2' />;
+};
+
 describe('useKeyboard test:', () => {
-  test('should handle keyboard events', () => {
+  it('should handle keyboard events', () => {
     const events: EventProp[] = [];
     const tree = render(
-      <Component onKeyUp={e => events.push({ type: e.type, key: e.key })} />
+      <Component onKeyboard={e => events.push({ type: e.type, key: e.key })} />
     );
 
     const btn = tree.getByTestId('btn');
@@ -38,11 +46,11 @@ describe('useKeyboard test:', () => {
     ]);
   });
 
-  test('should handle keyboard events only if enter and space keys are pressed', () => {
+  it('should handle keyboard events only if enter and space keys are pressed', () => {
     const events: EventProp[] = [];
     const tree = render(
       <Component
-        onKeyUp={e => events.push({ type: e.type, key: e.key })}
+        onKeyboard={e => events.push({ type: e.type, key: e.key })}
         shortcuts={['Enter', ' ']}
       />
     );
@@ -56,6 +64,26 @@ describe('useKeyboard test:', () => {
     expect(events).toEqual([
       { type: 'keyup', key: 'Enter' },
       { type: 'keyup', key: ' ' }
+    ]);
+  });
+
+  it('should handle keyboard events only if S and G keys are pressed with checker:code property setting', () => {
+    const events: EventProp[] = [];
+    const tree = render(
+      <Component2
+        onKeyboard={e => events.push({ type: e.type, key: e.code })}
+        shortcuts={['KeyS', 'KeyG']}
+      />
+    );
+
+    const btn2 = tree.getByTestId('btn2');
+    fireEvent.keyDown(btn2, { code: 'KeyS' });
+    fireEvent.keyDown(btn2, { code: 'KeyD' });
+    fireEvent.keyDown(btn2, { code: 'KeyG' });
+
+    expect(events).toEqual([
+      { type: 'keydown', key: 'KeyS' },
+      { type: 'keydown', key: 'KeyG' }
     ]);
   });
 });
