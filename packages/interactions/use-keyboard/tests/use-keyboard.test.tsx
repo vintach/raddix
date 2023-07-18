@@ -1,5 +1,5 @@
-import { fireEvent, render } from '@testing-library/react';
-import { useKeyboard } from '@raddix/use-keyboard';
+import { fireEvent, render, renderHook } from '@testing-library/react';
+import { useKeyboard } from '../src/index';
 
 interface ComponentProps {
   onKeyboard: (event: React.KeyboardEvent | KeyboardEvent) => void;
@@ -85,5 +85,13 @@ describe('useKeyboard test:', () => {
       { type: 'keydown', key: 'KeyS' },
       { type: 'keydown', key: 'KeyG' }
     ]);
+  });
+
+  it('should allow shortcuts globally', () => {
+    const handler = jest.fn();
+    renderHook(() => useKeyboard(handler, ['c'], { globalEvent: true }));
+    fireEvent.keyDown(document.body, { key: 'c' });
+
+    expect(handler).toBeCalledTimes(1);
   });
 });
