@@ -1,7 +1,7 @@
 import type {
   ChangeEvent,
   ComponentPropsWithoutRef,
-  KeyboardEvent,
+  KeyboardEvent as ReactKeyboardEvent,
   MouseEvent,
   ElementType,
   InputHTMLAttributes,
@@ -40,7 +40,11 @@ export interface SwitchState extends Checked, Disabled {
   setChecked: Dispatch<SetStateAction<boolean>>;
 }
 
-export type Event = MouseEvent | KeyboardEvent | ChangeEvent;
+export type Event =
+  | MouseEvent
+  | ReactKeyboardEvent
+  | ChangeEvent
+  | KeyboardEvent;
 
 export interface DataAttrSwitch {
   'data-state'?: DataState;

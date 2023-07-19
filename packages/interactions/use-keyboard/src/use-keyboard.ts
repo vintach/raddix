@@ -1,9 +1,13 @@
-import type { KeyboardEvent } from 'react';
+import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
+import { useEffect } from 'react';
 import type { Keys } from './keys';
 
-type KeyboardHandler = (event: KeyboardEvent) => void;
+type Event = ReactKeyboardEvent | KeyboardEvent;
+type KeyboardHandler = (event: Event) => void;
+type KeyboardResult = (event: ReactKeyboardEvent) => void;
 
 interface Options {
+  globalEvent?: boolean;
   stopPropagation?: boolean;
   preventDefault?: boolean;
   checker?: 'key' | 'code';
@@ -13,16 +17,17 @@ type UseKeyboard = (
   handler: KeyboardHandler,
   shortcut?: Keys[],
   options?: Options
-) => KeyboardHandler;
+) => KeyboardResult;
 
 export const useKeyboard: UseKeyboard = (handler, shortcut, options = {}) => {
   const {
+    globalEvent = false,
     preventDefault = false,
     stopPropagation = true,
     checker = 'key'
   } = options;
 
-  const eventHandler = (event: KeyboardEvent) => {
+  const eventHandler = (event: Event) => {
     if (shortcut && shortcut.length > 0) {
       const match = shortcut.includes(event[checker]);
 
@@ -39,6 +44,17 @@ export const useKeyboard: UseKeyboard = (handler, shortcut, options = {}) => {
 
     handler(event);
   };
+
+  useEffect(() => {
+    if (globalEvent) {
+      document.addEventListener('keydown', eventHandler);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', eventHandler);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [globalEvent]);
 
   return eventHandler;
 };
