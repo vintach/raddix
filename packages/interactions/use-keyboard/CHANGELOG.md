@@ -1,5 +1,11 @@
 # @raddix/use-keyboard
 
+## 1.2.0
+
+### Minor Changes
+
+- 6b897e9: Add support global keyboard events.
+
 ## 1.1.1
 
 ### Patch Changes
