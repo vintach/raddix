@@ -1,4 +1,4 @@
-import { useMediaQuery } from '../src/index';
+import { useMediaQuery } from '@raddix/use-media-query';
 import { renderHook } from '@testing-library/react';
 import mediaQuery from 'css-mediaquery';
 
@@ -26,5 +26,13 @@ describe('useMediaQuery:', () => {
     const isMatch = mediaQuery.match(query, { width: window.innerWidth });
 
     expect(result.current).toEqual(isMatch);
+  });
+
+  it('should use the default `min-width` property when passing a number to it', () => {
+    const { result } = renderHook(() => useMediaQuery(768));
+    const mobile = mediaQuery.match('(min-width: 768px)', {
+      width: window.innerWidth
+    });
+    expect(result.current).toEqual(mobile);
   });
 });
