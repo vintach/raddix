@@ -8,7 +8,8 @@
       "@raddix/use-keyboard": ["./packages/interactions/use-keyboard/src"],
       "@raddix/use-click-outside": [
         "./packages/interactions/use-click-outside/src"
-      ]
+      ],
+      "@raddix/use-count-down": ["./packages/utilities/use-count-down/src"]
     }
   },
   "include": ["packages"],
