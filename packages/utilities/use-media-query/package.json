@@ -1,11 +1,11 @@
 {
   "name": "@raddix/use-media-query",
-  "description": "",
-  "version": "1.0.0",
+  "description": "Is a hook that respond to media query changes",
+  "version": "0.1.0",
   "license": "MIT",
   "main": "src/index.ts",
   "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",
-  "homepage": "https://www.raddix.website",
+  "homepage": "https://github.com/vintach/raddix/tree/main/packages/utilities/use-media-query#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/gdvu/raddix.git"
