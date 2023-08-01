@@ -10,6 +10,24 @@
     "type": "git",
     "url": "https://github.com/gdvu/raddix.git"
   },
+  "keywords": [
+    "react",
+    "react hook",
+    "media query",
+    "media query hook",
+    "react media query hook",
+    "media queries hook",
+    "use media query",
+    "matchmedia",
+    "matchmedia hook",
+    "media queries",
+    "javascript media query",
+    "media query js",
+    "breakpoint hook",
+    "breakpoints hook",
+    "react breakpoint",
+    "react breakpoints"
+  ],
   "sideEffects": false,
   "scripts": {
     "lint": "eslint \"{src,tests}/*.{ts,tsx,css}\"",
