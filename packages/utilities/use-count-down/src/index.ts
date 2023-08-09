@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 
 interface Options {
-  autoTrigger?: boolean;
+  autoStart?: boolean;
   onFinished?: () => void;
 }
 
@@ -24,7 +24,7 @@ export const useCountDown: UseCountDown = (
   interval = 1000,
   options = {}
 ) => {
-  const { autoTrigger, onFinished } = options;
+  const { autoStart = true, onFinished } = options;
 
   const [timer, setTimer] = useState<number>(initialValue);
   const [isFinished, setIsFinished] = useState<boolean>(false);
@@ -43,7 +43,7 @@ export const useCountDown: UseCountDown = (
 
     timerRef.current = setInterval(() => {
       if (timer > 0) {
-        setTimer(prev => prev - interval);
+        setTimer(prev => prev - 1000);
       } else {
         stop();
         setTimer(0);
@@ -59,12 +59,12 @@ export const useCountDown: UseCountDown = (
   }, [initialValue]);
 
   useEffect(() => {
-    if (Boolean(autoTrigger)) trigger();
+    if (autoStart) trigger();
 
     return () => {
       stop();
     };
-  }, [autoTrigger, stop, trigger]);
+  }, [autoStart, stop, trigger]);
 
   return {
     value: timer,
