@@ -9,7 +9,8 @@
       "@raddix/use-click-outside": [
         "./packages/interactions/use-click-outside/src"
       ],
-      "@raddix/use-count-down": ["./packages/utilities/use-count-down/src"]
+      "@raddix/use-count-down": ["./packages/utilities/use-count-down/src"],
+      "@raddix/use-media-query": ["./packages/utilities/use-media-query/src"]
     }
   },
   "include": ["packages"],
