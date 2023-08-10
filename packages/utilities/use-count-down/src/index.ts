@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 
 interface Options {
   autoStart?: boolean;
@@ -8,7 +8,7 @@ interface Options {
 interface CountDownResult {
   readonly value: number;
   readonly stop: () => void;
-  readonly trigger: () => void;
+  // readonly trigger: () => void;
   readonly reset: () => void;
   readonly isFinished: boolean;
 }
@@ -19,14 +19,18 @@ type UseCountDown = (
   options?: Options
 ) => CountDownResult;
 
+// the new time is accessed and subtracted from the countdown.
+const calc = (time: number) => time - Date.now();
+
 export const useCountDown: UseCountDown = (
   initialValue,
   interval = 1000,
   options = {}
 ) => {
   const { autoStart = true, onFinished } = options;
+  const timeLeft = useMemo(() => Date.now() + initialValue, [initialValue]);
 
-  const [timer, setTimer] = useState<number>(initialValue);
+  const [timer, setTimer] = useState<number>(calc(timeLeft));
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const timerRef = useRef<NodeJS.Timer | null>(null);
 
@@ -39,19 +43,19 @@ export const useCountDown: UseCountDown = (
 
   const trigger = useCallback(() => {
     if (timerRef.current) return;
-    if (isFinished) return;
+    // if (isFinished) return;
 
     timerRef.current = setInterval(() => {
-      if (timer > 0) {
-        setTimer(prev => prev - 1000);
-      } else {
+      const targetLeft = calc(timeLeft);
+      setTimer(targetLeft);
+
+      if (targetLeft === 0) {
         stop();
-        setTimer(0);
         setIsFinished(true);
         if (onFinished) onFinished();
       }
     }, interval);
-  }, [isFinished, interval, timer, stop, onFinished]);
+  }, [timeLeft, interval, stop, onFinished]);
 
   const reset = useCallback(() => {
     setTimer(initialValue);
@@ -64,12 +68,12 @@ export const useCountDown: UseCountDown = (
     return () => {
       stop();
     };
-  }, [autoStart, stop, trigger]);
+  }, [stop, trigger, autoStart]);
 
   return {
     value: timer,
     stop,
-    trigger,
+    // trigger,
     reset,
     isFinished: isFinished
   };
