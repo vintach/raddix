@@ -1,6 +1,6 @@
 {
   "name": "@raddix/use-count-down",
-  "description": "Automatically update navigation based on scroll position.",
+  "description": "The useCountdown hook is useful for creating a very simple yet powerful countdown timer for React.",
   "version": "0.0.0",
   "license": "MIT",
   "main": "src/index.ts",
@@ -14,7 +14,8 @@
     "react-timer",
     "react-use-count-down",
     "react-count-down",
-    "hook-count-down"
+    "hook-count-down",
+    "react-countdown-hook"
   ],
   "sideEffects": false,
   "scripts": {
