@@ -76,4 +76,21 @@ describe('useCountDown test:', () => {
 
     expect(onTick).toBeCalledTimes(10);
   });
+
+  test('the onFinished function should be called when the countdown reaches zero', () => {
+    const onFinished = jest.fn();
+    renderHook(() => useCountDown(5000, 500, { onFinished }));
+
+    act(() => {
+      jest.advanceTimersByTime(2000);
+    });
+
+    expect(onFinished).not.toBeCalled();
+
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    });
+
+    expect(onFinished).toBeCalled();
+  });
 });

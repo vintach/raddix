@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 
 interface Options {
   autoStart?: boolean;
+  /** A callback function to be called when the countdown reaches zero. */
   onFinished?: () => void;
   /** A callback function to be called on each specified interval of the countdown. */
   onTick?: () => void;
@@ -59,7 +60,7 @@ export const useCountDown: UseCountDown = (
       }
     }, interval);
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeLeft, interval, stop, onFinished]);
+  }, [timeLeft, interval, stop]);
 
   const reset = useCallback(() => {
     setTimer(initialValue);
