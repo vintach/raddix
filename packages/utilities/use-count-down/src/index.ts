@@ -3,6 +3,8 @@ import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 interface Options {
   autoStart?: boolean;
   onFinished?: () => void;
+  /** A callback function to be called on each specified interval of the countdown. */
+  onTick?: () => void;
 }
 
 interface CountDownResult {
@@ -27,7 +29,7 @@ export const useCountDown: UseCountDown = (
   interval = 1000,
   options = {}
 ) => {
-  const { autoStart = true, onFinished } = options;
+  const { autoStart = true, onFinished, onTick } = options;
   const timeLeft = useMemo(() => Date.now() + initialValue, [initialValue]);
 
   const [timer, setTimer] = useState<number>(calc(timeLeft));
@@ -48,6 +50,7 @@ export const useCountDown: UseCountDown = (
     timerRef.current = setInterval(() => {
       const targetLeft = calc(timeLeft);
       setTimer(targetLeft);
+      if (onTick) onTick();
 
       if (targetLeft === 0) {
         stop();
@@ -55,6 +58,7 @@ export const useCountDown: UseCountDown = (
         if (onFinished) onFinished();
       }
     }, interval);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft, interval, stop, onFinished]);
 
   const reset = useCallback(() => {

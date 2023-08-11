@@ -65,4 +65,15 @@ describe('useCountDown test:', () => {
 
     expect(result.current.value).toBe(14000);
   });
+
+  test('the onTick function should be called at every interval', () => {
+    const onTick = jest.fn();
+    renderHook(() => useCountDown(10000, 500, { onTick }));
+
+    act(() => {
+      jest.advanceTimersByTime(5000);
+    });
+
+    expect(onTick).toBeCalledTimes(10);
+  });
 });
