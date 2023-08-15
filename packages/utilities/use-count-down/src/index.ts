@@ -11,7 +11,7 @@ interface Options {
 interface CountDownResult {
   readonly value: number;
   readonly stop: () => void;
-  // readonly trigger: () => void;
+  readonly trigger: () => void;
   readonly reset: () => void;
   readonly isFinished: boolean;
 }
@@ -46,14 +46,13 @@ export const useCountDown: UseCountDown = (
 
   const trigger = useCallback(() => {
     if (timerRef.current) return;
-    // if (isFinished) return;
 
     timerRef.current = setInterval(() => {
       const targetLeft = calc(timeLeft);
       setTimer(targetLeft);
       if (onTick) onTick();
 
-      if (targetLeft === 0) {
+      if (targetLeft <= 0) {
         stop();
         setIsFinished(true);
         if (onFinished) onFinished();
@@ -78,8 +77,8 @@ export const useCountDown: UseCountDown = (
   return {
     value: timer,
     stop,
-    // trigger,
+    trigger,
     reset,
-    isFinished: isFinished
+    isFinished
   };
 };
