@@ -111,6 +111,37 @@ describe('useCountDown test:', () => {
     expect(result.current.value).toBe(10000);
   });
 
+  test('the timer should stop, reset and resume', () => {
+    const initialTime = 15 * 1000;
+    const { result } = renderHook(() => useCountDown(initialTime, 1000));
+
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+
+    expect(result.current.value).toBe(14000);
+
+    act(() => {
+      result.current.stop();
+      jest.advanceTimersByTime(2000);
+    });
+
+    expect(result.current.value).toBe(14000);
+
+    act(() => {
+      result.current.reset();
+    });
+
+    expect(result.current.value).toBe(15000);
+
+    act(() => {
+      result.current.trigger();
+      jest.advanceTimersByTime(1000);
+    });
+
+    expect(result.current.value).toBe(14000);
+  });
+
   test('the onTick function should be called at every interval', () => {
     const onTick = jest.fn();
     renderHook(() => useCountDown(10000, 500, { onTick }));
