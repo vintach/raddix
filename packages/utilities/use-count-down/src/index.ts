@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface Options {
   autoStart?: boolean;
@@ -22,18 +22,14 @@ type UseCountDown = (
   options?: Options
 ) => CountDownResult;
 
-// the new time is accessed and subtracted from the countdown.
-const calc = (time: number) => time - Date.now();
-
 export const useCountDown: UseCountDown = (
   initialValue,
   interval = 1000,
   options = {}
 ) => {
   const { autoStart = true, onFinished, onTick } = options;
-  const timeLeft = useMemo(() => Date.now() + initialValue, [initialValue]);
 
-  const [timer, setTimer] = useState<number>(calc(timeLeft));
+  const [timer, setTimer] = useState(initialValue);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const timerRef = useRef<NodeJS.Timer | null>(null);
 
@@ -46,20 +42,23 @@ export const useCountDown: UseCountDown = (
 
   const trigger = useCallback(() => {
     if (timerRef.current) return;
+    const timerDate = Date.now() + timer;
 
     timerRef.current = setInterval(() => {
-      const targetLeft = calc(timeLeft);
-      setTimer(targetLeft);
+      let distance = timerDate - Date.now();
+      distance = distance < 0 ? 0 : distance;
+
+      setTimer(distance);
       if (onTick) onTick();
 
-      if (targetLeft <= 0) {
+      if (distance <= 0) {
         stop();
         setIsFinished(true);
         if (onFinished) onFinished();
       }
     }, interval);
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeLeft, interval, stop]);
+  }, [timer, interval]);
 
   const reset = useCallback(() => {
     setTimer(initialValue);
