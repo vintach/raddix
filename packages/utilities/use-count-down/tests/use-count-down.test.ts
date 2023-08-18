@@ -3,11 +3,6 @@ import { renderHook, act } from '@testing-library/react';
 
 jest.useFakeTimers();
 
-// afterEach(() => {
-//   jest.runOnlyPendingTimers();
-//   jest.useRealTimers();
-// });
-
 describe('useCountDown test:', () => {
   test('should print initial values', () => {
     const { result } = renderHook(() => useCountDown(4000, 1000));
@@ -55,16 +50,18 @@ describe('useCountDown test:', () => {
     );
 
     act(() => {
-      result.current.trigger();
       jest.advanceTimersByTime(1000); // Advance the first tick
     });
 
+    expect(result.current.value).toBe(10000);
+
     // Now, use 'act' again to wait for the interval to complete
     act(() => {
+      result.current.trigger();
       jest.advanceTimersByTime(4000); // Advance half the remaining time
     });
 
-    expect(result.current.value).toBe(5000);
+    expect(result.current.value).toBe(6000);
     expect(result.current.isFinished).toBe(false);
   });
 
@@ -108,7 +105,7 @@ describe('useCountDown test:', () => {
       jest.advanceTimersByTime(2000);
     });
 
-    expect(result.current.value).toBe(10000);
+    expect(result.current.value).toBe(12000);
   });
 
   test('the timer should stop, reset and resume', () => {
@@ -135,7 +132,6 @@ describe('useCountDown test:', () => {
     expect(result.current.value).toBe(15000);
 
     act(() => {
-      result.current.trigger();
       jest.advanceTimersByTime(1000);
     });
 
