@@ -14,11 +14,9 @@ describe('useCountDown test:', () => {
     expect(typeof reset).toBe('function');
   });
 
-  test('should decrement count', () => {
+  test('should start timer immediately', () => {
     const initialTime = 60 * 1000;
-    const { result } = renderHook(() =>
-      useCountDown(initialTime, { interval: 500 })
-    );
+    const { result } = renderHook(() => useCountDown(initialTime));
 
     act(() => {
       jest.advanceTimersByTime(1000);
@@ -32,57 +30,33 @@ describe('useCountDown test:', () => {
     const { result } = renderHook(() => useCountDown(initialTime));
 
     act(() => {
-      jest.advanceTimersByTime(1000);
-    });
-
-    act(() => {
-      jest.advanceTimersByTime(9000);
+      jest.advanceTimersByTime(12000);
     });
 
     expect(result.current[0]).toBe(0);
   });
 
-  // test('trigger should start the timer', () => {
-  //   const initialTime = 10 * 1000;
-  //   const { result } = renderHook(() =>
-  //     useCountDown(initialTime, 1000, { autoStart: false })
-  //   );
-
-  //   act(() => {
-  //     jest.advanceTimersByTime(1000); // Advance the first tick
-  //   });
-
-  //   expect(result.current.value).toBe(10000);
-
-  //   // Now, use 'act' again to wait for the interval to complete
-  //   act(() => {
-  //     result.current.trigger();
-  //     jest.advanceTimersByTime(4000); // Advance half the remaining time
-  //   });
-
-  //   expect(result.current.value).toBe(6000);
-  //   expect(result.current.isFinished).toBe(false);
-  // });
-
-  test('the timer should stop', () => {
-    const initialTime = 15 * 1000;
-    const { result } = renderHook(() => useCountDown(initialTime));
+  test('should not start the timer immediately', () => {
+    const initialTime = 10 * 1000;
+    const { result } = renderHook(() =>
+      useCountDown(initialTime, { autoStart: false })
+    );
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      jest.advanceTimersByTime(4000);
     });
 
-    expect(result.current[0]).toBe(14000);
+    expect(result.current[0]).toBe(initialTime);
 
     act(() => {
-      result.current[1].stop();
-      jest.advanceTimersByTime(2000);
+      result.current[1].start();
+      jest.advanceTimersByTime(4000);
     });
 
-    expect(result.current[0]).toBe(14000);
+    expect(result.current[0]).toBe(6000);
   });
 
-  test('the timer should stop and resume', () => {
+  test('the timer should stop, reset and resume', () => {
     const initialTime = 15 * 1000;
     const { result } = renderHook(() => useCountDown(initialTime));
 
@@ -105,24 +79,6 @@ describe('useCountDown test:', () => {
     });
 
     expect(result.current[0]).toBe(12000);
-  });
-
-  test('the timer should stop, reset and resume', () => {
-    const initialTime = 15 * 1000;
-    const { result } = renderHook(() => useCountDown(initialTime));
-
-    act(() => {
-      jest.advanceTimersByTime(1000);
-    });
-
-    expect(result.current[0]).toBe(14000);
-
-    act(() => {
-      result.current[1].stop();
-      jest.advanceTimersByTime(2000);
-    });
-
-    expect(result.current[0]).toBe(14000);
 
     act(() => {
       result.current[1].reset();
