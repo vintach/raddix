@@ -6,6 +6,10 @@ interface Options {
    * @default 1000
    */
   interval?: number;
+  /**
+   * Start timer immediately
+   * @default true
+   */
   autoStart?: boolean;
   /** A callback function to be called when the countdown reaches zero. */
   onFinished?: () => void;
@@ -30,9 +34,10 @@ const plus = (x: number) => x + Date.now();
 const minus = (x: number) => x - Date.now();
 
 export const useCountDown: UseCountDown = (initialTime, options = {}) => {
-  const { onFinished, onTick, interval = 1000 } = options;
+  const { onFinished, onTick, interval = 1000, autoStart = true } = options;
 
-  const [initialCount, setInitialCount] = useState(plus(initialTime));
+  const [startUp, setstartUp] = useState<boolean>(autoStart);
+  const [initialCount, setInitialCount] = useState<number>(plus(initialTime));
   const [count, setCount] = useState<number>(initialTime);
   const timerRef = useRef<NodeJS.Timer | null>(null);
 
@@ -58,6 +63,8 @@ export const useCountDown: UseCountDown = (initialTime, options = {}) => {
   }, [initialCount, interval]);
 
   const start = (time?: number) => {
+    if (!startUp) setstartUp(true);
+
     if (time === undefined) {
       if (count === 0) return;
       setInitialCount(plus(count));
@@ -71,15 +78,16 @@ export const useCountDown: UseCountDown = (initialTime, options = {}) => {
   };
 
   const reset = () => {
+    if (!autoStart) setstartUp(false);
     setInitialCount(plus(initialTime));
   };
 
   useEffect(() => {
     setCount(minus(initialCount));
-    timer();
+    if (startUp) timer();
 
     return () => clearTimer();
-  }, [initialCount, timer]);
+  }, [initialCount, timer, startUp]);
 
   return [count, { start, stop, reset }];
 };
