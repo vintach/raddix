@@ -18,8 +18,11 @@ interface Options {
 }
 
 interface Actions {
-  start: (x?: number) => void;
+  /** Start and resume the countdown, also restart from the time (in milliseconds) indicated in the parameter */
+  start: (time?: number) => void;
+  /** Resets the countdown to its initial setting */
   reset: () => void;
+  /** Pause the countdown */
   stop: () => void;
 }
 
@@ -28,9 +31,8 @@ type UseCountDown = (
   options?: Options
 ) => [count: number, actions: Actions];
 
-// plus the current time
+// plus and minus the current time
 const plus = (x: number) => x + Date.now();
-// minus the current time
 const minus = (x: number) => x - Date.now();
 
 export const useCountDown: UseCountDown = (initialTime, options = {}) => {
