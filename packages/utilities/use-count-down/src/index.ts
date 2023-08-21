@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface Options {
+  /**
+   * The time, in milliseconds, that the timer should count down.
+   * @default 1000
+   */
+  interval?: number;
   autoStart?: boolean;
   /** A callback function to be called when the countdown reaches zero. */
   onFinished?: () => void;
@@ -16,7 +21,6 @@ interface Actions {
 
 type UseCountDown = (
   initialTime: number,
-  interval: number,
   options?: Options
 ) => [count: number, actions: Actions];
 
@@ -25,15 +29,11 @@ const plus = (x: number) => x + Date.now();
 // minus the current time
 const minus = (x: number) => x - Date.now();
 
-export const useCountDown: UseCountDown = (
-  initialTime,
-  interval = 1000,
-  options = {}
-) => {
-  const { onFinished, onTick } = options;
+export const useCountDown: UseCountDown = (initialTime, options = {}) => {
+  const { onFinished, onTick, interval = 1000 } = options;
 
   const [initialCount, setInitialCount] = useState(plus(initialTime));
-  const [count, setCount] = useState(initialCount);
+  const [count, setCount] = useState<number>(initialTime);
   const timerRef = useRef<NodeJS.Timer | null>(null);
 
   const clearTimer = () => {
