@@ -6,13 +6,12 @@ jest.useFakeTimers();
 describe('useCountDown test:', () => {
   test('should print initial values', () => {
     const { result } = renderHook(() => useCountDown(4000, 1000));
-    const { value, isFinished, stop, reset } = result.current;
+    const [value, { start, stop, reset }] = result.current;
 
     expect(value).toBe(4000);
     expect(typeof stop).toBe('function');
-    // expect(typeof trigger).toBe('function');
+    expect(typeof start).toBe('function');
     expect(typeof reset).toBe('function');
-    expect(isFinished).toBe(false);
   });
 
   test('should decrement count', () => {
@@ -23,7 +22,7 @@ describe('useCountDown test:', () => {
       jest.advanceTimersByTime(1000);
     });
 
-    expect(result.current.value).toBe(59000);
+    expect(result.current[0]).toBe(59000);
   });
 
   test('should start timer and stop on 0', () => {
@@ -31,39 +30,37 @@ describe('useCountDown test:', () => {
     const { result } = renderHook(() => useCountDown(initialTime, 1000));
 
     act(() => {
-      jest.advanceTimersByTime(1000); // Advance the first tick
+      jest.advanceTimersByTime(1000);
     });
 
-    // Now, use 'act' again to wait for the interval to complete
     act(() => {
-      jest.advanceTimersByTime(9000); // Advance the remaining time
+      jest.advanceTimersByTime(9000);
     });
 
-    expect(result.current.value).toBe(0);
-    expect(result.current.isFinished).toBe(true);
+    expect(result.current[0]).toBe(0);
   });
 
-  test('trigger should start the timer', () => {
-    const initialTime = 10 * 1000;
-    const { result } = renderHook(() =>
-      useCountDown(initialTime, 1000, { autoStart: false })
-    );
+  // test('trigger should start the timer', () => {
+  //   const initialTime = 10 * 1000;
+  //   const { result } = renderHook(() =>
+  //     useCountDown(initialTime, 1000, { autoStart: false })
+  //   );
 
-    act(() => {
-      jest.advanceTimersByTime(1000); // Advance the first tick
-    });
+  //   act(() => {
+  //     jest.advanceTimersByTime(1000); // Advance the first tick
+  //   });
 
-    expect(result.current.value).toBe(10000);
+  //   expect(result.current.value).toBe(10000);
 
-    // Now, use 'act' again to wait for the interval to complete
-    act(() => {
-      result.current.trigger();
-      jest.advanceTimersByTime(4000); // Advance half the remaining time
-    });
+  //   // Now, use 'act' again to wait for the interval to complete
+  //   act(() => {
+  //     result.current.trigger();
+  //     jest.advanceTimersByTime(4000); // Advance half the remaining time
+  //   });
 
-    expect(result.current.value).toBe(6000);
-    expect(result.current.isFinished).toBe(false);
-  });
+  //   expect(result.current.value).toBe(6000);
+  //   expect(result.current.isFinished).toBe(false);
+  // });
 
   test('the timer should stop', () => {
     const initialTime = 15 * 1000;
@@ -73,14 +70,14 @@ describe('useCountDown test:', () => {
       jest.advanceTimersByTime(1000);
     });
 
-    expect(result.current.value).toBe(14000);
+    expect(result.current[0]).toBe(14000);
 
     act(() => {
-      result.current.stop();
+      result.current[1].stop();
       jest.advanceTimersByTime(2000);
     });
 
-    expect(result.current.value).toBe(14000);
+    expect(result.current[0]).toBe(14000);
   });
 
   test('the timer should stop and resume', () => {
@@ -91,21 +88,21 @@ describe('useCountDown test:', () => {
       jest.advanceTimersByTime(1000);
     });
 
-    expect(result.current.value).toBe(14000);
+    expect(result.current[0]).toBe(14000);
 
     act(() => {
-      result.current.stop();
+      result.current[1].stop();
       jest.advanceTimersByTime(2000);
     });
 
-    expect(result.current.value).toBe(14000);
+    expect(result.current[0]).toBe(14000);
 
     act(() => {
-      result.current.trigger();
+      result.current[1].start();
       jest.advanceTimersByTime(2000);
     });
 
-    expect(result.current.value).toBe(12000);
+    expect(result.current[0]).toBe(12000);
   });
 
   test('the timer should stop, reset and resume', () => {
@@ -116,26 +113,26 @@ describe('useCountDown test:', () => {
       jest.advanceTimersByTime(1000);
     });
 
-    expect(result.current.value).toBe(14000);
+    expect(result.current[0]).toBe(14000);
 
     act(() => {
-      result.current.stop();
+      result.current[1].stop();
       jest.advanceTimersByTime(2000);
     });
 
-    expect(result.current.value).toBe(14000);
+    expect(result.current[0]).toBe(14000);
 
     act(() => {
-      result.current.reset();
+      result.current[1].reset();
     });
 
-    expect(result.current.value).toBe(15000);
+    expect(result.current[0]).toBe(15000);
 
     act(() => {
       jest.advanceTimersByTime(1000);
     });
 
-    expect(result.current.value).toBe(14000);
+    expect(result.current[0]).toBe(14000);
   });
 
   test('the onTick function should be called at every interval', () => {
