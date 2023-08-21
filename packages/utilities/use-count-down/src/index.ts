@@ -8,76 +8,78 @@ interface Options {
   onTick?: () => void;
 }
 
-interface CountDownResult {
-  readonly value: number;
-  readonly stop: () => void;
-  readonly trigger: () => void;
-  readonly reset: () => void;
-  readonly isFinished: boolean;
+interface Actions {
+  start: (x?: number) => void;
+  reset: () => void;
+  stop: () => void;
 }
 
 type UseCountDown = (
-  initialValue: number,
+  initialTime: number,
   interval: number,
   options?: Options
-) => CountDownResult;
+) => [count: number, actions: Actions];
+
+// plus the current time
+const plus = (x: number) => x + Date.now();
+// minus the current time
+const minus = (x: number) => x - Date.now();
 
 export const useCountDown: UseCountDown = (
-  initialValue,
+  initialTime,
   interval = 1000,
   options = {}
 ) => {
-  const { autoStart = true, onFinished, onTick } = options;
+  const { onFinished, onTick } = options;
 
-  const [timer, setTimer] = useState(initialValue);
-  const [isFinished, setIsFinished] = useState<boolean>(false);
+  const [initialCount, setInitialCount] = useState(plus(initialTime));
+  const [count, setCount] = useState(initialCount);
   const timerRef = useRef<NodeJS.Timer | null>(null);
 
-  const stop = useCallback(() => {
+  const clearTimer = () => {
     if (!timerRef.current) return;
-
     clearInterval(timerRef.current);
     timerRef.current = null;
-  }, []);
+  };
 
-  const trigger = useCallback(() => {
-    if (timerRef.current) return;
-    const timerDate = Date.now() + timer;
-
+  const timer = useCallback(() => {
     timerRef.current = setInterval(() => {
-      let distance = timerDate - Date.now();
-      distance = distance < 0 ? 0 : distance;
+      let leftTime = initialCount - Date.now();
+      leftTime = leftTime <= 0 ? 0 : leftTime;
+      setCount(leftTime);
+      onTick?.();
 
-      setTimer(distance);
-      if (onTick) onTick();
-
-      if (distance <= 0) {
-        stop();
-        setIsFinished(true);
-        if (onFinished) onFinished();
+      if (leftTime === 0) {
+        clearTimer();
+        onFinished?.();
       }
     }, interval);
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timer, interval]);
+  }, [initialCount, interval]);
 
-  const reset = useCallback(() => {
-    setTimer(initialValue);
-    setIsFinished(true);
-  }, [initialValue]);
+  const start = (time?: number) => {
+    if (time === undefined) {
+      if (count === 0) return;
+      setInitialCount(plus(count));
+    } else {
+      setInitialCount(plus(time));
+    }
+  };
+
+  const stop = () => {
+    clearTimer();
+  };
+
+  const reset = () => {
+    setInitialCount(plus(initialTime));
+  };
 
   useEffect(() => {
-    if (autoStart) trigger();
+    setCount(minus(initialCount));
+    timer();
 
-    return () => {
-      stop();
-    };
-  }, [stop, trigger, autoStart]);
+    return () => clearTimer();
+  }, [initialCount, timer]);
 
-  return {
-    value: timer,
-    stop,
-    trigger,
-    reset,
-    isFinished
-  };
+  return [count, { start, stop, reset }];
 };
