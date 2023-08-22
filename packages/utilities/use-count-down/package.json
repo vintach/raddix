@@ -1,7 +1,7 @@
 {
   "name": "@raddix/use-count-down",
   "description": "The useCountdown hook is useful for creating a very simple yet powerful countdown timer for React.",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "src/index.ts",
   "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",

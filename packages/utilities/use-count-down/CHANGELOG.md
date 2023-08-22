@@ -1,5 +1,13 @@
 # @raddix/use-count-down
 
+## 1.0.0
+
+### Major Changes
+
+- 91f561e: The hook API has been changed because it now provides more flexibility and is easier to use.
+
+  The isFinished value was temporarily removed, it will be re-incorporated in a future feature of this release.
+
 ## 0.1.1
 
 ### Patch Changes
