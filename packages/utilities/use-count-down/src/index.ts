@@ -1,6 +1,15 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface Options {
+  /**
+   * The time, in milliseconds, that the timer should count down.
+   * @default 1000
+   */
+  interval?: number;
+  /**
+   * Start timer immediately
+   * @default true
+   */
   autoStart?: boolean;
   /** A callback function to be called when the countdown reaches zero. */
   onFinished?: () => void;
@@ -8,76 +17,79 @@ interface Options {
   onTick?: () => void;
 }
 
-interface CountDownResult {
-  readonly value: number;
-  readonly stop: () => void;
-  readonly trigger: () => void;
-  readonly reset: () => void;
-  readonly isFinished: boolean;
+interface Actions {
+  /** Start and resume the countdown, also restart from the time (in milliseconds) indicated in the parameter */
+  start: (time?: number) => void;
+  /** Resets the countdown to its initial setting */
+  reset: () => void;
+  /** Pause the countdown */
+  stop: () => void;
 }
 
 type UseCountDown = (
-  initialValue: number,
-  interval: number,
+  initialTime: number,
   options?: Options
-) => CountDownResult;
+) => [count: number, actions: Actions];
 
-export const useCountDown: UseCountDown = (
-  initialValue,
-  interval = 1000,
-  options = {}
-) => {
-  const { autoStart = true, onFinished, onTick } = options;
+// plus and minus the current time
+const plus = (x: number) => x + Date.now();
+const minus = (x: number) => x - Date.now();
 
-  const [timer, setTimer] = useState(initialValue);
-  const [isFinished, setIsFinished] = useState<boolean>(false);
+export const useCountDown: UseCountDown = (initialTime, options = {}) => {
+  const { onFinished, onTick, interval = 1000, autoStart = true } = options;
+
+  const [startUp, setstartUp] = useState<boolean>(autoStart);
+  const [initialCount, setInitialCount] = useState<number>(plus(initialTime));
+  const [count, setCount] = useState<number>(initialTime);
   const timerRef = useRef<NodeJS.Timer | null>(null);
 
-  const stop = useCallback(() => {
+  const clearTimer = () => {
     if (!timerRef.current) return;
-
     clearInterval(timerRef.current);
     timerRef.current = null;
-  }, []);
+  };
 
-  const trigger = useCallback(() => {
-    if (timerRef.current) return;
-    const timerDate = Date.now() + timer;
-
+  const timer = useCallback(() => {
     timerRef.current = setInterval(() => {
-      let distance = timerDate - Date.now();
-      distance = distance < 0 ? 0 : distance;
+      let leftTime = initialCount - Date.now();
+      leftTime = leftTime <= 0 ? 0 : leftTime;
+      setCount(leftTime);
+      onTick?.();
 
-      setTimer(distance);
-      if (onTick) onTick();
-
-      if (distance <= 0) {
-        stop();
-        setIsFinished(true);
-        if (onFinished) onFinished();
+      if (leftTime === 0) {
+        clearTimer();
+        onFinished?.();
       }
     }, interval);
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timer, interval]);
+  }, [initialCount, interval]);
 
-  const reset = useCallback(() => {
-    setTimer(initialValue);
-    setIsFinished(true);
-  }, [initialValue]);
+  const start = (time?: number) => {
+    if (!startUp) setstartUp(true);
+
+    if (time === undefined) {
+      if (count === 0) return;
+      setInitialCount(plus(count));
+    } else {
+      setInitialCount(plus(time));
+    }
+  };
+
+  const stop = () => {
+    clearTimer();
+  };
+
+  const reset = () => {
+    if (!autoStart) setstartUp(false);
+    setInitialCount(plus(initialTime));
+  };
 
   useEffect(() => {
-    if (autoStart) trigger();
+    setCount(minus(initialCount));
+    if (startUp) timer();
 
-    return () => {
-      stop();
-    };
-  }, [stop, trigger, autoStart]);
+    return () => clearTimer();
+  }, [initialCount, timer, startUp]);
 
-  return {
-    value: timer,
-    stop,
-    trigger,
-    reset,
-    isFinished
-  };
+  return [count, { start, stop, reset }];
 };
