@@ -6,12 +6,14 @@ jest.useFakeTimers();
 describe('useCountDown test:', () => {
   test('should print initial values', () => {
     const { result } = renderHook(() => useCountDown(4000));
-    const [value, { start, stop, reset }] = result.current;
+    const [value, { start, stop, reset }, indicators] = result.current;
 
     expect(value).toBe(4000);
     expect(typeof stop).toBe('function');
     expect(typeof start).toBe('function');
     expect(typeof reset).toBe('function');
+    expect(indicators.isRunning).toBe(true);
+    expect(indicators.isFinished).toBe(false);
   });
 
   test('should start timer immediately', () => {
@@ -119,5 +121,23 @@ describe('useCountDown test:', () => {
     });
 
     expect(onFinished).toBeCalled();
+  });
+
+  test('should indicate the status of the countdown', () => {
+    const initialTime = 10 * 1000;
+    const { result } = renderHook(() => useCountDown(initialTime));
+
+    act(() => {
+      jest.advanceTimersByTime(2000);
+    });
+
+    expect(result.current[2].isRunning).toBe(true);
+
+    act(() => {
+      jest.advanceTimersByTime(8000);
+    });
+
+    expect(result.current[2].isRunning).toBe(false);
+    expect(result.current[2].isFinished).toBe(true);
   });
 });
