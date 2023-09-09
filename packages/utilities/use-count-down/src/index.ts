@@ -26,10 +26,15 @@ interface Actions {
   stop: () => void;
 }
 
+interface Indicators {
+  isRunning: boolean;
+  isFinished: boolean;
+}
+
 type UseCountDown = (
   initialTime: number,
   options?: Options
-) => [count: number, actions: Actions];
+) => [count: number, actions: Actions, indicators: Indicators];
 
 // plus and minus the current time
 const plus = (x: number) => x + Date.now();
@@ -41,6 +46,7 @@ export const useCountDown: UseCountDown = (initialTime, options = {}) => {
   const [startUp, setstartUp] = useState<boolean>(autoStart);
   const [initialCount, setInitialCount] = useState<number>(plus(initialTime));
   const [count, setCount] = useState<number>(initialTime);
+  const [isRunning, setIsRunning] = useState(autoStart);
   const timerRef = useRef<NodeJS.Timer | null>(null);
 
   const clearTimer = () => {
@@ -59,6 +65,7 @@ export const useCountDown: UseCountDown = (initialTime, options = {}) => {
       if (leftTime === 0) {
         clearTimer();
         onFinished?.();
+        setIsRunning(false);
       }
     }, interval);
     //eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,6 +73,7 @@ export const useCountDown: UseCountDown = (initialTime, options = {}) => {
 
   const start = (time?: number) => {
     if (!startUp) setstartUp(true);
+    setIsRunning(true);
 
     if (time === undefined) {
       if (count === 0) return;
@@ -77,11 +85,13 @@ export const useCountDown: UseCountDown = (initialTime, options = {}) => {
 
   const stop = () => {
     clearTimer();
+    setIsRunning(false);
   };
 
   const reset = () => {
     if (!autoStart) setstartUp(false);
     setInitialCount(plus(initialTime));
+    setIsRunning(autoStart);
   };
 
   useEffect(() => {
@@ -91,5 +101,16 @@ export const useCountDown: UseCountDown = (initialTime, options = {}) => {
     return () => clearTimer();
   }, [initialCount, timer, startUp]);
 
-  return [count, { start, stop, reset }];
+  // only runs when initialTime changes
+  useEffect(() => {
+    setInitialCount(plus(initialTime));
+    setstartUp(autoStart);
+    setIsRunning(autoStart);
+  }, [initialTime, autoStart]);
+
+  return [
+    count,
+    { start, stop, reset },
+    { isRunning, isFinished: count === 0 }
+  ];
 };
