@@ -79,4 +79,14 @@ describe('useCounter test:', () => {
 
     expect(result.current[0]).toBe(5);
   });
+
+  test('should set the counter to given value', () => {
+    const { result } = renderHook(() => useCounter(0));
+
+    act(() => {
+      result.current[1].set(10);
+    });
+
+    expect(result.current[0]).toBe(10);
+  });
 });

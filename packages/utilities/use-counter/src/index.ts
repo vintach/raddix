@@ -7,6 +7,8 @@ interface Actions {
   dec: (value?: number) => void;
   /** Resets the counter to initial value */
   reset: () => void;
+  /** Sets the counter to the given value */
+  set: (value: number) => void;
 }
 
 interface Options {
@@ -42,9 +44,13 @@ export const useCounter: UseCounter = (initialValue, options = {}) => {
     setCounter(prev => min(prev - value, options.min));
   };
 
-  const reset = () => {
-    setCounter(min(max(initialValue, options.max), options.min));
+  const reset = (value = initialValue) => {
+    setCounter(min(max(value, options.max), options.min));
   };
 
-  return [counter, { inc, dec, reset }];
+  const set = (value: number) => {
+    setCounter(min(max(value, options.max), options.min));
+  };
+
+  return [counter, { inc, dec, reset, set }];
 };
