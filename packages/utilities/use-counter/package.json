@@ -1,6 +1,6 @@
 {
   "name": "@raddix/use-counter",
-  "description": "A hook that manage counter.",
+  "description": "A hook that manage a counter value with minimum and maximum limits.",
   "version": "0.1.0",
   "license": "MIT",
   "main": "src/index.ts",
