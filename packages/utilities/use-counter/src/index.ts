@@ -12,7 +12,9 @@ interface Actions {
 }
 
 interface Options {
+  /** The minimum value of the counter */
   min?: number;
+  /** The maximum value of the counter */
   max?: number;
 }
 
