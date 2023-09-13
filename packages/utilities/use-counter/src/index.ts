@@ -9,14 +9,42 @@ interface Actions {
   reset: () => void;
 }
 
-type UseCounter = (initialValue: number) => [counter: number, actions: Actions];
+interface Options {
+  min?: number;
+  max?: number;
+}
 
-export const useCounter: UseCounter = initialValue => {
-  const [counter, setCounter] = useState<number>(initialValue);
+type UseCounter = (
+  initialValue: number,
+  options?: Options
+) => [counter: number, actions: Actions];
 
-  const inc = (value = 1) => setCounter(x => x + value);
-  const dec = (value = 1) => setCounter(x => x - value);
-  const reset = () => setCounter(initialValue);
+const min = (value: number, valueMin?: number): number => {
+  if (valueMin === undefined) return value;
+  return Math.max(valueMin, value);
+};
+
+const max = (value: number, valueMax?: number): number => {
+  if (valueMax === undefined) return value;
+  return Math.min(valueMax, value);
+};
+
+export const useCounter: UseCounter = (initialValue, options = {}) => {
+  const [counter, setCounter] = useState(
+    min(max(initialValue, options.max), options.min)
+  );
+
+  const inc = (value = 1) => {
+    setCounter(prev => max(prev + value, options.max));
+  };
+
+  const dec = (value = 1) => {
+    setCounter(prev => min(prev - value, options.min));
+  };
+
+  const reset = () => {
+    setCounter(min(max(initialValue, options.max), options.min));
+  };
 
   return [counter, { inc, dec, reset }];
 };
