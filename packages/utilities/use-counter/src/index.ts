@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-interface Actions {
+export interface Actions {
   /** Increments the counter, default by 1 */
   inc: (value?: number) => void;
   /** Decrements the counter, default by 1 */
@@ -11,11 +11,15 @@ interface Actions {
   set: (value: number) => void;
 }
 
-interface Options {
+export interface Options {
   /** The minimum value of the counter */
   min?: number;
   /** The maximum value of the counter */
   max?: number;
+  /** Function to execute when the counter reaches the minimum value */
+  onMin?: () => void;
+  /** Function to execute when the counter reaches the maximum value */
+  onMax?: () => void;
 }
 
 type UseCounter = (
@@ -39,11 +43,15 @@ export const useCounter: UseCounter = (initialValue, options = {}) => {
   );
 
   const inc = (value = 1) => {
-    setCounter(prev => max(prev + value, options.max));
+    const nextValue = max(counter + value, options.max);
+    setCounter(nextValue);
+    if (nextValue === options.max && options.onMax) options.onMax();
   };
 
   const dec = (value = 1) => {
-    setCounter(prev => min(prev - value, options.min));
+    const prevValue = min(counter - value, options.min);
+    setCounter(prevValue);
+    if (prevValue === options.min && options.onMin) options.onMin();
   };
 
   const reset = () => {
