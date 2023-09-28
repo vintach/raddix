@@ -24,6 +24,8 @@ interface Actions {
   reset: () => void;
   /** Pause the countdown */
   stop: () => void;
+  /** Add time to the current countdown */
+  add: (time: number) => void;
 }
 
 interface Indicators {
@@ -94,6 +96,11 @@ export const useCountDown: UseCountDown = (initialTime, options = {}) => {
     setIsRunning(autoStart);
   };
 
+  const add = (time: number) => {
+    setInitialCount(plus(count + time));
+    setIsRunning(autoStart);
+  };
+
   useEffect(() => {
     setCount(minus(initialCount));
     if (startUp) timer();
@@ -110,7 +117,7 @@ export const useCountDown: UseCountDown = (initialTime, options = {}) => {
 
   return [
     count,
-    { start, stop, reset },
+    { start, stop, reset, add },
     { isRunning, isFinished: count === 0 }
   ];
 };
