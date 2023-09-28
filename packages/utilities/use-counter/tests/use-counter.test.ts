@@ -89,4 +89,38 @@ describe('useCounter test:', () => {
 
     expect(result.current[0]).toBe(10);
   });
+
+  test('should execute onMin callback', () => {
+    const onMin = jest.fn();
+    const { result } = renderHook(() => useCounter(5, { min: 0, onMin }));
+
+    act(() => {
+      result.current[1].dec(4);
+    });
+
+    expect(onMin).not.toBeCalled();
+
+    act(() => {
+      result.current[1].dec(4);
+    });
+
+    expect(onMin).toBeCalled();
+  });
+
+  test('should execute onMax callback', () => {
+    const onMax = jest.fn();
+    const { result } = renderHook(() => useCounter(0, { max: 5, onMax }));
+
+    act(() => {
+      result.current[1].inc(4);
+    });
+
+    expect(onMax).not.toBeCalled();
+
+    act(() => {
+      result.current[1].inc(4);
+    });
+
+    expect(onMax).toBeCalled();
+  });
 });
