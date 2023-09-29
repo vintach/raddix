@@ -19,7 +19,8 @@
     "version": "changeset version",
     "release": "changeset publish",
     "version:beta": "changeset version --snapshot beta",
-    "release:beta": "changeset publish --tag beta"
+    "release:beta": "changeset publish --tag beta",
+    "create:hook": "plop --plopfile ./scripts/plopfile.ts hook"
   },
   "devDependencies": {
     "@babel/preset-env": "7.22.4",
