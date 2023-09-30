@@ -23,6 +23,6 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true
   },
-  "include": ["packages", "scripts"],
+  "include": ["packages", "scripts", "jest.config.ts"],
   "exclude": ["**/node_modules", "**/dist", "**/.turbo"]
 }
