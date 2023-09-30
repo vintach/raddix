@@ -1,6 +1,6 @@
 import { createRef } from 'react';
 import { renderHook, fireEvent, render, screen } from '@testing-library/react';
-import { useClickOutside } from '@raddix/use-click-outside';
+import { useClickOutside } from '../src';
 
 describe('useClickOutside', () => {
   it('should call the function when the click is outside the element', () => {
