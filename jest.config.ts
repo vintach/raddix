@@ -17,6 +17,7 @@ const config: Config = {
   },
   roots: ['packages/'],
   testEnvironment: 'jsdom',
+  collectCoverageFrom: ['packages/**/**/src/*.{ts,tsx}'],
   verbose: true,
   watchPlugins: [
     'jest-watch-typeahead/filename',

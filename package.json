@@ -8,6 +8,8 @@
     "storybook:docs": "storybook dev --docs",
     "new-pkg": "ts-node ./scripts/create-pkg.ts",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "build:package": "ts-node ./scripts/generate-package.ts",
     "build:parcel": "parcel build 'packages/primitives/*/' --no-cache --no-source-maps",
     "build": "turbo run build",
