@@ -1,7 +1,7 @@
 {
-  "name": "@raddix/use-count-down",
-  "description": "The useCountdown hook is useful for creating a very simple yet powerful countdown timer for React.",
-  "version": "1.1.1",
+  "name": "@raddix/use-counter",
+  "description": "A hook that manage a counter value with minimum and maximum limits.",
+  "version": "1.1.0",
   "license": "MIT",
   "main": "src/index.ts",
   "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",
@@ -11,11 +11,12 @@
     "url": "https://github.com/gdvu/raddix.git"
   },
   "keywords": [
-    "react-timer",
-    "react-use-count-down",
-    "react-count-down",
-    "hook-count-down",
-    "react-countdown-hook"
+    "react",
+    "react-hook",
+    "counter",
+    "use-counter",
+    "use-counter-hook",
+    "react-counter-hook"
   ],
   "sideEffects": false,
   "scripts": {

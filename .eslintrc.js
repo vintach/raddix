@@ -156,14 +156,18 @@ module.exports = {
     },
     /**
      * -----------------------------------------------------
-     * EXAMPLES
+     * EXAMPLES AND SCRIPTS
      * -----------------------------------------------------
      */
     {
-      files: ['./packages/**/**/examples/*.{ts,tsx}'],
+      files: [
+        './packages/**/**/examples/*.{ts,tsx}',
+        './scripts/**/*.{ts,tsx}'
+      ],
       rules: {
         'import/no-default-export': ['off'],
-        '@typescript-eslint/explicit-module-boundary-types': 'off'
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'no-console': 'off'
       }
     }
   ]

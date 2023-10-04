@@ -1,5 +1,17 @@
 # @raddix/use-count-down
 
+## 1.1.1
+
+### Patch Changes
+
+- 890b202: Added `add()` action that adds time to the current countdown
+
+## 1.1.0
+
+### Minor Changes
+
+- 4deba3c: Add isRunning and isFinished status indicators
+
 ## 1.0.0
 
 ### Major Changes

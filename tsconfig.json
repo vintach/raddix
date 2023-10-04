@@ -13,6 +13,6 @@
       "@raddix/use-media-query": ["./packages/utilities/use-media-query/src"]
     }
   },
-  "include": ["packages"],
+  "include": ["packages", "scripts"],
   "exclude": ["**/node_modules", "**/dist", "**/.turbo"]
 }
