@@ -1,6 +1,6 @@
 {
   "name": "@raddix/use-interval",
-  "description": "",
+  "description": "A React hook for setting an interval.",
   "version": "0.1.0",
   "license": "MIT",
   "main": "src/index.ts",
@@ -14,9 +14,13 @@
     "react-hooks",
     "react-use-interval",
     "react-interval-hook",
+    "interval",
+    "interval-hook",
+    "use-interval",
     "use-interval-hook",
     "use-interval-hook-react",
-    "use-interval-react"
+    "use-interval-react",
+    "setInterval"
   ],
   "sideEffects": false,
   "scripts": {
