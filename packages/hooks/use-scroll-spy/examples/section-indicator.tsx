@@ -1,4 +1,4 @@
-import { useScrollSpy } from '@raddix/use-scroll-spy';
+import { useScrollSpy } from '../src';
 
 const Section = ({ name, bg }: { bg: string; name: string }) => (
   <section

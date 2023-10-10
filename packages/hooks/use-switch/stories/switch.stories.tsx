@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import type { UseSwitchProps } from '@raddix/switch';
-import { useSwitch } from '@raddix/switch';
+import type { UseSwitchProps } from '../src';
+import { useSwitch } from '../src';
 import './switch.css';
 
 export const Switch = (props: UseSwitchProps) => {

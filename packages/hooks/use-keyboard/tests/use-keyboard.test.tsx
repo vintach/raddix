@@ -1,5 +1,5 @@
 import { fireEvent, render, renderHook } from '@testing-library/react';
-import { useKeyboard } from '../src/index';
+import { useKeyboard } from '../src';
 
 interface ComponentProps {
   onKeyboard: (event: React.KeyboardEvent | KeyboardEvent) => void;

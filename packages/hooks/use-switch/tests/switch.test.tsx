@@ -1,7 +1,7 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { useSwitch } from '../src/index';
-import type { UseSwitchProps } from '../src/index';
 import '@testing-library/jest-dom';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { useSwitch } from '../src';
+import type { UseSwitchProps } from '../src';
 
 const Switch = (props: UseSwitchProps) => {
   const { switchProps } = useSwitch({
