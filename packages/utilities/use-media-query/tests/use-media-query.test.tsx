@@ -1,4 +1,4 @@
-import { useMediaQuery } from '@raddix/use-media-query';
+import { useMediaQuery } from '../src';
 import { renderHook } from '@testing-library/react';
 import mediaQuery from 'css-mediaquery';
 

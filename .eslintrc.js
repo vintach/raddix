@@ -162,7 +162,8 @@ module.exports = {
     {
       files: [
         './packages/**/**/examples/*.{ts,tsx}',
-        './scripts/**/*.{ts,tsx}'
+        './scripts/**/*.{ts,tsx}',
+        '*.config.{ts,tsx}'
       ],
       rules: {
         'import/no-default-export': ['off'],

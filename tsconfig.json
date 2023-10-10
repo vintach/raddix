@@ -1,18 +1,28 @@
 {
-  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "paths": {
-      "@raddix/switch": ["./packages/primitives/switch/src"],
-      "@raddix/use-scroll-spy": ["./packages/utilities/use-scroll-spy/src"],
-      "@raddix/use-toggle": ["./packages/utilities/use-toggle/src"],
-      "@raddix/use-keyboard": ["./packages/interactions/use-keyboard/src"],
-      "@raddix/use-click-outside": [
-        "./packages/interactions/use-click-outside/src"
-      ],
-      "@raddix/use-count-down": ["./packages/utilities/use-count-down/src"],
-      "@raddix/use-media-query": ["./packages/utilities/use-media-query/src"]
-    }
+    "lib": ["dom", "ESNext"],
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "allowJs": true,
+    "declaration": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true
   },
-  "include": ["packages", "scripts"],
+  "include": ["packages", "scripts", "jest.config.ts"],
   "exclude": ["**/node_modules", "**/dist", "**/.turbo"]
 }

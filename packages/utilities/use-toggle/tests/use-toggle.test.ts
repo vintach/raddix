@@ -1,4 +1,4 @@
-import { useToggle } from '@raddix/use-toggle';
+import { useToggle } from '../src';
 import { act, renderHook } from '@testing-library/react';
 
 describe('useToggle test:', () => {

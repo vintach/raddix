@@ -1,4 +1,4 @@
-import { useCountDown } from '@raddix/use-count-down';
+import { useCountDown } from '../src';
 import { renderHook, act } from '@testing-library/react';
 
 jest.useFakeTimers();
