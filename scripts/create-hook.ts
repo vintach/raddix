@@ -1,14 +1,5 @@
 import type { PlopGeneratorConfig } from '@crutchcorn/plop';
 
-const LIST_OF_CATEGORIES = [
-  'interactions',
-  'utilities',
-  'state',
-  'browser',
-  'effects',
-  'aria'
-] as const;
-
 export const createHook = (): PlopGeneratorConfig => ({
   description: 'Create a hook',
   prompts: [
@@ -32,18 +23,12 @@ export const createHook = (): PlopGeneratorConfig => ({
       type: 'input',
       name: 'hookDescription',
       message: 'What is your hook description?'
-    },
-    {
-      type: 'list',
-      name: 'hookCategory',
-      message: 'What is your hook category?',
-      choices: LIST_OF_CATEGORIES
     }
   ],
   actions: [
     {
       type: 'addMany',
-      destination: '../packages/{{hookCategory}}/use-{{kebabCase hookName}}',
+      destination: '../packages/hooks/use-{{kebabCase hookName}}',
       base: '../templates/create-hook',
       templateFiles: '../templates/create-hook/**'
     }
