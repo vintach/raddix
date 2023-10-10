@@ -1,6 +1,6 @@
-import { useMediaQuery } from '../src';
 import { renderHook } from '@testing-library/react';
 import mediaQuery from 'css-mediaquery';
+import { useMediaQuery } from '../src';
 
 const newMatchMedia = (query: string): MediaQueryList => {
   return {

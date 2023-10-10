@@ -1,5 +1,5 @@
-import { useToggle } from '../src';
 import { act, renderHook } from '@testing-library/react';
+import { useToggle } from '../src';
 
 describe('useToggle test:', () => {
   test('should print initial value', () => {

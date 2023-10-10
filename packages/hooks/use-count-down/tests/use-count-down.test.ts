@@ -1,5 +1,5 @@
-import { useCountDown } from '../src';
 import { renderHook, act } from '@testing-library/react';
+import { useCountDown } from '../src';
 
 jest.useFakeTimers();
 

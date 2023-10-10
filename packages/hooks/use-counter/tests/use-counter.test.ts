@@ -1,5 +1,5 @@
-import { useCounter } from '../src/index';
 import { renderHook, act } from '@testing-library/react';
+import { useCounter } from '../src';
 
 describe('useCounter test:', () => {
   test('should print initial values', () => {

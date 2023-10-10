@@ -1,19 +1,4 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
-import path from 'path';
-
-// convert ts config paths to webpack aliases
-const convertTsConfigPathsToWebpackAliases = () => {
-  const rootDir = path.resolve(__dirname, '../');
-  const tsConfig = require('../tsconfig.json');
-  const tsConfigPaths: [string, string][] = Object.entries(
-    tsConfig.compilerOptions.paths
-  );
-
-  return tsConfigPaths.reduce((alias, [realPath, mappedPath]) => {
-    alias[realPath] = path.join(rootDir, mappedPath[0]);
-    return alias;
-  }, {});
-};
 
 const config: StorybookConfig = {
   stories: [
@@ -29,17 +14,7 @@ const config: StorybookConfig = {
       options: { postCss: true }
     }
   ],
-  framework: '@storybook/react-webpack5',
-  webpackFinal: async config => ({
-    ...config,
-    resolve: {
-      ...config.resolve,
-      alias: {
-        ...config.resolve?.alias,
-        ...convertTsConfigPathsToWebpackAliases()
-      }
-    }
-  })
+  framework: '@storybook/react-webpack5'
 };
 
 export default config;
