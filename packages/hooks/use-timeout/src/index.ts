@@ -10,7 +10,7 @@ import { useCallback, useEffect, useRef } from 'react';
 export const useTimeout = (
   cb: () => void,
   delay: number | null,
-  immediate = false
+  immediate = true
 ): { clear: () => void; reset: () => void; run: () => void } => {
   const savedCallback = useRef(cb);
   const id = useRef<NodeJS.Timeout | null>(null);
