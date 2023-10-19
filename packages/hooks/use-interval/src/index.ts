@@ -1,23 +1,14 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-export interface IntervalResult {
-  /** Clear interval and stop the execution  */
-  clear: () => void;
-  /** Execute the interval */
-  run: () => void;
-}
-
-type UseInterval = (
+export const useInterval = (
   callback: () => void,
-  delay: number,
-  inmediate?: boolean
-) => IntervalResult;
-
-export const useInterval: UseInterval = (callback, delay, inmediate = true) => {
+  delay: number | null,
+  inmediate = true
+): { clear: () => void; run: () => void } => {
   const savedCallback = useRef(callback);
   const id = useRef<NodeJS.Timeout | null>(null);
 
-  const clearId = () => {
+  const clear = () => {
     if (!id.current) return;
     clearInterval(id.current);
     id.current = null;
@@ -25,9 +16,8 @@ export const useInterval: UseInterval = (callback, delay, inmediate = true) => {
 
   const run = useCallback(() => {
     if (id.current) return;
-    const tick = () => savedCallback.current();
-
-    id.current = setInterval(tick, delay);
+    if (delay === null) return;
+    id.current = setInterval(() => savedCallback.current(), delay);
   }, [delay]);
 
   useEffect(() => {
@@ -36,8 +26,8 @@ export const useInterval: UseInterval = (callback, delay, inmediate = true) => {
 
   useEffect(() => {
     if (inmediate) run();
-    return () => clearId();
+    return () => clear();
   }, [run, inmediate]);
 
-  return { clear: clearId, run };
+  return { clear, run };
 };
