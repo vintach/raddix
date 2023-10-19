@@ -4,13 +4,13 @@ import { useCallback, useEffect, useRef } from 'react';
  * A React hook for handling timeouts
  * @param cb The callback function to be executed after the specified timeout.
  * @param delay The duration of the timeout in milliseconds.
- * @param inmediate If it is true, the callback is executed immediately.
+ * @param immediate If it is true, the callback is executed immediately.
  * @see https://raddix.website/hooks/use-timeout
  */
 export const useTimeout = (
   cb: () => void,
   delay: number | null,
-  inmediate = true
+  immediate = false
 ): { clear: () => void; reset: () => void; run: () => void } => {
   const savedCallback = useRef(cb);
   const id = useRef<NodeJS.Timeout | null>(null);
@@ -37,9 +37,9 @@ export const useTimeout = (
   }, [cb]);
 
   useEffect(() => {
-    if (inmediate) run();
+    if (immediate) run();
     return () => clear();
-  }, [delay, run, clear, inmediate]);
+  }, [delay, run, clear, immediate]);
 
   return { clear, reset, run };
 };
