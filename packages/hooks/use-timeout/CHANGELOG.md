@@ -1,5 +1,11 @@
 # @raddix/use-timeout
 
+## 1.1.0
+
+### Minor Changes
+
+- 70010d0: Added two new return functions: `reset` and `run`
+
 ## 1.0.0
 
 ### Major Changes
