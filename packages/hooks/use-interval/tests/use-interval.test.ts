@@ -46,6 +46,14 @@ describe('useInterval test:', () => {
     expect(callback).toHaveBeenCalledTimes(1);
   });
 
+  it('should not execute the callback if the delay is null', () => {
+    const callback = jest.fn();
+    renderHook(() => useInterval(callback, null));
+
+    jest.advanceTimersByTime(2000);
+    expect(callback).not.toBeCalled();
+  });
+
   it('should clear the interval when the immediate changes', () => {
     const callback = jest.fn();
     const { rerender } = renderHook(
