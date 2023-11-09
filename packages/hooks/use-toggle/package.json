@@ -1,6 +1,6 @@
 {
   "name": "@raddix/use-toggle",
-  "description": "A simple hook that toggles its value from true to false.",
+  "description": "It's a simple hook that toggles a boolean value.",
   "version": "1.0.0",
   "license": "MIT",
   "main": "src/index.ts",
@@ -10,6 +10,12 @@
     "type": "git",
     "url": "https://github.com/gdvu/raddix.git"
   },
+  "keywords": [
+    "react-hook",
+    "toggle",
+    "use-toggle",
+    "react hook toggle"
+  ],
   "sideEffects": false,
   "scripts": {
     "lint": "eslint \"{src,tests}/*.{ts,tsx,css}\"",

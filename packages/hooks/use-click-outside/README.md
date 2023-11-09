@@ -1,30 +1,5 @@
-<div align="center">
-  <h1 align="center">useClickOutside</h1>
-  <a href="https://github.com/gdvu/raddix/blob/main/LICENSE">
-    <img alt="GitHub" src="https://img.shields.io/github/license/gdvu/raddix">
-  </a>
-  <a href="https://www.npmjs.com/package/@raddix/use-click-outside">
-    <img alt="npm version" src="https://img.shields.io/npm/v/@raddix/use-click-outside">
-  </a>
+# useClickOutside
 
-  <a href="https://www.npmjs.com/package/@raddix/use-click-outside">
-  <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/min/@raddix/use-click-outside">
-  </a>
-</div>
-<p align="center">
-`useClickOutside` is a custom hook for listening clicks outside of a specific element.
-</p>
+The `useClickOutside` hook is used to detect clicks outside of a specified element. It is useful for detecting clicks outside of a dropdown menu, modal, or any other element that should be closed when the user clicks outside of it.
 
-## Install
-
-```bash
-npm i @raddix/use-click-outside
-# or
-yarn add @raddix/use-click-outside
-# or
-pnpm add @raddix/use-click-outside
-```
-
-## Documentation
-
-For full documentation, visit [raddix.website/use-click-outside](https://www.raddix.website/docs/utilities/use-click-outside)
+Please refer to the [documentation](https://raddix.website/hooks/use-click-outside) for more information.
