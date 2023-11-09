@@ -1,5 +1,11 @@
 # @raddix/use-count-down
 
+## 1.1.2
+
+### Patch Changes
+
+- 0a0204e: Update documentation links
+
 ## 1.1.1
 
 ### Patch Changes

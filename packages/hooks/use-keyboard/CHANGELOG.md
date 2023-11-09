@@ -1,5 +1,11 @@
 # @raddix/use-keyboard
 
+## 1.2.1
+
+### Patch Changes
+
+- 0a0204e: Update documentation links
+
 ## 1.2.0
 
 ### Minor Changes
