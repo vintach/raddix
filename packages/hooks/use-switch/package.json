@@ -1,7 +1,7 @@
 {
   "name": "@raddix/switch",
   "description": "Is a hook that provides the behavior and accessibility of a switch.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "main": "src/index.ts",
   "repository": {
