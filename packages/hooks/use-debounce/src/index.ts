@@ -1,5 +1,17 @@
-type UseDebounce = () => void;
+import { useEffect, useState } from 'react';
 
-export const useDebounce: UseDebounce = () => {
-  return {};
-};
+export function useDebounce<T>(value: T, delay = 500): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
