@@ -1,6 +1,6 @@
 {
   "name": "@raddix/use-debounce",
-  "description": "",
+  "description": "A React hook that provides a debounced value of the provided value.",
   "version": "0.1.0",
   "license": "MIT",
   "main": "src/index.ts",
