@@ -232,24 +232,6 @@ importers:
         specifier: '>=16.8.0'
         version: 18.2.0(react@18.2.0)
 
-  packages/hooks/use-debounce-effect:
-    dependencies:
-      react:
-        specifier: '>=16.8.0'
-        version: 18.2.0
-      react-dom:
-        specifier: '>=16.8.0'
-        version: 18.2.0(react@18.2.0)
-
-  packages/hooks/use-debounce-fn:
-    dependencies:
-      react:
-        specifier: '>=16.8.0'
-        version: 18.2.0
-      react-dom:
-        specifier: '>=16.8.0'
-        version: 18.2.0(react@18.2.0)
-
   packages/hooks/use-interval:
     dependencies:
       react:
