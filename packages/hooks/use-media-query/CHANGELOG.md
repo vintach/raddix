@@ -1,5 +1,11 @@
 # @raddix/use-media-query
 
+## 0.1.2
+
+### Patch Changes
+
+- 0a0204e: Update documentation links
+
 ## 0.1.1
 
 ### Patch Changes

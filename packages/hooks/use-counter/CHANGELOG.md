@@ -1,5 +1,11 @@
 # @raddix/use-counter
 
+## 1.1.1
+
+### Patch Changes
+
+- 0a0204e: Update documentation links
+
 ## 1.1.0
 
 ### Minor Changes
