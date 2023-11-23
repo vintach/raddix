@@ -36,4 +36,28 @@ describe('useDebounce test:', () => {
 
     expect(result.current).toBe('updated');
   });
+
+  it('default delay should be 500ms', () => {
+    const { result, rerender } = renderHook(({ value }) => useDebounce(value), {
+      initialProps: { value: 'initial' }
+    });
+
+    expect(result.current).toBe('initial');
+
+    act(() => {
+      rerender({ value: 'updated' });
+    });
+
+    act(() => {
+      jest.advanceTimersByTime(250);
+    });
+
+    expect(result.current).toBe('initial');
+
+    act(() => {
+      jest.advanceTimersByTime(250);
+    });
+
+    expect(result.current).toBe('updated');
+  });
 });
