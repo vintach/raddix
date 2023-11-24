@@ -1,6 +1,6 @@
 {
   "name": "@raddix/use-event-listener",
-  "description": "A hook that listen for events on a target element.",
+  "description": "A hook that enables you to add event listeners to a target element or document.",
   "version": "0.1.0",
   "license": "MIT",
   "main": "src/index.ts",
