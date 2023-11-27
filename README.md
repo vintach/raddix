@@ -1,31 +1,48 @@
 <div align="center">
-  <a href="https://github.com/gdvu/raddix" rel="noopener" target="_blank">
-    <img width="20%" src="./assets/logotipo.png" alt="raddix" />
-  </a>
-  <h1 align="center">Raddix</h1>
+  <img height="170" src="./assets/logotipo.png" alt="raddix" />
+  <h1>Raddix</h1>
+  <p>A collection of essential React Hooks</p><br>
+
   <a href="https://github.com/gdvu/raddix/blob/main/LICENSE">
     <img alt="GitHub" src="https://img.shields.io/github/license/gdvu/raddix">
   </a>
+  <a href="https://github.com/vintach/raddix/graphs/contributors">
+    <img alt="GitHub" src="https://img.shields.io/github/contributors/gdvu/raddix">
+  </a>
   <a href="https://github.com/gdvu/raddix/commits/main">
     <img alt="GitHub commit activity (branch)" src="https://img.shields.io/github/commit-activity/w/gdvu/raddix/main">
+  </a>
+  <a href="https://codecov.io/gh/vintach/raddix" >
+    <img src="https://codecov.io/gh/vintach/raddix/graph/badge.svg?token=1SOLKDMV8G"/>
   </a>
   <a>
     <img alt="GitHub last commit (branch)" src="https://img.shields.io/github/last-commit/gdvu/raddix/main">
   </a>
 </div>
-<span></span>
-<p align="center">
-Raddix is a collection of React hooks that allows you to quickly create accessible, robust, and extensible design systems.
-</p>
 
-## Interactions
+## ✨ Features
 
-It's a collection of React hooks that handles the interactions for your components. [**Learn more**](https://www.raddix.website/docs/interactions)
+- Provides full support for TypeScript.
+- Easy to learn and use. There is no configuration, just import and use.
+- Simplify development with an intuitive and powerful API.
+- With support for Server Side Rendering (SSR).
+- Each hook is well documented with examples.
+- All hooks are fully tested, and 100% test coverage.
 
-## Utilities
+## 📖 Documentation
 
-It is a collection of React hooks that provides basic and advanced utilities for your React components. [**Learn more**](https://www.raddix.website/docs/utilities)
+Visit [raddix.website/docs](https://www.raddix.website/docs/getting-started/introduction) to view the full documentation.
 
-## Aria
+## 🤝 Contributing
 
-It is a collection of React hooks that provides accessibility and usability for your React components. [**Learn more**](https://www.raddix.website/docs/aria)
+Contributions, issues and feature requests are welcome!
+Please follow the [Contributing](https://github.com/vintach/raddix/blob/main/.github/CONTRIBUTING.md) guide.
+
+## ✍️ Authors
+
+- Moises Machuca ([@immois](https://github.com/immois))
+
+## 🤗 Contributors
+
+- Diego Reyes ([@realDiegoR](https://github.com/realDiegoR))
+- Juan Manuel ([@juanmavelez](https://github.com/juanmavelez))
