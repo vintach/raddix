@@ -310,6 +310,18 @@ importers:
         specifier: '>=16.8.0'
         version: 18.2.0(react@18.2.0)
 
+  packages/hooks/use-window-size:
+    dependencies:
+      '@raddix/use-event-listener':
+        specifier: workspace:*
+        version: link:../use-event-listener
+      react:
+        specifier: '>=16.8.0'
+        version: 18.2.0
+      react-dom:
+        specifier: '>=16.8.0'
+        version: 18.2.0(react@18.2.0)
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
