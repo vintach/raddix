@@ -1,5 +1,9 @@
 import { type RefObject, useEffect, useRef } from 'react';
 
+export const _window = typeof window !== 'undefined' ? window : global.window;
+export const _document =
+  typeof document !== 'undefined' ? document : global.document;
+
 export const useEventListener = <T extends keyof HTMLElementEventMap>(
   target: RefObject<EventTarget> | EventTarget,
   eventType: T,
