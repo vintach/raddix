@@ -1,11 +1,10 @@
 import { type RefObject, useEffect, useRef } from 'react';
 
-export const _window = typeof window !== 'undefined' ? window : global.window;
-export const _document =
-  typeof document !== 'undefined' ? document : global.document;
+export const _window = typeof window !== 'undefined' ? window : null;
+export const _document = typeof document !== 'undefined' ? document : null;
 
 export const useEventListener = <T extends keyof HTMLElementEventMap>(
-  target: RefObject<EventTarget> | EventTarget,
+  target: RefObject<EventTarget> | EventTarget | null,
   eventType: T,
   callback: (event: HTMLElementEventMap[T]) => void,
   options?: boolean | AddEventListenerOptions
@@ -17,6 +16,7 @@ export const useEventListener = <T extends keyof HTMLElementEventMap>(
   }, [callback]);
 
   useEffect(() => {
+    if (target === null) return;
     const targetElement = 'current' in target ? target.current : target;
 
     if (!targetElement?.addEventListener) return;
