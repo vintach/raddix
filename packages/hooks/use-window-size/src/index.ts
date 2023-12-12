@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useEventListener, _window } from '@raddix/use-event-listener';
+import { useEventListener } from '@raddix/use-event-listener';
 
 interface Size {
   width: number;
@@ -23,7 +23,7 @@ export const useWindowSize = (): Size => {
     handleResize();
   }, []);
 
-  useEventListener(_window, 'resize', handleResize);
+  useEventListener('resize', handleResize);
 
   return windowSize;
 };
