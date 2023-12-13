@@ -1,5 +1,5 @@
 import { type RefObject, useEffect, useState } from 'react';
-import { useEventListener, _document } from '@raddix/use-event-listener';
+import { useEventListener } from '@raddix/use-event-listener';
 
 export interface ScrollPosition {
   x: number | null;
@@ -7,11 +7,11 @@ export interface ScrollPosition {
 }
 
 export interface Options<E extends HTMLElement> {
-  target?: RefObject<E> | Document | null;
+  target?: RefObject<E> | Document;
 }
 
-export const useScroll = <E extends HTMLElement = HTMLDivElement>({
-  target = _document
+export const useScrollPosition = <E extends HTMLElement = HTMLDivElement>({
+  target = globalThis.document
 }: Options<E> = {}): ScrollPosition => {
   const [scrollPosition, setScrollPosition] = useState<ScrollPosition>({
     x: 0,
@@ -19,7 +19,6 @@ export const useScroll = <E extends HTMLElement = HTMLDivElement>({
   });
 
   const handle = () => {
-    if (!target) return;
     const targetElement =
       target instanceof Document ? document.documentElement : target.current;
 
@@ -34,7 +33,7 @@ export const useScroll = <E extends HTMLElement = HTMLDivElement>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEventListener(target, 'scroll', handle, { passive: true });
+  useEventListener('scroll', handle, { target, passive: true });
 
   return scrollPosition;
 };

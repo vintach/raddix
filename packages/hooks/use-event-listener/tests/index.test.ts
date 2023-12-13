@@ -14,11 +14,9 @@ describe('useEventListener test:', () => {
     jest.clearAllMocks();
   });
 
-  it('should add event listener in document', () => {
+  it('should add event listener in window', () => {
     const callback = jest.fn();
-    const { unmount } = renderHook(() =>
-      useEventListener(document, 'click', callback)
-    );
+    const { unmount } = renderHook(() => useEventListener('click', callback));
 
     expect(callback).not.toHaveBeenCalled();
 
@@ -40,7 +38,7 @@ describe('useEventListener test:', () => {
   it('should add event listener in element', () => {
     const callback = jest.fn();
     const { unmount } = renderHook(() =>
-      useEventListener(container, 'click', callback)
+      useEventListener('click', callback, { target: container })
     );
 
     expect(callback).not.toHaveBeenCalled();
@@ -63,7 +61,7 @@ describe('useEventListener test:', () => {
   it('should add event listener to ref', () => {
     const callback = jest.fn();
     const ref = { current: container };
-    renderHook(() => useEventListener(ref, 'click', callback));
+    renderHook(() => useEventListener('click', callback, { target: ref }));
 
     act(() => {
       document.body.click();
@@ -81,7 +79,7 @@ describe('useEventListener test:', () => {
   it('should not add event listener if the target does not have addEventListener', () => {
     const callback = jest.fn();
     const ref = { current: null };
-    renderHook(() => useEventListener(ref, 'click', callback));
+    renderHook(() => useEventListener('click', callback, { target: ref }));
 
     act(() => {
       document.body.click();
