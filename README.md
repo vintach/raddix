@@ -31,7 +31,7 @@
 
 ## 📖 Documentation
 
-Visit [raddix.website/docs](https://www.raddix.website/docs/getting-started/introduction) to view the full documentation.
+Visit [raddix.dev/docs](https://raddix.dev/docs/getting-started/introduction) to view the full documentation.
 
 ## 🤝 Contributing
 
