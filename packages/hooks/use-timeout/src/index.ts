@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef } from 'react';
  * @param cb The callback function to be executed after the specified timeout.
  * @param delay The duration of the timeout in milliseconds.
  * @param immediate If it is true, the callback is executed immediately.
- * @see https://raddix.website/hooks/use-timeout
+ * @see https://raddix.dev/hooks/use-timeout
  */
 export const useTimeout = (
   cb: () => void,
