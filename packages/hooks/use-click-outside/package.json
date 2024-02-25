@@ -6,7 +6,7 @@
   "source": "src/index.ts",
   "main": "src/index.ts",
   "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",
-  "homepage": "https://www.raddix.website",
+  "homepage": "https://raddix.dev",
   "repository": {
     "type": "git",
     "url": "https://github.com/gdvu/raddix.git"
