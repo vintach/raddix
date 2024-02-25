@@ -1,7 +1,7 @@
 {
   "name": "@raddix/use-window-size",
   "description": "A hook that track the dimensions of the browser window.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "src/index.ts",
   "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",

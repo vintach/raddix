@@ -1,5 +1,14 @@
 # @raddix/switch
 
+## 1.0.6
+
+### Patch Changes
+
+- d3351a5: Update the url with the new domain of the documentation website
+- Updated dependencies [d3351a5]
+  - @raddix/use-keyboard@1.2.2
+  - @raddix/use-toggle@1.0.2
+
 ## 1.0.5
 
 ### Patch Changes

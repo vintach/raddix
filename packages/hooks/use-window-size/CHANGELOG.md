@@ -1,5 +1,13 @@
 # @raddix/use-window-size
 
+## 1.0.1
+
+### Patch Changes
+
+- d3351a5: Update the url with the new domain of the documentation website
+- Updated dependencies [d3351a5]
+  - @raddix/use-event-listener@1.0.1
+
 ## 1.0.0
 
 ### Major Changes

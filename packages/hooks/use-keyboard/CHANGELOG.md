@@ -1,5 +1,11 @@
 # @raddix/use-keyboard
 
+## 1.2.2
+
+### Patch Changes
+
+- d3351a5: Update the url with the new domain of the documentation website
+
 ## 1.2.1
 
 ### Patch Changes
