@@ -1,5 +1,11 @@
 # @raddix/use-count-down
 
+## 1.1.3
+
+### Patch Changes
+
+- d3351a5: Update the url with the new domain of the documentation website
+
 ## 1.1.2
 
 ### Patch Changes

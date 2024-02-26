@@ -1,5 +1,11 @@
 # @raddix/use-media-query
 
+## 0.1.3
+
+### Patch Changes
+
+- d3351a5: Update the url with the new domain of the documentation website
+
 ## 0.1.2
 
 ### Patch Changes

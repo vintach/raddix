@@ -1,7 +1,7 @@
 {
   "name": "@raddix/use-counter",
   "description": "A hook that manage a counter value with minimum and maximum limits.",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "main": "src/index.ts",
   "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",
