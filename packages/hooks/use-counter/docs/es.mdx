@@ -1,0 +1,167 @@
+---
+title: useCounter
+description: Un hook para administrar un contador.
+---
+
+# useCounter
+
+El hook `useCounter` le permite administrar un contador.
+
+## Carácteristicas
+
+- Reiniciar el contador al valor inicial.
+- Establece valores mínimo y máximo al contador.
+- Establecer el contador a un valor determinado.
+- Ejecutar una función cuando el contador alcance el valor mínimo o máximo.
+
+## Instalación
+
+<Snippet pkg text='@raddix/use-counter' />
+
+## Uso
+
+### Contador básico
+
+Para empezar crearemos un contador con posibilidad de incrementarlo y disminuirlo
+en 1, y restablecerlo al valor inicial.
+
+```jsx
+import { useCounter } from '@raddix/use-counter';
+
+const Counter = () => {
+  const [counter, { inc, dec, reset }] = useCounter(0);
+
+  return (
+    <div>
+      <p>Counter: {counter}</p>
+      <button onClick={() => inc()}>Increment</button>
+      <button onClick={() => dec()}>Decrement</button>
+      <button onClick={() => reset()}>Reset</button>
+    </div>
+  );
+};
+```
+
+### Agregar un valor mínimo y máximo
+
+Ahora, agregaremos un valor mínimo y máximo al contador y ejecutaremos una función.
+cuando el contador alcanza el valor mínimo o máximo.
+
+```jsx
+import { useCounter } from '@raddix/use-counter';
+
+const Counter = () => {
+  const [counter, { inc, dec, reset }] = useCounter(0, {
+    min: 0,
+    max: 10,
+    onMin: () => console.log('Counter reached the minimum value'),
+    onMax: () => console.log('Counter reached the maximum value')
+  });
+
+  return (
+    <div>
+      <p>Counter: {counter}</p>
+      <button onClick={() => inc()}>Increment</button>
+      <button onClick={() => dec()}>Decrement</button>
+      <button onClick={() => reset()}>Reset</button>
+    </div>
+  );
+};
+```
+
+## API
+
+### Valor de retorno
+
+El hook `useCounter` devuelve un array con dos elementos:
+
+<ApiTable
+  head={{ name: 'Index' }}
+  data={[
+    {
+      name: '0 (counter)',
+      type: 'number',
+      description: 'El valor actual del contador.'
+    },
+    {
+      name: '1 (actions)',
+      type: 'object',
+      description: 'Un objeto con las acciones para manejar el contador.'
+    }
+  ]}
+/>
+
+### Acciones
+
+<ApiTable
+  data={[
+    {
+      name: 'inc',
+      type: '(value?: number) => void',
+      description: 'Incrementa el contador, por defecto en 1.'
+    },
+    {
+      name: 'dec',
+      type: '(value?: number) => void',
+      description: 'Decrementa el contador, por defecto en 1.'
+    },
+    {
+      name: 'reset',
+      type: '() => void',
+      description: 'Resetea el contador al valor inicial.'
+    },
+    {
+      name: 'set',
+      type: '(value: number) => void',
+      description: 'Establece el contador a un valor específico.'
+    }
+  ]}
+/>
+
+### Parámetros
+
+El hook `useCounter` acepta dos parámetros:
+
+<ApiTable
+  data={[
+    {
+      name: 'initialValue',
+      type: 'number',
+      description: 'El valor inicial del contador.'
+    },
+    {
+      name: 'options',
+      type: 'object',
+      description: 'Un objeto con las opciones del contador.'
+    }
+  ]}
+/>
+
+### Opciones del contador
+
+<ApiTable
+  data={[
+    {
+      name: 'min',
+      type: 'number',
+      description: 'El valor mínimo del contador.'
+    },
+    {
+      name: 'max',
+      type: 'number',
+      description: 'El valor máximo del contador.'
+    },
+    {
+      name: 'onMin',
+      type: '() => void',
+      description:
+        'Función a ejecutar cuando el contador alcanza el valor mínimo.'
+    },
+    {
+      name: 'onMax',
+      type: '() => void',
+      description:
+        'Función a ejecutar cuando el contador alcanza el valor máximo.'
+    }
+  ]}
+/>

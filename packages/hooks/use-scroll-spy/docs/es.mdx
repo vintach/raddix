@@ -1,0 +1,106 @@
+---
+title: useScrollSpy
+description: Actualice automáticamente la navegación en función de la posición del usuario.
+---
+
+# useScrollSpy
+
+@raddix/useScrollSpy es un custom hook que actualiza la sección activa de la pagina basándose en la posición del usuario, mejorando así la navegación de la página. Este hook monitoriza la posicion del usuario y lo sincroniza con el índice correspondiente.
+
+## Instalación
+
+Instale el custom hook desde su terminal.
+
+<Snippet pkg text='@raddix/use-scroll-spy' />
+
+## Uso
+
+```tsx
+import { useScrollSpy } from '@raddix/use-scroll-spy';
+
+export default function TableOfContent() {
+  const headings = [
+    {id: 'overview', text: 'Overview'},
+    {id: 'components', text: 'Creating and nesting components'},
+    {id: 'styles', text: 'Adding styles'},
+  ]
+  const headingIds = headings.map(({id}) => id)
+
+  const activeId = useScrollSpy(headingIds, {
+      rootMargin: "0% 0% -80% 0%",
+  });
+
+  return (
+    <ul>
+      {headings.map((heading, i) => (
+          <li
+            key={i}
+            style={
+              activeId === heading.id ? { color: 'blue' } : { color: '#000' }
+              }
+          >
+            <a href={`#${heading.id}`}>{heading.text}</a>
+          </li>
+        ))}
+    </ul>
+  );
+};
+```
+
+## API
+
+Detrás de cámaras, el hook utiliza el Intersection Observer Web API, así que puedes obtener los mejores estándares de rendimiento mientras no te tienes que preocupar por implementarlo tú mismo.
+
+### Resultado
+
+<ApiTable
+  head={{
+    name: 'Nombre',
+    description: 'Descripción',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: 'activeId',
+      description:
+        'Devuelve el id del elemento de la navegación que está activo.'
+    }
+  ]}
+/>
+
+### Parametros
+
+El hook `useScrollSpy` acepta un objeto con propiedades del Intersection Observer API.
+
+<ApiTable
+  head={
+    {
+      name: 'Nombre',
+      description: 'Descripción',
+      required: 'Requerido',
+      type: 'Tipo'
+    }
+  }
+  data={[
+    {
+      name: 'root',
+      description:
+        'El elemento que se utiliza como ventana gráfica para comprobar la visibilidad del objetivo.',
+      required: 'No',
+
+    },
+    {
+      name: 'rootMargin',
+      description:
+        'Margen alrededor de la raíz. Puede tener valores similares a la margin propiedad CSS.',
+      required: 'No',
+    },
+    {
+      name: 'threshold',
+      description:
+        'Ya sea un solo número o una serie de números que indican en qué porcentaje de la visibilidad del objetivo se debe ejecutar la devolución de llamada del observador.',
+      required: 'No',
+    }
+
+]}
+/>

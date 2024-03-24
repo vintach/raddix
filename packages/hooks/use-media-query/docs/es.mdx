@@ -1,0 +1,46 @@
+---
+title: useMediaQuery
+description: Es un hook que se utiliza para determinar si el tamaño de pantalla actual coincide con una consulta de medios determinada.
+---
+
+# useMediaQuery
+
+El hook `useMediaQuery` se utiliza para determinar si el tamaño de pantalla actual coincide con una consulta de medios determinada.
+
+## Instalación
+
+<Snippet pkg text='@raddix/use-media-query' />
+
+## Uso
+
+### Ejemplo básico
+
+En este ejemplo mostraremos un mensaje si el tamaño de la pantalla es inferior a 768px.
+
+<CodeBlock folder="use-media-query" file="example1.tsx" />
+
+### Usando un número como consulta
+
+También puede pasar un número como consulta; en este caso coincidirá con la consulta de medios `(min-width: ${number}px)`.
+
+<CodeBlock folder="use-media-query" file="example2.tsx" />
+
+## API
+
+### Parameters
+
+    <ApiTable
+          data={[
+            {
+              name: 'query',
+              type: 'string | number',
+              description:
+                'La consulta de medios para coincidir. Puede ser cualquier consulta de medios válida, como `(max-width: 768px)` o un número.',
+              required: 'Yes'
+            },
+          ]}
+        />
+
+### Return value
+
+Devuelve "true" si la consulta de medios coincide y "false" si no.

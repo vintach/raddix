@@ -1,0 +1,90 @@
+---
+title: useScrollSpy
+description: Automatically update navigation based on scroll position.
+---
+
+# useScrollSpy
+
+@raddix/useScrollSpy is a custom hook that improves page navigation by automatically updating the active section based on the user's scroll position. It keeps track of the scroll position and synchronizes it with the corresponding navigation index.
+
+## Installation
+
+Install the custom hook from your command line.
+
+<Snippet pkg text='@raddix/use-scroll-spy' />
+
+## Usage
+
+```tsx
+import { useScrollSpy } from '@raddix/use-scroll-spy';
+
+export default function TableOfContent() {
+  const headings = [
+    {id: 'overview', text: 'Overview'},
+    {id: 'components', text: 'Creating and nesting components '},
+    {id: 'styles', text: 'Adding styles'},
+  ]
+  const headingIds = headings.map(({id}) => id)
+
+  const activeId = useScrollSpy(headingIds, {
+      rootMargin: "0% 0% -80% 0%",
+  });
+
+  return (
+    <ul>
+      {headings.map((heading, i) => (
+          <li
+            key={i}
+            style={
+              activeId === heading.id ? { color: 'blue' } : { color: '#000' }
+            }
+          >
+            <a href={`#${heading.id}`}>{heading.text}</a>
+          </li>
+        ))}
+    </ul>
+  );
+};
+```
+
+## API
+
+Behind the scenes, it uses the Intersection Observer Web API, so you can rely on the best performance standards while not having to worry about implementing it yourself.
+
+### Result
+
+<ApiTable
+  data={[
+    {
+      name: 'activeId',
+      description: 'returns the element id of the navigation that is active.'
+    }
+  ]}
+/>
+
+### Parameters
+
+The `useScrollSpy` hook accepts an object with the Intersection Observer API options.
+
+<ApiTable
+  data={[
+    {
+      name: 'root',
+      description:
+        'The element that is used as the viewport for checking visibility of the target.',
+      required: 'No'
+    },
+    {
+      name: 'rootMargin',
+      description:
+        'Margin around the root. Can have values similar to the CSS margin property.',
+      required: 'No'
+    },
+    {
+      name: 'threshold',
+      description:
+        "Either a single number or an array of numbers which indicate at what percentage of the target's visibility the observer's callback should be executed.",
+      required: 'No'
+    }
+  ]}
+/>

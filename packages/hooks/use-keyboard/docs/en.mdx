@@ -1,0 +1,106 @@
+---
+title: useKeyboard
+description: Is a custom hook that handles keyboard interactions
+---
+
+# useKeyboard
+
+`useKeyboard` is a custom hook that handles keyboard interactions
+
+## Features
+
+- It supports key checking, using under the hood the `event.key` property and if you need to use other properties like `event.code` you can change it in the configuration using the `checker` option.
+- Propagation is stopped by default if there is an event handler, so that a parent component does not respond to an event already handled by a child element.
+
+## Installation
+
+Install the custom hook from your command line.
+
+<Snippet pkg text='@raddix/use-keyboard' />
+
+## Usage
+
+### Basic example
+
+In this example pressing a key inside the text field sets a red background color
+and releasing the key sets a blue background color.
+
+<CodeBlock folder='use-keyboard' file='example1.tsx' />
+
+### Key verification
+
+This example shows an input element that does not allow semigraphic characters.
+Add semigraphic characters to the `useKeyboard` Array so that it does the key checking when the `onKeyDown` event is executed.
+
+<CodeBlock folder='use-keyboard' file='example2.tsx' />
+
+### Global keyboard events
+
+In this example, we will raise an alert when the `a` key is pressed.
+In order for the `useKeyboard` hook to detect global events we need to
+set the `globalEvent: true` option.
+
+<CodeBlock folder='use-keyboard' file='example3.tsx' />
+
+## API
+
+### Parameters
+
+<ApiTable
+  data={[
+    {
+      name: 'handler',
+      description: 'Function that is called once the keys have been pressed',
+      required: 'Yes',
+      type: '(e:KeyboardEvent)=>void'
+    },
+    {
+      name: 'shortcut',
+      description: 'List of keys for verification',
+      required: 'No',
+      type: 'Array<string | number>'
+    },
+    {
+      name: 'options',
+      description: 'Configuration options',
+      required: 'No',
+      type: 'Object'
+    }
+
+]}
+/>
+
+### Configuration Options
+
+<ApiTable
+  data={[
+    {
+      name: 'globalEvent',
+      description: 'Enable global events from the document',
+      required: 'No',
+      type: 'boolean',
+      defaultValue: 'false'
+    },
+    {
+      name: 'stopPropagation',
+      description: 'Stop event Propagation',
+      required: 'No',
+      type: 'boolean',
+      defaultValue: 'true'
+    },
+    {
+      name: 'preventDefault',
+      description: 'Block the default behavior of event',
+      required: 'No',
+      type: 'boolean',
+      defaultValue: 'false'
+    },
+    {
+      name: 'checker',
+      description: 'Property of the KeyboardEvent object to identify a key',
+      required: 'No',
+      type: '"key" | "code"',
+      defaultValue: 'key'
+    }
+  ]}
+/>

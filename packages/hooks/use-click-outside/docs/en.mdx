@@ -1,0 +1,44 @@
+---
+title: useClickOutside
+description: Is a custom hook that detect clicks outside of specific component
+---
+
+# useClickOutside
+
+`useClickOutside` is a custom hook that detect clicks outside of specific component.
+
+## Installation
+
+Install the custom hook from your command line.
+
+<Snippet pkg text='@raddix/use-click-outside' />
+
+## Usage
+
+### Basic example
+
+In this example, when the user clicks outside the modal it will close.
+
+<CodeBlock folder='use-click-outside' file='example1.tsx' />
+
+## API
+
+### Parameters
+
+<ApiTable
+  data={[
+    {
+      name: 'ref',
+      description: 'DOM element being referenced.',
+      required: 'Yes',
+      type: 'RefObject'
+    },
+    {
+      name: 'callback',
+      description:
+        'This function is called whenever a click event is detected outside of the referenced element.',
+      required: 'Yes',
+      type: 'function'
+    }
+  ]}
+/>

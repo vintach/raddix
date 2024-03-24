@@ -1,0 +1,91 @@
+---
+title: useTimeout
+description: Es un hook que se utiliza para ejecutar una función después de un período de tiempo específico.
+---
+
+# useTimeout
+
+El hook `useTimeout` se utiliza para ejecutar una función después de un período de tiempo específico.
+Es similar a la función `setTimeout`, pero es declarativo.
+
+## Características
+
+- El tiempo de espera se borra automáticamente cuando el componente se desmonta.
+- El tiempo de espera se restablece cuando cambia `delay`.
+- Cuando cambia la devolución de llamada, el tiempo de espera no se restablece.
+- La llamada a la función `reset` cancelará el tiempo de espera anterior y comenzará uno nuevo.
+
+## Instalación
+
+<Snippet pkg text='@raddix/use-timeout' />
+
+## Uso
+
+### Ejemplo básico
+
+Ejecutar un callback después de 3 segundos.
+
+<CodeBlock folder='use-timeout' file='example1.tsx' />
+
+## API
+
+### Parámetros
+
+El hook acepta los siguientes parámetros:
+
+<ApiTable
+  head={{
+    name: 'Parámetro',
+    description: 'Descripción',
+    required: 'Requerido',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: 'func',
+      description: 'La función que se ejecutará cada `delay` milisegundos.',
+      required: 'Si',
+      type: 'function'
+    },
+    {
+      name: 'delay',
+      description:
+        'El tiempo en milisegundos que el temporizador debe retrasar entre ejecuciones de la función especificada.',
+      required: 'Si',
+      type: 'number'
+    },
+    {
+      name: 'immediate',
+      description:
+        'Si el intervalo debe ejecutarse inmediatamente en la primera ejecución',
+      required: 'No',
+      type: 'boolean'
+    }
+  ]}
+/>
+
+### Valor de retorno
+
+El hook devuelve un objeto con las siguientes propiedades:
+
+<ApiTable
+  head={{
+    name: 'Propiedad',
+    description: 'Descripción',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: 'clear',
+      description:
+        'Una función a la que se puede llamar para borrar el timeout.',
+      type: 'function'
+    },
+    {
+      name: 'reset',
+      description:
+        'Una función que se puede llamar para restablecer el tiempo de espera. Esto cancelará el tiempo de espera anterior y comenzará uno nuevo.',
+      type: 'function'
+    }
+  ]}
+/>
