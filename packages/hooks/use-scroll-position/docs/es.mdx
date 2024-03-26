@@ -1,0 +1,97 @@
+---
+title: useScrollPosition
+description: Un hook para obtener la posición de desplazamiento actual del documento o elemento.
+tags: react, effect, dom, hook
+---
+
+# useScrollPosition
+
+El hook `useScrollPosition` devuelve la posición de desplazamiento actual del documento o elemento.
+
+## Instalación
+
+<Snippet pkg text='@raddix/use-scroll-position' />
+
+## Uso
+
+### Obtener la posición de desplazamiento del documento
+
+En este ejemplo, obtenemos la posición de desplazamiento del documento.
+
+```jsx
+import { useScrollPosition } from '@raddix/use-scroll-position';
+
+const App = () => {
+  const { x, y } = useScrollPosition();
+
+  return (
+    <div>
+      <p>Scroll position: {x}px, {y}px</p>
+    </div>
+  );
+};
+```
+
+### Obtener la posición de desplazamiento de un elemento
+
+Para obtener la posición de desplazamiento de un elemento desplazable, en
+lugar del documento, podemos pasar una `ref` a la opción `target`.
+
+```tsx
+import { useRef } from 'react';
+import { useScrollPosition } from '@raddix/use-scroll-position';
+
+const App = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { x, y } = useScrollPosition({ target: ref });
+
+  return (
+    <div ref={ref}>
+      <p>Scroll position: {x}px, {y}px</p>
+    </div>
+  );
+};
+```
+
+## API
+
+### Parámetros
+
+El hook `useScrollPosition` acepta un único parámetro de objeto con las siguientes opciones:
+
+<ApiTable
+  head={{
+    name: 'Opciones'
+  }}
+  data={[
+    {
+      name: 'target',
+      type: 'RefObject',
+      description: 'El elemento desde el que obtener la posición de desplazamiento.',
+      required: false,
+    },
+  ]}
+ />
+
+
+### Valor devuelto
+
+El hook `useScrollPosition` devuelve un objeto con dos propiedades:
+
+<ApiTable
+  head={{
+    name: 'Valores devueltos'
+  }}
+  data={[
+    {
+      name: 'x',
+      type: 'number',
+      description: 'La posición del desplazamiento horizontal.',
+    },
+    {
+      name: 'y',
+      type: 'number',
+      description: 'La posición del desplazamiento vertical.',
+    },
+  ]}
+ />

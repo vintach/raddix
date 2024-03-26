@@ -1,0 +1,57 @@
+---
+title: useWindowSize
+description: A hook that keeps track of the dimensions of the browser window.
+---
+
+# useWindowSize
+
+The `useWindowSize` hook keeps track of the dimensions of the browser window.
+
+## Installation
+
+<Snippet pkg text='@raddix/use-window-size' />
+
+## Usage
+
+### Basic Usage
+
+```jsx
+import React from 'react';
+import { useWindowSize } from '@raddix/use-window-size';
+
+const App = () => {
+  const { width, height } = useWindowSize();
+
+  return (
+    <div>
+      <h1>Window size</h1>
+      <p>Width: {width}</p>
+      <p>Height: {height}</p>
+    </div>
+  );
+};
+```
+
+## API
+
+### Returns
+
+The `useWindowSize` hook returns an object with the following properties:
+
+<ApiTable
+  head={{
+    name: 'Return value'
+  }}
+  data={[
+    {
+      name: 'width',
+      type: 'number',
+      description: 'The current width of the window, in pixels.',
+    },
+    {
+      name: 'height',
+      type: 'number',
+      description: 'The current height of the window, in pixels.',
+    },
+  ]}
+ />

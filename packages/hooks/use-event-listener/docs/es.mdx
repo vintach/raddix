@@ -1,0 +1,136 @@
+---
+title: useEventListener
+description: Un enlace que le permite agregar detectores de eventos a un elemento DOM utilizando una sintaxis declarativa.
+---
+
+# useEventListener
+
+El hook `useEventListener` le permite agregar detectores de eventos a un elemento DOM utilizando una sintaxis declarativa.
+
+## Características
+
+- Elimina automáticamente el event listener cuando el componente se desmonta.
+- Admite un objeto de referencia como elemento de destino.
+- Puede especificar opciones de evento como `capture`, `once` y `passive`.
+- Soporte completo de TypeScript para el tipo de evento.
+
+## Instalación
+
+Instala el custom hook desde su linea de comando.
+
+<Snippet pkg text='@raddix/use-event-listener' />
+
+## Usage
+
+### Agrega un evento al objeto global
+
+En este ejemplo, se llamará a la función `handle` cuando se active el evento `click` en el objeto `window`.
+
+De forma predeterminada, el detector de eventos se agregará al objeto global `window`. Por lo tanto, no es necesario especificar el objeto de destino.
+
+```jsx
+import { useEventListener } from '@raddix/use-event-listener';
+
+const Component = () => {
+  const handle = () => {
+    // Do something
+  };
+
+  useEventListener('click', handle);
+};
+```
+
+### Agrega un evento a un elemento
+
+En este ejemplo, se llamará a la función `handle` cuando se produzca el evento
+`mousemove` en el elemento `div`.
+
+Para agregar un detector de eventos a un elemento, debe pasar su `ref` a la opción `target`.
+
+```tsx
+import { useState, useRef } from 'react';
+import { useEventListener } from '@raddix/use-event-listener';
+
+const Component = () => {
+  const [coords, setCoords] = useState([0, 0]);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEventListener('mousemove', ({ offsetX, offsetY }) => {
+    setCoords([offsetX, offsetY]);
+  }, { target: ref });
+
+  return <div ref={ref}>...</div>;
+};
+```
+
+## API
+
+### Parámetros
+
+<ApiTable
+  head={{
+    name: 'Parámetros'
+  }}
+  data={[
+    {
+      name: 'type',
+      description:
+        'El tipo de evento que se va a escuchar. Puede ser cualquier tipo de evento admitido por el navegador.',
+      required: 'Si',
+      type: 'string'
+    },
+    {
+      name: 'handler',
+      description: 'La función que se llama cuando se desencadena el evento.',
+      required: 'Si',
+      type: 'function'
+    },
+    {
+      name: 'options',
+      description: 'Las opciones de configuración.',
+      required: 'No',
+      type: 'object'
+    }
+  ]}
+/>
+
+### Opciones
+
+<ApiTable
+  head={{
+    name: 'Opciones',
+    description: 'Descripción',
+    required: 'Requerido',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: 'target',
+      description:
+        'El elemento de destino al que agregar el detector de eventos. Puede ser un objeto de referencia o un elemento DOM.',
+      required: 'No',
+      type: 'RefObject | HTMLElement'
+    },
+    {
+      name: 'capture',
+      description:
+        'Un booleano que indica que los eventos de este tipo se enviarán al oyente registrado antes de enviarse a cualquier EventTarget debajo de él en el árbol DOM.',
+      required: 'No',
+      type: 'boolean'
+    },
+    {
+      name: 'once',
+      description:
+        'Un valor booleano que indica que el oyente debe invocarse como máximo una vez después de agregarse. Si es verdadero, el oyente se eliminará automáticamente cuando se invoque.',
+      required: 'No',
+      type: 'boolean'
+    },
+    {
+      name: 'passive',
+      description:
+        'Un valor booleano que indica que el oyente nunca llamará a preventDefault(). Si es así, el agente de usuario debería ignorarlo y generar una advertencia en la consola.',
+      required: 'No',
+      type: 'boolean'
+    }
+  ]}
+/>

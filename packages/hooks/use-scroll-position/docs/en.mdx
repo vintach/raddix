@@ -1,0 +1,97 @@
+---
+title: useScrollPosition
+description: A React hook that returns the current scroll position of the document or element.
+tags: react, effect, dom, hook
+---
+
+# useScrollPosition
+
+The `useScrollPosition` hook returns the current scroll position of the document or element.
+
+## Installation
+
+<Snippet pkg text='@raddix/use-scroll-position' />
+
+## Usage
+
+### Get scroll position of document
+
+In this example, we get the scroll position of the document.
+
+```jsx
+import { useScrollPosition } from '@raddix/use-scroll-position';
+
+const App = () => {
+  const { x, y } = useScrollPosition();
+
+  return (
+    <div>
+      <p>Scroll position: {x}px, {y}px</p>
+    </div>
+  );
+};
+```
+
+### Get scroll position of element
+
+To get the scroll position of a scrollable element, instead of the document,
+we can pass `ref` to the `target` option.
+
+```tsx
+import { useRef } from 'react';
+import { useScrollPosition } from '@raddix/use-scroll-position';
+
+const App = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { x, y } = useScrollPosition({ target: ref });
+
+  return (
+    <div ref={ref}>
+      <p>Scroll position: {x}px, {y}px</p>
+    </div>
+  );
+};
+```
+
+## API
+
+### Parameters
+
+The `useScrollPosition` hook accepts a single object parameter with the following options:
+
+<ApiTable
+  head={{
+    name: 'Options'
+  }}
+  data={[
+    {
+      name: 'target',
+      type: 'RefObject',
+      description: 'The element to get the scroll position from.',
+      required: false,
+    },
+  ]}
+ />
+
+
+### Return value
+
+The `useScrollPosition` hook returns an object with two properties:
+
+<ApiTable
+  head={{
+    name: 'Return value'
+  }}
+  data={[
+    {
+      name: 'x',
+      type: 'number',
+      description: 'The horizontal scroll position.',
+    },
+    {
+      name: 'y',
+      type: 'number',
+      description: 'The vertical scroll position.',
+    },
+  ]}
+ />

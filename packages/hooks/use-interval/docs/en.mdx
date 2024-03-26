@@ -1,0 +1,91 @@
+---
+title: useInterval
+description: The useInterval hook is used to create an interval that executes a function every specified number of milliseconds.
+---
+
+# useInterval
+
+The `useInterval` hook is used to create an interval that executes a function every specified number of milliseconds. It is similar to the `setInterval` function, but it is declarative and can be cancelled.
+
+## Features
+
+- The interval is automatically cleared when the component is unmounted.
+- You can temporarily pause the interval by setting the value of `delay` to `null`.
+- When the callback changes, the interval is not reset.
+- When the `delay` changes, the interval is reset.
+- The interval is executed immediately on the first run, unless `immediate` is set to `false`.
+
+## Installation
+
+<Snippet pkg text='@raddix/use-interval' />
+
+## Usage
+
+### Basic example
+
+Create a counter that increments every second.
+
+<CodeBlock folder='use-interval' file='example1.tsx' />
+
+### Pause and resume
+
+Create a counter that increments every second, but can be paused and resumed.
+
+<CodeBlock folder='use-interval' file='example2.tsx' />
+
+## API
+
+### Parameters
+
+The hook accepts the following parameters:
+
+<ApiTable
+  head={{
+    name: 'Parameter'
+  }}
+  data={[
+    {
+      name: 'func',
+      description:
+        'The function to be executed each time the interval elapses.',
+      required: 'Yes',
+      type: 'function'
+    },
+    {
+      name: 'delay',
+      description:
+        'The time, in milliseconds, the interval should wait before executing the function again. If `null`, the interval is paused.',
+      required: 'Yes',
+      type: 'number'
+    },
+    {
+      name: 'immediate',
+      description:
+        'Whether the interval should be executed immediately on the first run. Defaults to `true`.',
+      required: 'No',
+      type: 'boolean'
+    }
+  ]}
+/>
+
+### Return value
+
+The hook returns an object with the following properties:
+
+<ApiTable
+  head={{
+    name: 'Property'
+  }}
+  data={[
+    {
+      name: 'clear',
+      description: 'A function that can be called to clear the interval.',
+      type: 'function'
+    },
+    {
+      name: 'run',
+      description: 'A function that can be called to execute the interval',
+      type: 'function'
+    }
+  ]}
+/>

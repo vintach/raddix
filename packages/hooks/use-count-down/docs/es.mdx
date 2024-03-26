@@ -1,0 +1,164 @@
+---
+title: useCountDown
+description: El hook `useCountDown` se encarga de manejar un temporizador de cuenta regresiva por ti.
+---
+
+# useCountDown
+
+El hook `useCountDown` se encarga de manejar un temporizador de cuenta regresiva por ti.
+
+Puedes renderizar su valor actual en el DOM a medida que se refresca y manipular su comportamiento como desees (como especificar un callback _onFinished_ que se ejecute al terminar el contador).
+
+## Instalación
+
+Instala el custom hook desde tu línea de comandos.
+
+<Snippet pkg text='@raddix/use-count-down' />
+
+## Uso
+
+### Ejemplo básico
+
+Este ejemplo muestra cómo podrías configurar un temporizador para tu aplicación.
+
+<CodeBlock folder='use-count-down' file='example1.tsx' />
+
+### Callbacks basados en el estado de la cuenta regresiva
+
+Podrías configurar dos callbacks para ser llamados en ciertos estados de cuenta regresiva.
+
+- `onFinished`: Se llama cuando la cuenta regresiva llega a cero.
+- `onTick`: Se llama en cada intervalo de la cuenta regresiva.
+
+<CodeBlock folder='use-count-down' file='example2.tsx' />
+
+## API
+
+### Valor de retorno
+
+Devuelve un arreglo que puede ser desestructurado en dos variables: _count_ y _actions_. Estos son nombres de referencia, ya que puedes nombrarlos a tu preferencia.
+
+<ApiTable
+  head={{
+    name: 'Índice',
+    description: 'Descripción',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: '0 (count)',
+      description:
+        'Valor actual del temporizador de cuenta regresiva. Se detiene cuando llega a 0.',
+      type: 'number'
+    },
+    {
+      name: '1 (actions)',
+      description:
+        'Objeto que contiene métodos de manipulación del temporizador.',
+      type: 'Object'
+    }
+  ]}
+/>
+
+### Funciones dentro de Actions
+
+<ApiTable
+  head={{
+    name: 'Nombre',
+    description: 'Descripción',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: 'start',
+      description:
+        'Inicia el temporizador si está detenido o configurado con `autoStart: false`. Opcionalmente se puede definir un nuevo tiempo inicial pasándolo como prop. Esto es útil si necesitas agregar otro segundo al temporizador.',
+      type: 'function'
+    },
+    {
+      name: 'stop',
+      description: 'Detiene el temporizador.',
+      type: 'function'
+    },
+    {
+      name: 'reset',
+      description:
+        'Reinicia el valor del temporizador a su estado inicial. Si el temporizador estaba configurado con `autoStart: true`, se activará inmediatamente.',
+      type: 'function'
+    }
+  ]}
+/>
+
+### Parámetros
+
+El hook `useCountDown` acepta dos valores de inicialización.
+
+<ApiTable
+  head={{
+    name: 'Nombre',
+    description: 'Descripción',
+    required: 'Requerido',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: 'initialTime',
+      description:
+        'Valor inicial de la cuenta regresiva. Se expresa en milisegundos.',
+      required: 'Sí',
+      type: 'number'
+    },
+    {
+      name: 'options',
+      description: 'Objeto de configuración de la cuenta regresiva.',
+      required: 'No',
+      type: 'Object'
+    }
+  ]}
+/>
+
+### Opciones de configuración
+
+<ApiTable
+  head={{
+    name: 'Nombre',
+    description: 'Descripción',
+    required: 'Requerido',
+    defaultValue: 'Valor por defecto',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: 'interval',
+      description:
+        'Intervalo de tiempo para refrescar el valor de la cuenta regresiva. IMPORTANTE: Este intervalo no afecta la velocidad de la cuenta. Esto es útil si necesitas refrescar a una velocidad lenta (como 1 segundo) o rápida (como 10 ms).',
+      required: 'No',
+      defaultValue: '1000',
+      type: 'number'
+    },
+    {
+      name: 'autoStart',
+      description:
+        'Especifica si el temporizador se iniciará automáticamente después de configurarlo.',
+      required: 'No',
+      defaultValue: 'true',
+      type: 'boolean'
+    },
+    {
+      name: 'onFinished',
+      description:
+        'Callback que se ejecuta cuando el valor de la cuenta llega a 0.',
+      required: 'No',
+      defaultValue: 'undefined',
+      type: 'function'
+    },
+    {
+      name: 'onTick',
+      description:
+        'Callback que se ejecuta en cada actualización del valor de la cuenta.',
+      required: 'No',
+      defaultValue: 'undefined',
+      type: 'function'
+    }
+  ]}
+/>

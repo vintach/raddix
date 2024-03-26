@@ -1,0 +1,133 @@
+---
+title: useEventListener
+description: A hook that enables you to add event listeners to a target element or document.
+---
+
+# useEventListener
+
+The `useEventListener` hook allows you to add event listeners to a DOM element using a declarative syntax.
+
+## Features
+
+- Automatically removes the event listener when the component unmounts.
+- Supports a ref object as a target element.
+- You can specify event options such as `capture`, `once`, and `passive`.
+- Full TypeScript support for event type.
+
+## Installation
+
+Install the custom hook from your command line.
+
+<Snippet pkg text='@raddix/use-event-listener' />
+
+## Usage
+
+### Add an event to the window object
+
+In this example, the `handle` function will be called when the `click` event is triggered on the `window` object.
+
+By default, the event listener will be added to the global `window` object. Therefore, it is not necessary to specify the target object.
+
+```jsx
+import { useEventListener } from '@raddix/use-event-listener';
+
+const Component = () => {
+  const handle = () => {
+    // Do something
+  };
+
+  useEventListener('click', handle);
+};
+```
+
+### Add an event to a element
+
+In this example, the `handle` function will be called when the `mousemove` event
+is triggered on the `div` element.
+
+To add an event listener to a element, you need to pass its `ref` to the `target` option.
+
+```tsx
+import { useState, useRef } from 'react';
+import { useEventListener } from '@raddix/use-event-listener';
+
+const Component = () => {
+  const [coords, setCoords] = useState([0, 0]);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEventListener('mousemove', ({ offsetX, offsetY }) => {
+    setCoords([offsetX, offsetY]);
+  }, { target: ref });
+
+  return <div ref={ref}>...</div>;
+};
+```
+
+## API
+
+### Parameters
+
+<ApiTable
+  head={{
+    name: 'Parameter'
+  }}
+  data={[
+    {
+      name: 'type',
+      description:
+        'The event type to listen for. It can be any event type supported by the browser.',
+      required: 'Yes',
+      type: 'string'
+    },
+    {
+      name: 'handler',
+      description: 'The function that is called when the event is triggered.',
+      required: 'Yes',
+      type: 'function'
+    },
+    {
+      name: 'options',
+      description: 'The options object.',
+      required: 'No',
+      type: 'object'
+    }
+  ]}
+/>
+
+### Configurable options
+
+<ApiTable
+  head={{
+    name: 'Option'
+  }}
+  data={[
+    {
+      name: 'target',
+      description:
+        'The target element to add the event listener to. It can be a ref object or a DOM element.',
+      required: 'No',
+      type: 'RefObject | HTMLElement'
+    },
+    {
+      name: 'capture',
+      description:
+        'A Boolean indicating that events of this type will be dispatched to the registered listener before being dispatched to any EventTarget beneath it in the DOM tree.',
+      required: 'No',
+      type: 'boolean'
+    },
+    {
+      name: 'once',
+      description:
+        'A Boolean indicating that the listener should be invoked at most once after being added. If true, the listener would be automatically removed when invoked.',
+      required: 'No',
+      type: 'boolean'
+    },
+    {
+      name: 'passive',
+      description:
+        'A Boolean indicating that the listener will never call preventDefault(). If it does, the user agent should ignore it and generate a console warning.',
+      required: 'No',
+      type: 'boolean'
+    }
+  ]}
+/>

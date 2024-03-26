@@ -1,0 +1,168 @@
+---
+title: useCounter
+description: The useCounter hook allows you to manage a counter.
+---
+
+# useCounter
+
+The `useCounter` hook allows you to manage a counter.
+
+## Features
+
+- Reset the counter to the initial value.
+- Set the minimum and maximum values of the counter.
+- Set the counter to a given value.
+- Execute a function when the counter reaches the minimum or maximum value.
+
+
+## Installation
+
+<Snippet pkg text='@raddix/use-counter' />
+
+## Usage
+
+### Counter basic
+
+To begin, we will create a counter with the possibility of incrementing and decrementing
+it by 1, and resetting it to the initial value.
+
+```jsx
+import { useCounter } from '@raddix/use-counter';
+
+const Counter = () => {
+  const [counter, { inc, dec, reset }] = useCounter(0);
+
+  return (
+    <div>
+      <p>Counter: {counter}</p>
+      <button onClick={() => inc()}>Increment</button>
+      <button onClick={() => dec()}>Decrement</button>
+      <button onClick={() => reset()}>Reset</button>
+    </div>
+  );
+};
+```
+
+### Add minimum and maximum values
+
+Now, we will add a minimum and maximum value to the counter, and execute a function
+when the counter reaches the minimum or maximum value.
+
+```jsx
+import { useCounter } from '@raddix/use-counter';
+
+const Counter = () => {
+  const [counter, { inc, dec, reset }] = useCounter(0, {
+    min: 0,
+    max: 10,
+    onMin: () => console.log('Counter reached the minimum value'),
+    onMax: () => console.log('Counter reached the maximum value')
+  });
+
+  return (
+    <div>
+      <p>Counter: {counter}</p>
+      <button onClick={() => inc()}>Increment</button>
+      <button onClick={() => dec()}>Decrement</button>
+      <button onClick={() => reset()}>Reset</button>
+    </div>
+  );
+};
+```
+
+## API
+
+### Return value
+
+The `useCounter` hook returns an array with the following elements:
+
+<ApiTable
+  head={{ name: 'Index' }}
+  data={[
+    {
+      name: '0 (counter)',
+      type: 'number',
+      description: 'The current counter value.'
+    },
+    {
+      name: '1 (actions)',
+      type: 'object',
+      description: 'An object containing the actions to manage the counter.'
+    }
+  ]}
+/>
+
+### Actions
+
+<ApiTable
+  data={[
+    {
+      name: 'inc',
+      type: '(value?: number) => void',
+      description: 'Increments the counter, default by 1.'
+    },
+    {
+      name: 'dec',
+      type: '(value?: number) => void',
+      description: 'Decrements the counter, default by 1.'
+    },
+    {
+      name: 'reset',
+      type: '() => void',
+      description: 'Resets the counter value to the initial value.'
+    },
+    {
+      name: 'set',
+      type: '(value: number) => void',
+      description: 'Sets the counter value to the given value.'
+    }
+  ]}
+/>
+
+### Parameters
+
+The `useCounter` hook accepts the following parameters:
+
+<ApiTable
+  data={[
+    {
+      name: 'initialValue',
+      type: 'number',
+      description: 'The initial value of the counter.'
+    },
+    {
+      name: 'options',
+      type: 'object',
+      description: 'An object containing the options to manage the counter.'
+    }
+  ]}
+/>
+
+### Options
+
+<ApiTable
+  data={[
+    {
+      name: 'min',
+      type: 'number',
+      description: 'The minimum value of the counter.'
+    },
+    {
+      name: 'max',
+      type: 'number',
+      description: 'The maximum value of the counter.'
+    },
+    {
+      name: 'onMin',
+      type: '() => void',
+      description:
+        'Function to execute when the counter reaches the minimum value'
+    },
+    {
+      name: 'onMax',
+      type: '() => void',
+      description:
+        'Function to execute when the counter reaches the maximum value'
+    }
+  ]}
+/>

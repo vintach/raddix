@@ -1,0 +1,92 @@
+---
+title: useInterval
+description: El hook useInterval se usa para crear un intervalo que ejecuta una función cada número específico de milisegundos. Es similar a la función setInterval, pero es declarativa y se puede cancelar.
+---
+
+# useInterval
+
+El hook `useInterval` se usa para crear un intervalo que ejecuta una función cada número específico de milisegundos. Es similar a la función `setInterval`, pero es declarativa y se puede cancelar.
+
+## Características
+
+- El intervalo se borra automáticamente cuando el componente se desmonta.
+- Puede pausar temporalmente el intervalo estableciendo el valor de `delay` a `null`.
+- Cuando la devolución de llamada cambia, el intervalo no se restablece.
+- Cuando el `delay` cambia, el intervalo se restablece.
+- El intervalo se ejecuta inmediatamente en la primera ejecución, a menos que se establezca `immediate` en `false`.
+
+## Instalación
+
+Instala el hook desde tu terminal.
+
+<Snippet pkg text='@raddix/use-interval' />
+
+## Uso
+
+### Ejemplo básico
+
+Crea un contador que aumente cada segundo.
+
+<CodeBlock folder='use-interval' file='example1.tsx' />
+
+## API
+
+### Parámetros
+
+El hook acepta tres parámetros:
+
+<ApiTable
+  head={{
+    name: 'Parámetro',
+    description: 'Descripción',
+    required: 'Requerido',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: 'func',
+      description: 'La función que se ejecutará cada `delay` milisegundos.',
+      required: 'Si',
+      type: 'function'
+    },
+    {
+      name: 'delay',
+      description:
+        'El tiempo en milisegundos que el temporizador debe retrasar entre ejecuciones de la función especificada.',
+      required: 'Si',
+      type: 'number'
+    },
+    {
+      name: 'immediate',
+      description:
+        'Si el intervalo debe ejecutarse inmediatamente en la primera ejecución',
+      required: 'No',
+      type: 'boolean'
+    }
+  ]}
+/>
+
+### Valor de retorno
+
+El hook devuelve un objeto con las siguientes propiedades:
+
+<ApiTable
+  head={{
+    name: 'Propiedad',
+    description: 'Descripción',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: 'clear',
+      description: 'Una función que se puede llamar para borrar el intervalo.',
+      type: 'function'
+    },
+    {
+      name: 'run',
+      description:
+        'Una función que se puede llamar para ejecutar el intervalo.',
+      type: 'function'
+    }
+  ]}
+/>

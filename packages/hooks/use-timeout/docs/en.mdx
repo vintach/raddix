@@ -1,0 +1,84 @@
+---
+title: useTimeout
+description: Is a hook that used to execute a function after a specified amount of time.
+---
+
+# useTimeout
+
+The `useTimeout` hook is used to execute a function after a specified amount of time.
+It is similar to the `setTimeout` function, but it is declarative.
+
+## Features
+
+- The timeout is automatically cleared when the component unmounts.
+- The timeout is reset when the `delay` changes.
+- When the callback changes, the timeout is not reset.
+- Reset function call will cancel previous timeout and start a new one.
+
+## Installation
+
+<Snippet pkg text='@raddix/use-timeout' />
+
+## Usage
+
+### Basic example
+
+Executes the callback after 3 seconds
+
+<CodeBlock folder='use-timeout' file='example1.tsx' />
+
+## API
+
+### Parameters
+
+The hook accepts the following parameters.
+
+<ApiTable
+  head={{
+    name: 'Parameter'
+  }}
+  data={[
+    {
+      name: 'func',
+      description:
+        'The callback function to be executed after the specified timeout',
+      required: 'Yes',
+      type: 'function'
+    },
+    {
+      name: 'delay',
+      description: 'The duration of the timeout in milliseconds.',
+      required: 'Yes',
+      type: 'number'
+    },
+    {
+      name: 'immediate',
+      description: 'If it is true, the callback is executed immediately.',
+      required: 'No',
+      type: 'boolean'
+    }
+  ]}
+/>
+
+### Return value
+
+The hook returns an object with the following properties.
+
+<ApiTable
+  head={{
+    name: 'Property'
+  }}
+  data={[
+    {
+      name: 'clear',
+      description: 'A function that can be called to clear the timeout.',
+      type: 'function'
+    },
+    {
+      name: 'reset',
+      description:
+        'A function that can be called to reset the timeout. This will cancel the previous timeout and start a new one.',
+      type: 'function'
+    }
+  ]}
+/>
