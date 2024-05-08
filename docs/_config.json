@@ -2,6 +2,7 @@
   "sidebar": [
     {
       "title": "DOM",
+      "heading": true,
       "children": [
         {
           "title": "useKeyboard",
@@ -31,6 +32,7 @@
     },
     {
       "title": "State",
+      "heading": true,
       "children": [
         {
           "title": "useCounter",
@@ -44,6 +46,7 @@
     },
     {
       "title": "Lifecycle",
+      "heading": true,
       "children": [
         {
           "title": "useTimeout",
@@ -57,6 +60,7 @@
     },
     {
       "title": "Utilities",
+      "heading": true,
       "children": [
         {
           "title": "useScrollSpy",
