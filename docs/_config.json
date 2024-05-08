@@ -55,6 +55,10 @@
         {
           "title": "useInterval",
           "path": "/hooks/use-interval"
+        },
+        {
+          "title": "useFirstRender",
+          "path": "/hooks/use-first-render"
         }
       ]
     },
