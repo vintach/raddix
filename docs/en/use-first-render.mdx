@@ -1,0 +1,53 @@
+---
+title: useFirstRender
+description: Returns a boolean value indicating whether it's the first render or not.
+---
+
+## Installation
+
+Install the custom hook from your command line.
+
+<Snippet pkg text='@raddix/use-first-render' />
+
+## Usage
+
+```jsx
+import React from 'react';
+import { useFirstRender } from '@raddix/use-first-render';
+
+const App = () => {
+  const isFirstRender = useFirstRender();
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <div>
+      <h1>Rerendered {count} times</h1>
+      <p>
+        Is first render: <code>{isFirstRender ? 'yes' : 'no'}</code>
+      </p>
+      <button type='button' onClick={() => setCount(count + 1)}>
+        Rerender
+      </button>
+    </div>
+  );
+};
+```
+
+## API
+
+### Returns
+
+The `useFirstRender` hook returns a boolean value.
+
+<ApiTable
+  head={{
+    name: 'Return value'
+  }}
+  data={[
+    {
+      name: 'isFirstRender',
+      type: 'boolean',
+      description: 'true for the first render, false for others.',
+    }
+  ]}
+ />
