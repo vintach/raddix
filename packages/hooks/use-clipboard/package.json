@@ -16,7 +16,8 @@
     "react-use-clipboard",
     "use-clipboard",
     "use-clipboard-hook",
-    "hook-clipboard"
+    "hook-clipboard",
+    "use-clipboard-copy"
   ],
   "sideEffects": false,
   "scripts": {
@@ -32,7 +33,8 @@
   ],
   "peerDependencies": {
     "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react-dom": ">=16.8.0",
+    "@raddix/use-timeout": "workspace:*"
   },
   "clean-package": "../../../clean-package.config.json",
   "tsup": {

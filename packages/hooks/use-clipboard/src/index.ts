@@ -1,29 +1,29 @@
+import { useTimeout } from '@raddix/use-timeout';
 import { useState } from 'react';
 
-export interface Options {
+export type UseClipboard = (options?: {
   timeout?: number;
+  onSuccess?: () => void;
   onError?: (err: Error) => void;
-}
+}) => [isCopied: boolean, copy: (text: string) => void];
 
-type UseClipboard = (
-  opts?: Options
-) => [isCopied: boolean, copyFn: (text: string) => void];
-
-export const useClipboard: UseClipboard = (opts = {}) => {
+export const useClipboard: UseClipboard = (options = {}) => {
+  const { timeout = 2000, onError, onSuccess } = options;
   const [isCopied, setIsCopied] = useState(false);
+  const { run } = useTimeout(() => setIsCopied(false), timeout, false);
 
   const copy = (data: string) => {
-    if (isCopied) return;
-
     if ('clipboard' in navigator) {
       navigator.clipboard
         .writeText(data)
-        .then(() => setIsCopied(true))
-        .catch(err => opts.onError?.(err));
+        .then(() => {
+          setIsCopied(true);
+          onSuccess?.();
+          run();
+        })
+        .catch(err => onError?.(err));
     } else {
-      opts.onError?.(
-        new Error('useClipboard: navigator.clipboard is not supported')
-      );
+      onError?.(new Error('navigator.clipboard is not supported'));
     }
   };
 
