@@ -1,0 +1,137 @@
+---
+title: useClipboard
+description: Proporciona la funcionalidad de copiar al portapapeles.
+---
+
+## Instalación
+
+Instale el custom hook desde su terminal.
+
+<Snippet pkg text='@raddix/use-clipboard' />
+
+## Uso
+
+### Visualización de un estado de éxito temporal
+
+Copia texto al portapapeles y muestra al usuario que se copió correctamente con un estado copiado y
+después de una cierta cantidad de tiempo restablece a su estado inicial.
+
+La duración en milisegundos que se utiliza para alternar el estado `isCopied` es de 2000,
+puede cambiarlo mediante la opcion `timeout`
+
+```tsx
+import { useClipboard } from '@raddix/use-clipboard';
+
+const Copy = () => {
+  const [isCopied, copy] = useClipboard({ timeout: 1500 });
+
+  let url = window.location.href;
+
+  return (
+    <div>
+      <span>{url}</span>
+      <button onClick={() => copy(url)}>
+        {isCopied ? '✅Copied' : 'Copy'}
+      </button>
+    </div>
+  )
+}
+```
+
+### Manejo de éxitos y errores
+
+En caso de que la acción de copia falle puede manejarlo mediante el callback `onError`.
+Si la acción de copia fue exitosa, utilice `onSuccess`.
+
+Por ejemplo puedes darle una notificación al usuario cuando la copia falle.
+
+```tsx
+import { ToastContainer, toast } from 'react-toastify';
+import { useClipboard } from '@raddix/use-clipboard';
+import 'react-toastify/dist/ReactToastify.css';
+
+const Copy = () => {
+  const [isCopied, copy] = useClipboard({
+    onError(err) {
+      toast.error("Error al copiar al portapapeles");
+      console.log('Error al copiar al portapapeles:', err);
+    }
+  });
+
+  let urlShare = 'https://meeting.raddix.dev/klp-z3e0-tc1'
+
+  return (
+    <>
+      <p>
+        Comparte este vínculo de reunión con otras personas que quieres que participen en ella
+      </p>
+      <div>
+        <span>{urlShare}</span>
+        <button onClick={() => copy(urlShare)}>
+          {isCopied ? '✅Copied' : 'Copy'}
+        </button>
+        <ToastContainer />
+      </div>
+    </div>
+  )
+}
+```
+
+## API
+
+### Parámetros
+
+El hook `useClipboard` acepta un objeto de configuración:
+
+<ApiTable
+  head={{
+    name: 'Nombre',
+    description: 'Descripción',
+    type: 'Tipo',
+    defaultValue: 'Predeterminado'
+  }}
+  data={[
+    {
+      name: 'timeout',
+      description: 'Define la duración del tiempo de espera del estado isCopied',
+      type: 'number',
+      defaultValue: '2000'
+    },
+    {
+      name: 'onSuccess',
+      description:
+        'Una función de devolución de llamada que se llamará tras una acción de copia exitosa.',
+      type: 'function'
+    },
+    {
+      name: 'onError',
+      description:
+        'Una función de devolución de llamada que se llamará cuando la acción de copia falle.',
+      type: 'function'
+    }
+  ]}
+/>
+
+### Valor devuelto
+
+El hook `useClipboard` devuelve un array con los siguientes elementos:
+
+<ApiTable
+  head={{
+    name: 'Index',
+    description: 'Descripción',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: '0',
+      description: 'Un valor booleano que indica si se realizó la acción de copia.',
+      type: 'boolean'
+    },
+    {
+      name: '1',
+      description: 'Una función para copiar un valor especificado al portapapeles.',
+      type: 'function'
+    }
+  ]}
+/>

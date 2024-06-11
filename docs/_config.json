@@ -67,12 +67,16 @@
       "heading": true,
       "children": [
         {
-          "title": "useScrollSpy",
-          "path": "/hooks/use-scroll-spy"
+          "title": "useClipboard",
+          "path": "/hooks/use-clipboard"
         },
         {
           "title": "useCountDown",
           "path": "/hooks/use-count-down"
+        },
+        {
+          "title": "useScrollSpy",
+          "path": "/hooks/use-scroll-spy"
         }
       ]
     }

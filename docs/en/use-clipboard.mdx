@@ -1,0 +1,126 @@
+---
+title: useClipboard
+description: Provides copy to clipboard functionality.
+---
+
+## Installation
+
+Install the custom hook from your command line.
+
+<Snippet pkg text='@raddix/use-clipboard' />
+
+## Usage
+
+### Displaying a Temporary Success State
+
+Copies text to the clipboard and shows the user that it was copied successfully with a copied status and
+after a certain amount of time resets it to its initial state.
+
+The duration in milliseconds used to toggle the `isCopied` state is 2000,
+you can change this using the `timeout` option
+
+```tsx
+import { useClipboard } from '@raddix/use-clipboard';
+
+const Copy = () => {
+  const [isCopied, copy] = useClipboard();
+
+  let url = window.location.href;
+
+  return (
+    <div>
+      <input value={url} readOnly />
+      <button onClick={() => copy(url)}>
+        {isCopied ? 'Copied!' : 'Copy Link'}
+      </button>
+    </div>
+  )
+}
+```
+
+### Handling Success and Errors
+
+In case the copy action fails you can handle it using the `onError` callback.
+If the copy action was successful, use `onSuccess`.
+
+For example you can give a notification to the user when the copy fails.
+
+```tsx
+import { ToastContainer, toast } from 'react-toastify';
+import { useClipboard } from '@raddix/use-clipboard';
+import 'react-toastify/dist/ReactToastify.css';
+
+const Copy = () => {
+  const [isCopied, copy] = useClipboard({
+    onError(err) {
+      toast.error("Error al copiar al portapapeles");
+      console.log('Error al copiar al portapapeles:', err);
+    }
+  });
+
+  let urlShare = 'https://meeting.raddix.dev/klp-z3e0-tc1'
+
+  return (
+    <>
+      <p>
+        Comparte este vínculo de reunión con otras personas que quieres que participen en ella
+      </p>
+      <div>
+        <span>{urlShare}</span>
+        <button onClick={() => copy(urlShare)}>
+          {isCopied ? '✅Copied' : 'Copy'}
+        </button>
+        <ToastContainer />
+      </div>
+    </div>
+  )
+}
+```
+
+## API
+
+### Parameters
+
+The `useClipboard` hook accepts a configuration object:
+
+<ApiTable
+  data={[
+    {
+      name: 'timeout',
+      description: 'Defines the timeout duration for the isCopied state',
+      type: 'number',
+      defaultValue: '2000'
+    },
+    {
+      name: 'onSuccess',
+      description:
+        'A callback function that will be called upon a successful copy action.',
+      type: 'function'
+    },
+    {
+      name: 'onError',
+      description:
+        'A callback function that will be called when the copy action fails.',
+      type: 'function'
+    }
+  ]}
+/>
+
+### Returns
+
+The `useClipboard` hook returns an array with the following elements:
+
+<ApiTable
+  data={[
+    {
+      name: '0',
+      description: 'A boolean value indicating whether the copy action was performed.',
+      type: 'boolean'
+    },
+    {
+      name: '1',
+      description: 'A function to copy a specified value to the clipboard.',
+      type: 'function'
+    }
+  ]}
+/>
