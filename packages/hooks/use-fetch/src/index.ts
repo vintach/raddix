@@ -1,43 +1,36 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface Options extends RequestInit {
-  inmediate?: boolean;
+  immediate?: boolean;
   data?: object;
 }
 
 interface UseFetchReturn<T> {
   isLoading: boolean;
+  isError: boolean;
   error: Error | null;
   data: T | null;
   refetch: (opts?: Options) => void;
-  abort: () => void;
 }
-
-const defaultContentType = { 'Content-Type': 'application/json' };
 
 export const useFetch = <T>(
   url: string,
-  { inmediate, method = 'GET', ...options }: Options = {}
+  { immediate, method = 'GET', ...opts }: Options = {}
 ): UseFetchReturn<T> => {
-  options.headers = { ...defaultContentType, ...options.headers };
-  inmediate = inmediate ?? method === 'GET' ? true : false;
+  immediate = immediate ?? method === 'GET' ? true : false;
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [data, setData] = useState<T | null>(null);
   const controller = useRef<AbortController | null>(null);
 
-  const abort = useCallback(() => {
-    controller.current?.abort();
-  }, []);
-
-  const refetch = useCallback(
-    (optionsRefetch?: Options) => {
-      abort();
+  const fetchData = useCallback(
+    (reqOptions?: Options) => {
+      controller.current?.abort();
       controller.current = new AbortController();
       const signal = controller.current.signal;
 
-      const allOptions = { ...options, ...optionsRefetch };
+      const allOptions = { ...opts, ...reqOptions };
       const { body: reqBody, data: reqData, ...resOptions } = allOptions;
       const body = !reqData ? reqBody : JSON.stringify(reqData);
 
@@ -57,9 +50,9 @@ export const useFetch = <T>(
   );
 
   useEffect(() => {
-    if (inmediate) refetch();
-    return () => abort();
-  }, [refetch, inmediate, abort]);
+    if (immediate) fetchData();
+    return () => controller.current?.abort();
+  }, [fetchData, immediate]);
 
-  return { isLoading, error, data, refetch, abort };
+  return { isLoading, error, data, refetch: fetchData, isError: !error };
 };
