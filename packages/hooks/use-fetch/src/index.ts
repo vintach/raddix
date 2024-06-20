@@ -10,7 +10,7 @@ interface UseFetchReturn<T> {
   isError: boolean;
   error: Error | null;
   data: T | null;
-  refetch: (opts?: Options) => void;
+  execute: (opts?: Options) => void;
 }
 
 export const useFetch = <T>(
@@ -54,5 +54,5 @@ export const useFetch = <T>(
     return () => controller.current?.abort();
   }, [fetchData, immediate]);
 
-  return { isLoading, error, data, refetch: fetchData, isError: !error };
+  return { isLoading, error, data, execute: fetchData, isError: !error };
 };
