@@ -17,8 +17,8 @@
           "path": "/hooks/use-event-listener"
         },
         {
-          "title": "useWindowSize",
-          "path": "/hooks/use-window-size"
+          "title": "useFetch",
+          "path": "/hooks/use-fetch"
         },
         {
           "title": "useMediaQuery",
@@ -27,6 +27,10 @@
         {
           "title": "useScrollPosition",
           "path": "/hooks/use-scroll-position"
+        },
+        {
+          "title": "useWindowSize",
+          "path": "/hooks/use-window-size"
         }
       ]
     },
