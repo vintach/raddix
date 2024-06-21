@@ -11,6 +11,7 @@ interface UseFetchReturn<T> {
   error: Error | null;
   data: T | null;
   execute: (opts?: Options) => void;
+  abort: () => void;
 }
 
 export const useFetch = <T>(
@@ -24,9 +25,11 @@ export const useFetch = <T>(
   const [data, setData] = useState<T | null>(null);
   const controller = useRef<AbortController | null>(null);
 
+  const abort = () => controller.current?.abort();
+
   const fetchData = useCallback(
     (reqOptions?: Options) => {
-      controller.current?.abort();
+      abort();
       controller.current = new AbortController();
       const signal = controller.current.signal;
 
@@ -51,8 +54,8 @@ export const useFetch = <T>(
 
   useEffect(() => {
     if (immediate) fetchData();
-    return () => controller.current?.abort();
+    return () => abort();
   }, [fetchData, immediate]);
 
-  return { isLoading, error, data, execute: fetchData, isError: !error };
+  return { isLoading, error, data, execute: fetchData, isError: !error, abort };
 };
