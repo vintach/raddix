@@ -1,0 +1,202 @@
+---
+title: useFetch
+description: Get data with built-in load and error statuses.
+---
+
+## Características
+
+- `GET` requests are initiated as soon as the component is mounted, unless you
+set `immediate` to `false`.
+
+- Supports standard `fetch` API options, such as customizing request headers, method, body, and more.
+
+- Automatic serialization of the request body to JSON (`application/json`), using the
+`data` option.
+
+
+## Installation
+
+Install the custom hook from your terminal.
+
+<Snippet pkg text='@raddix/use-fetch' />
+
+## Usage
+
+### Get the data
+
+You can get data from an API by simply providing a URL.
+
+```tsx
+import { useFetch } from '@raddix/use-fetch';
+
+export default function App() {
+  const { data, isLoading, error } = useFetch('https://pokeapi.co/api/v2/pokemon/9');
+
+  if(isLoading) return <p>Loading...</p>
+
+  if(!error) return <p>Error: {error.message}</p>
+
+  return (
+    <div>
+      <figure>
+        <img
+          width="475px"
+          height="475px"
+          src={data?.sprites?.other?.["official-artwork"]?.front_default}
+          alt={data?.name}
+        />
+        <figcaption>
+          <h4>{data?.name}</h4>
+        </figcaption>
+      </figure>
+    </div>
+  )
+}
+```
+
+### Avoiding an immediate request
+
+To prevent the request from being triggered as soon as the component is mounted, add `immediate: false` to
+the options object of the `useFetch` hook.
+This will prevent the request from being triggered until the `execute` function is called.
+
+```tsx
+import { useState } from 'react';
+import { useFetch } from '@raddix/use-fetch';
+
+export default function App() {
+  const [query, setQuery] = useState('');
+  const { data, isLoading, execute } = useFetch(
+    `https://dummyjson.com/products/search?q=${query}`,
+    { immediate: false }
+  );
+
+  return (
+    <div>
+      <input onChange={e => setQuery(e.target.value)} />
+      <button onClick={() => execute()}>Search Products</button>
+      <section>
+        {isLoading ? (
+          <div>Cargando...</div>
+        ) : (
+          data?.map(product => (
+            <div>
+              <p>{product.title}</p>
+              <p>{product.price}</p>
+            </div>
+          ))
+        )}
+      </section>
+    </div>
+  );
+}
+```
+
+### Sending JSON data
+
+To send a POST request with JSON-encoded data, use the `data` option instead of the `body`
+option of the options object passed to the `useFetch` hook.
+
+```jsx
+import { useFetch } from '@raddix/use-fetch';
+
+export default function App() {
+  const { isLoading, execute } = useFetch('https://jsonplaceholder.typicode.com/users',
+    { method: 'POST' }
+  );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    execute({
+      data: {
+        name: e.target.name.value,
+        email: e.target.email.value
+      }
+    });
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name: <input name='title' defaultValue='Raddix' />
+        </label>
+        <label>
+          Email: <input name='title' defaultValue='team@raddix.dev' />
+        </label>
+        <button type='submit'>{isLoading ? 'Loading...' : 'Create User'}</button>
+      </form>
+    </div>
+  );
+}
+```
+
+### Abort a request
+
+`useFetch` automatically cancels any unfinished requests before calling another one.
+
+If you want to cancel a request after a 4 second timeout you can do so using the
+`abort` function.
+
+```tsx
+import { useFetch } from '@raddix/use-fetch';
+
+export default function App() {
+  const { data, isLoading, abort } = useFetch('https://dummyjson.com/products/2?delay=5000');
+
+  useTimeout(() => abort(), 4000);
+
+  if(isLoading) return <div>Loading...</div>
+
+  return (
+    <main>
+      <div>
+        <input onChange={() => execute()} />
+        <button>Buscar</button>
+      </div>
+    </main>
+  )
+}
+```
+
+## API
+
+### Parameters
+
+<ApiTable
+  data={[
+    {
+      name: 'url',
+      description: 'La URL de la api o servidor',
+      required: 'Si',
+      type: 'string'
+    },
+    {
+      name: 'options',
+      description: 'Additional options for the fetch request, such as headers or request methods.',
+      required: 'No',
+      type: 'object'
+    }
+  ]}
+/>
+
+### Configurable options
+
+<ApiTable
+  data={[
+    {
+      name: 'immediate',
+      description: 'Start a request as soon as the component is mounted.',
+      required: 'No',
+      type: 'boolean'
+    },
+    {
+      name: 'data',
+      description: 'Accepts object type data that is passed serialized to the body.',
+      required: 'No',
+      type: 'boolean'
+    },
+  ]}
+/>
+
+### Return

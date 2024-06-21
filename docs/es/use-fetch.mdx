@@ -1,0 +1,212 @@
+---
+title: useFetch
+description: Obtenga datos con estados de carga y error incorporados.
+---
+
+## Características
+
+- Las solicitudes de tipo `GET` se inician tan pronto se monte el componente, a menos
+que establezca `immediate` en `false`.
+
+- Soporte las opciones estándar de la api `fetch`, como la personalización de los encabezados de
+la solicitud, el método, el body y más.
+
+- Serialización automática del cuerpo de la solicitud para JSON (`application/json`), mediante
+la opción `data`.
+
+
+## Instalación
+
+Instala el custom hook desde tu terminal.
+
+<Snippet pkg text='@raddix/use-fetch' />
+
+## Uso
+
+### Recuperación de datos
+
+Puede obtener datos desde una API simplemente proporcionando una URL.
+
+```tsx
+import { useFetch } from '@raddix/use-fetch';
+
+export default function App() {
+  const { data, isLoading, isError, error } = useFetch('https://pokeapi.co/api/v2/pokemon/9');
+
+  if(isLoading) return <p>Cargando...</p>
+
+  if(isError) return <p>Error: {error.message}</p>
+
+  return (
+    <div>
+      <figure>
+        <img
+          width="475px"
+          height="475px"
+          src={data?.sprites?.other?.["official-artwork"]?.front_default}
+          alt={data?.name}
+        />
+        <figcaption>
+          <h4>{data?.name}</h4>
+        </figcaption>
+      </figure>
+    </div>
+  )
+}
+```
+
+### Evitando una solicitud inmediata
+
+Para evitar que la solicitud se inicie tan pronto se monta el componente, añade `immediate: false` al objeto de opciones
+del hook `useFetch`.
+Esto evitará que la solicitud se active hasta que se llame a la funcion `execute`.
+
+```tsx
+import { useState } from 'react';
+import { useFetch } from '@raddix/use-fetch';
+
+export default function App() {
+  const [query, setQuery] = useState('');
+  const { data, isLoading, execute } = useFetch(
+    `https://dummyjson.com/products/search?q=${query}`,
+    { immediate: false }
+  );
+
+  return (
+    <div>
+      <input onChange={e => setQuery(e.target.value)} />
+      <button onClick={() => execute()}>Search Products</button>
+      <section>
+        {isLoading ? (
+          <div>Cargando...</div>
+        ) : (
+          data?.map(product => (
+            <div>
+              <p>{product.title}</p>
+              <p>{product.price}</p>
+            </div>
+          ))
+        )}
+      </section>
+    </div>
+  );
+}
+```
+
+### Enviando datos JSON
+
+Para enviar una petición POST con datos codificados en JSON, usa la opción `data` en
+lugar de la opción `body` del objeto de opciones del hook `useFetch`.
+
+```jsx
+import { useFetch } from '@raddix/use-fetch';
+
+export default function App() {
+  const { isLoading, execute } = useFetch('https://jsonplaceholder.typicode.com/users',
+    { method: 'POST' }
+  );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    execute({
+      data: {
+        name: e.target.name.value,
+        email: e.target.email.value
+      }
+    });
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name: <input name='title' defaultValue='Raddix' />
+        </label>
+        <label>
+          Email: <input name='title' defaultValue='team@raddix.dev' />
+        </label>
+        <button type='submit'>{isLoading ? 'Loading...' : 'Create User'}</button>
+      </form>
+    </div>
+  );
+}
+```
+
+### Abortar una solicitud
+
+De forma automatica `useFetch` cancela cualquier solicitud sin terminar antes de llamar a otra.
+
+Si desea cancelar una solicitud despues de un tiempo de espera de 4 segundos puede hacerlo usando la
+función `abort`
+
+```tsx
+import { useFetch } from '@raddix/use-fetch';
+
+export default function App() {
+  const { data, isLoading, abort } = useFetch('https://dummyjson.com/products/2?delay=5000');
+
+  useTimeout(() => abort(), 4000);
+
+  if(isLoading) return <div>Loading...</div>
+
+  return (
+    <main>
+      <div>
+        <input onChange={() => execute()} />
+        <button>Buscar</button>
+      </div>
+    </main>
+  )
+}
+```
+
+## API
+
+### Parámetros
+
+<ApiTable
+  head={{
+    name: 'Parámetros'
+  }}
+  data={[
+    {
+      name: 'url',
+      description: 'La URL de la api o servidor',
+      required: 'Si',
+      type: 'string'
+    },
+    {
+      name: 'options',
+      description: 'Opciones adicionales para la solicitud de búsqueda, como encabezados o métodos de solicitud.',
+      required: 'No',
+      type: 'object'
+    }
+  ]}
+/>
+
+### Opciones
+
+<ApiTable
+  head={{
+    name: 'Opciones',
+    description: 'Descripción',
+    required: 'Requerido',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: 'immediate',
+      description: 'Iniciar una solicitud tan pronto como se monte el componente.',
+      required: 'No',
+      type: 'boolean'
+    },
+    {
+      name: 'data',
+      description: 'Acepta datos de tipo object que se pasan serializados al body.',
+      required: 'No',
+      type: 'boolean'
+    },
+  ]}
+/>
+
+### Retorna
