@@ -25,7 +25,7 @@ export const useFetch = <T>(
   const [data, setData] = useState<T | null>(null);
   const controller = useRef<AbortController | null>(null);
 
-  const abort = () => controller.current?.abort();
+  const abort = useCallback(() => controller.current?.abort(), []);
 
   const execute = useCallback(
     (reqOptions?: Options) => {
@@ -48,13 +48,13 @@ export const useFetch = <T>(
         .finally(() => setIsLoading(false));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [url]
+    [url, abort]
   );
 
   useEffect(() => {
     if (immediate) execute();
     return () => abort();
-  }, [execute, immediate]);
+  }, [execute, immediate, abort]);
 
   return { isLoading, error, data, execute, abort, isError: error !== null };
 };
