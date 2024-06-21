@@ -27,7 +27,7 @@ export const useFetch = <T>(
 
   const abort = () => controller.current?.abort();
 
-  const fetchData = useCallback(
+  const execute = useCallback(
     (reqOptions?: Options) => {
       abort();
       controller.current = new AbortController();
@@ -53,9 +53,9 @@ export const useFetch = <T>(
   );
 
   useEffect(() => {
-    if (immediate) fetchData();
+    if (immediate) execute();
     return () => abort();
-  }, [fetchData, immediate]);
+  }, [execute, immediate]);
 
-  return { isLoading, error, data, execute: fetchData, isError: !error, abort };
+  return { isLoading, error, data, execute, abort, isError: !error };
 };
