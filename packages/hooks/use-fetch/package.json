@@ -1,6 +1,6 @@
 {
   "name": "@raddix/use-fetch",
-  "description": "Fetch data with built-in loading and error states.",
+  "description": "A hook that fetch data with built-in loading and error states.",
   "version": "0.1.0",
   "license": "MIT",
   "main": "src/index.ts",
