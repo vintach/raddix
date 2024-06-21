@@ -7,14 +7,9 @@ const url = 'http://test.com';
 const data = { title: 'useFetch' };
 
 describe('useFetch test:', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
-  afterAll(() => {
-    fetchMock.restore();
-    jest.useRealTimers();
-  });
+  beforeAll(() => jest.useFakeTimers());
+  afterAll(() => jest.useRealTimers());
+  afterEach(() => fetchMock.restore());
 
   it('should get the data automatically with a successful request', async () => {
     fetchMock.mock(url, data, { delay: 2000 });
@@ -30,7 +25,6 @@ describe('useFetch test:', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.data).toStrictEqual(data);
     expect(result.current.isError).toBe(false);
-    fetchMock.restore();
   });
 
   it('should avoid an immediate request and get the data manually.', async () => {
@@ -51,7 +45,6 @@ describe('useFetch test:', () => {
 
     expect(result.current.isLoading).toBe(false);
     expect(result.current.data).toStrictEqual(data);
-    fetchMock.restore();
   });
 
   it('should return error as true if the request is not successful', async () => {
@@ -68,7 +61,6 @@ describe('useFetch test:', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.isError).toBe(true);
     expect(result.current.data).toBe(null);
-    fetchMock.restore();
   });
 
   it('should send a POST request with JSON-encoded data', async () => {
@@ -88,7 +80,6 @@ describe('useFetch test:', () => {
 
     expect(result.current.isLoading).toBe(false);
     expect(result.current.data).toStrictEqual(data);
-    fetchMock.restore();
   });
 
   it('should be able to cancel a request', async () => {
@@ -102,6 +93,5 @@ describe('useFetch test:', () => {
 
     expect(result.current.isLoading).toBe(false);
     expect(result.current.data).toStrictEqual(null);
-    fetchMock.restore();
   });
 });
