@@ -43,7 +43,6 @@ export const useFetch = <T>(
         .then((res: T) => setData(res))
         .catch((err: Error) => {
           if (err.name === 'AbortError') return;
-          setData(null);
           setError(err);
         })
         .finally(() => setIsLoading(false));
@@ -57,5 +56,5 @@ export const useFetch = <T>(
     return () => abort();
   }, [execute, immediate]);
 
-  return { isLoading, error, data, execute, abort, isError: !error };
+  return { isLoading, error, data, execute, abort, isError: error !== null };
 };
