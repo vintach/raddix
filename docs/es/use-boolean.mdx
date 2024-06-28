@@ -1,0 +1,88 @@
+---
+title: useBoolean
+description: Administra un valor booleano con funciones de utilidad útiles.
+---
+
+## Instalación
+
+Instale el custom hook desde su terminal.
+
+<Snippet pkg text='@raddix/use-boolean' />
+
+## Uso
+
+En este ejemplo, vamos a abrir un menu cuando el cursor pase sobre el botón y se
+cerrará cuando el cursor salga del contenedor del menú. Si hace click sobre el botón
+se abrira/cerrará.
+
+```tsx
+import { useBoolean } from '@raddix/use-boolean';
+import { Menu } from './menu'
+
+export default function App() {
+  const [open, setOpen] = useBoolean();
+
+  return (
+    <div onMouseLeave={setOpen.off}>
+     <button onMouseEnter={setOpen.on} onClick={setOpen.toggle}>
+       Menu
+     </button>
+
+      <Menu />
+    </div>
+  )
+}
+```
+
+## API
+
+### Parámetros
+
+<ApiTable
+  head={{
+    name: 'Nombre',
+    description: 'Descripción',
+    required: 'Requerido',
+    type: false,
+    defaultValue: 'Valor por defecto'
+  }}
+  data={[
+    {
+      name: 'initialValue',
+      description: 'El valor inicial del estado booleano.',
+      required: 'No',
+      defaultValue: 'false'
+    }
+  ]}
+/>
+
+### Resultado
+
+El hook `useBoolean` devuelve un array con los siguientes elementos:
+
+<ApiTable
+  head={{
+    name: 'Índice',
+    description: 'Descripción',
+    required: false,
+    type: false
+  }}
+  data={[
+    {
+      name: '[0]',
+      description: 'El valor actual del estado.',
+    },
+    {
+      name: '[1].on',
+      description: 'Una función para establecer el valor booleano en true.',
+    },
+    {
+      name: '[1].off',
+      description: 'Una función para establecer el valor booleano en false.',
+    },
+    {
+      name: '[1].toggle',
+      description: 'Una función para negar el estado booleano.',
+    },
+  ]}
+/>

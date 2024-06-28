@@ -39,6 +39,10 @@
       "heading": true,
       "children": [
         {
+          "title": "useBoolean",
+          "path": "/hooks/use-boolean"
+        },
+        {
           "title": "useCounter",
           "path": "/hooks/use-counter"
         },

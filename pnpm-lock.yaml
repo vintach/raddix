@@ -199,6 +199,15 @@ importers:
         specifier: ~4.9
         version: 4.9.5
 
+  packages/hooks/use-boolean:
+    dependencies:
+      react:
+        specifier: '>=16.8.0'
+        version: 18.2.0
+      react-dom:
+        specifier: '>=16.8.0'
+        version: 18.2.0(react@18.2.0)
+
   packages/hooks/use-click-outside:
     dependencies:
       react:
