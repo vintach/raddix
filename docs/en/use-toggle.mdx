@@ -1,6 +1,6 @@
 ---
 title: useToggle
-description: A hook that toggles a boolean value.
+description: Toggles state between given values.
 ---
 
 ## Installation
@@ -11,14 +11,50 @@ Install the custom hook from your command line.
 
 ## Usage
 
-### Basic example
+To toggle the state between given values ​​add an array to the `useToggle` hook.
 
-In this example, we are going to expand or hide the text of a paragraph.
-by clicking a button (read more/read less).
+The first element of the array will be used by default as the initial value, you can
+override this by adding the desired initial value as the second parameter.
 
-<CodeBlock folder='use-toggle' file='example1.tsx' />
+```jsx
+import { useToggle } from '@raddix/use-toggle';
+
+export default function App() {
+  const [color, toggle, setColor] = useToggle(['blue', 'orange', 'cyan']);
+
+  return (
+    <div>
+      <button onClick={toggle}>{color}</button>
+      <button onClick={() => setColor('blue')}>Set color blue</button>
+      <button onClick={() => setColor('cyan')}>Set color cyan</button>
+    </div>
+  )
+}
+```
 
 ## API
+
+### Parameters
+
+<ApiTable
+  data={[
+    {
+      name: 'values',
+      description: 'An array of values',
+      required: 'Yes',
+      type: 'Array<T>',
+      defaultValue: '-'
+    },
+    {
+      name: 'initValue',
+      description: 'initial value',
+      required: 'No',
+      type: 'T',
+      defaultValue: 'values[0]'
+    }
+  ]}
+/>
+
 
 ### Result
 
@@ -30,33 +66,19 @@ The `useToggle` hook returns an array with the following elements:
   }}
   data={[
     {
-      name: '0',
+      name: '[0]',
       description: 'The current value of the state.',
-      type: 'boolean'
+      type: 'T'
     },
     {
-      name: '1',
+      name: '[1]',
+      description: 'A function to toggle the state.',
+      type: 'function'
+    },
+    {
+      name: '[2]',
       description: 'A function to change the state.',
       type: 'function'
     },
-    {
-      name: '2',
-      description: 'A function to toggle the state.',
-      type: 'function'
-    }
-  ]}
-/>
-
-### Parameters
-
-<ApiTable
-  data={[
-    {
-      name: 'initialValue',
-      description: 'The initial value of the boolean state.',
-      required: 'No',
-      type: 'boolean',
-      defaultValue: 'false'
-    }
   ]}
 />
