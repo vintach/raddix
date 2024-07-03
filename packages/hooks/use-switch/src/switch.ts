@@ -20,7 +20,10 @@ export const useSwitch = (<E extends ElementType = 'div'>(
     onChange: handleChange
   } = props;
 
-  const [checked, setChecked, toggle] = useToggle(initialChecked);
+  const [checked, toggle, setChecked] = useToggle(
+    [false, true],
+    initialChecked
+  );
 
   const nativeProps = Boolean(as === 'button' || as === 'input');
   const nativeInput: boolean = as === 'input';
