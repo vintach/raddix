@@ -35,6 +35,20 @@
       ]
     },
     {
+      "title": "Navigator",
+      "heading": true,
+      "children": [
+        {
+          "title": "useBattery",
+          "path": "/hooks/use-battery"
+        },
+        {
+          "title": "useClipboard",
+          "path": "/hooks/use-clipboard"
+        }
+      ]
+    },
+    {
       "title": "State",
       "heading": true,
       "children": [
@@ -74,10 +88,6 @@
       "title": "Utilities",
       "heading": true,
       "children": [
-        {
-          "title": "useClipboard",
-          "path": "/hooks/use-clipboard"
-        },
         {
           "title": "useCountDown",
           "path": "/hooks/use-count-down"
