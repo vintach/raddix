@@ -1,0 +1,71 @@
+---
+title: useBattery
+description: Rastrea el estado de la batería del dispositivo.
+---
+
+## Instalación
+
+Instale el custom hook desde su terminal.
+
+<Snippet pkg text='@raddix/use-battery' />
+
+## Uso
+
+```jsx
+import { useBattery } from '@raddix/use-battery'
+
+export default function App() {
+  const { level, charging } = useBattery();
+
+  return (
+    <div>
+      <p>Battery level:{level && level * 100}</p>
+      <p>{charging ? 'Battery charging' : 'Battery not charging'}</p>
+    </div>
+  )
+}
+```
+
+## API
+
+### Valor devuelto
+
+El gancho devuelve un objeto con las siguientes propiedades:
+
+<ApiTable
+  head={{
+    name: 'Nombre'
+  }}
+  data={[
+    {
+      name: 'isSupported',
+      type: 'boolean',
+      description: 'Indica si la API de estado de la batería es compatible con el navegador del usuario.',
+    },
+    {
+      name: 'isLoading',
+      type: 'boolean',
+      description: 'Indica si la información de la batería aún se está cargando.',
+    },
+    {
+      name: 'level',
+      type: 'number',
+      description: 'Representa el nivel de la batería del sistema. 0,0 significa que la batería del sistema está completamente descargada y 1,0 significa que la batería está completamente cargada.',
+    },
+    {
+      name: 'charging',
+      type: 'boolean',
+      description: 'Indica si la batería del sistema se está cargando. true significa que la batería se está cargando, false significa que no.',
+    },
+    {
+      name: 'chargingTime',
+      type: 'number',
+      description: 'Representa el tiempo restante en segundos hasta que la batería del sistema esté completamente cargada.',
+    },
+    {
+      name: 'dischargingTime',
+      type: 'number',
+      description: 'Representa el tiempo restante en segundos hasta que la batería del sistema se descargue completamente y el sistema esté a punto de suspenderse.',
+    },
+  ]}
+ />
