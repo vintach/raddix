@@ -1,7 +1,7 @@
 {
   "name": "@raddix/use-toggle",
   "description": "It's a simple hook that toggles a boolean value.",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "license": "MIT",
   "main": "src/index.ts",
   "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",
