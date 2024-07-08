@@ -61,6 +61,10 @@
           "path": "/hooks/use-counter"
         },
         {
+          "title": "useDebounce",
+          "path": "/hooks/use-debounce"
+        },
+        {
           "title": "useToggle",
           "path": "/hooks/use-toggle"
         }
