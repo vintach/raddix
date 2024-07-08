@@ -1,0 +1,72 @@
+---
+title: useDebounce
+description: Devuelve un valor sin rebotes del valor proporcionado.
+---
+
+## Instalación
+
+Instala el custom hook desde su linea de comando.
+
+<Snippet pkg text='@raddix/use-debounce' />
+
+## Uso
+
+```tsx
+import { useState } from 'react';
+import { useDebounce } from 'ahooks';
+
+export default function App() {
+  const [value, setValue] = useState<string>();
+  const debouncedValue = useDebounce(value, { wait: 500 });
+
+  return (
+    <div>
+      <input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Typed value"
+      />
+      <p>DebouncedValue: {debouncedValue}</p>
+    </div>
+  );
+};
+```
+
+## API
+
+### Parámetros
+
+<ApiTable
+  head={{
+    name: 'Parámetros'
+  }}
+  data={[
+    {
+      name: 'value',
+      description: 'El valor que desea rebotar.',
+      required: 'Si',
+      type: 'any'
+    },
+    {
+      name: 'delay',
+      description: 'El tiempo de retardo en milisegundos.',
+      required: 'No',
+      type: 'number'
+    }
+  ]}
+/>
+
+### Devuelve
+
+<ApiTable
+  head={{
+    name: 'Devuelve'
+  }}
+  data={[
+    {
+      name: 'debouncedValue',
+      type: 'any',
+      description: 'El valor sin rebote. Una vez transcurrido el tiempo de retardo sin que el valor cambie, este se actualizará al valor más reciente.',
+    }
+  ]}
+ />

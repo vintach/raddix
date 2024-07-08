@@ -1,0 +1,72 @@
+---
+title: useDebounce
+description: Returns a debounced value of the provided value.
+---
+
+## Installation
+
+Install the custom hook from your command line.
+
+<Snippet pkg text='@raddix/use-debounce' />
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import { useDebounce } from 'ahooks';
+
+export default function App() {
+  const [value, setValue] = useState<string>();
+  const debouncedValue = useDebounce(value, { wait: 500 });
+
+  return (
+    <div>
+      <input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Typed value"
+      />
+      <p>DebouncedValue: {debouncedValue}</p>
+    </div>
+  );
+};
+```
+
+## API
+
+### Parameters
+
+<ApiTable
+  head={{
+    name: 'Parameters'
+  }}
+  data={[
+    {
+      name: 'value',
+      description: 'The value you want to bounce.',
+      required: 'Yes',
+      type: 'any'
+    },
+    {
+      name: 'delay',
+      description: 'The delay time in milliseconds.',
+      required: 'No',
+      type: 'number'
+    }
+  ]}
+/>
+
+### Returns
+
+<ApiTable
+  head={{
+    name: 'Returns'
+  }}
+  data={[
+    {
+      name: 'debouncedValue',
+      type: 'any',
+      description: 'The debounce value. After the delay time has elapsed without the value changing, it will be updated to the most recent value.',
+    }
+  ]}
+ />
