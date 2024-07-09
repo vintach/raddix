@@ -1,6 +1,6 @@
 {
   "name": "@raddix/use-client",
-  "description": "Determine whether the code is running on the client-side or server-side.",
+  "description": "A hook that determine whether the code is running on the client-side.",
   "version": "0.1.0",
   "license": "MIT",
   "main": "src/index.ts",
