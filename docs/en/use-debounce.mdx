@@ -13,11 +13,11 @@ Install the custom hook from your command line.
 
 ```tsx
 import { useState } from 'react';
-import { useDebounce } from 'ahooks';
+import { useDebounce } from '@raddix/use-debounce';
 
 export default function App() {
   const [value, setValue] = useState<string>();
-  const debouncedValue = useDebounce(value, { wait: 500 });
+  const debouncedValue = useDebounce(value, 800);
 
   return (
     <div>

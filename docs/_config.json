@@ -75,6 +75,10 @@
       "heading": true,
       "children": [
         {
+          "title": "useClient",
+          "path": "/hooks/use-client"
+        },
+        {
           "title": "useTimeout",
           "path": "/hooks/use-timeout"
         },

@@ -1,0 +1,46 @@
+---
+title: useClient
+description: Determine whether the code is running on the client-side.
+---
+
+## Installation
+
+Install the custom hook from your command line.
+
+<Snippet pkg text='@raddix/use-client' />
+
+## Usage
+
+```tsx
+import { useClient } from '@raddix/use-client'
+
+export default function App() {
+  const isClient = useClient()
+
+  return(
+    <div>
+      <h6>Is Client? </h6>
+      <p>{isClient ? "Yes" : "No"}</p>
+    </div>
+  )
+}
+```
+
+## API
+
+### Returns
+
+<ApiTable
+  head={{
+    name: 'Name',
+    description: 'Descripción',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: 'isClient',
+      description: 'true if running in a client-side environment, false otherwise.',
+      type: 'boolean'
+    }
+  ]}
+/>

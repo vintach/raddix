@@ -1,0 +1,46 @@
+{
+  "name": "@raddix/use-client",
+  "description": "A hook that determine whether the code is running on the client-side.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",
+  "homepage": "https://raddix.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gdvu/raddix.git"
+  },
+  "keywords": [
+    "react-hook",
+    "react-client-hook",
+    "react-use-client",
+    "use-client",
+    "use-client-hook",
+    "hook-client"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "lint": "eslint \"{src,tests}/*.{ts,tsx,css}\"",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "build": "tsup src --dts",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "clean-package": "../../../clean-package.config.json",
+  "tsup": {
+    "clean": true,
+    "target": "es2019",
+    "format": [
+      "cjs",
+      "esm"
+    ]
+  }
+}

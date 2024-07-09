@@ -1,0 +1,46 @@
+---
+title: useClient
+description: Determina si el código se está ejecutando en el lado del cliente.
+---
+
+## Instalación
+
+Instale el custom hook desde su terminal.
+
+<Snippet pkg text='@raddix/use-client' />
+
+## Uso
+
+```tsx
+import { useClient } from '@raddix/use-client'
+
+export default function App() {
+  const isClient = useClient()
+
+  return(
+    <div>
+      <h6>Is Client? </h6>
+      <p>{isClient ? "Yes" : "No"}</p>
+    </div>
+  )
+}
+```
+
+## API
+
+### Devuelve
+
+<ApiTable
+  head={{
+    name: 'Nombre',
+    description: 'Descripción',
+    type: 'Tipo'
+  }}
+  data={[
+    {
+      name: 'isClient',
+      description: 'true si se ejecuta en un entorno del lado del cliente, en caso contrario false.',
+      type: 'boolean'
+    }
+  ]}
+/>
