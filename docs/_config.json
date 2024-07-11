@@ -89,6 +89,10 @@
         {
           "title": "useFirstRender",
           "path": "/hooks/use-first-render"
+        },
+        {
+          "title": "useIsomorphicEffect",
+          "path": "/hooks/use-isomorphic-effect"
         }
       ]
     },

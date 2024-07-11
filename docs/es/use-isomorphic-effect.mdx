@@ -1,0 +1,28 @@
+---
+title: useIsomorphicEffect
+description: Alias para useLayoutEffect en el navegador y useEffect en el lado del servidor
+---
+
+## Instalación
+
+Instala el custom hook desde tu terminal.
+
+<Snippet pkg text='@raddix/use-isomorphic-effect' />
+
+## Uso
+
+```tsx
+import { useIsomorphicEffect } from '@raddix/use-isomorphic-effect';
+
+export default function App() {
+  useIsomorphicEffect(() => {
+    document.title = 'title';
+  }, []);
+
+  return <p>Hello, world</p>
+}
+```
+
+## API
+
+Úselo exactamente igual que `useLayoutEffect`.
