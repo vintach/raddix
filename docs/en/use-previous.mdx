@@ -1,0 +1,59 @@
+---
+title: usePrevious
+description: Returns previous value of given state.
+---
+
+## Installation
+
+Install the custom hook from your command line.
+
+<Snippet pkg text='@raddix/use-previous' />
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import { usePrevious } from '@raddix/use-previous';
+
+export default function App() {
+  const [count, setCount] = useState(0)
+  const previousCount = usePrevious(count);
+
+  return (
+    <div>
+      <p>Current value: {count}</p>
+      <p>Previous value: {previousCount}</p>
+      <button onClick={() => setCount(count + 1)}>
+          Increment Count
+      </button>
+    </div>
+  )
+}
+```
+
+## API
+
+### Parameters
+
+<ApiTable
+  data={[
+    {
+      name: 'value',
+      type: 'any',
+      description: 'The value of the state.',
+      required: 'Yes'
+    }
+  ]}
+ />
+
+### Returns
+
+<ApiTable
+  data={[
+    {
+      name: 'previousValue',
+      type: 'any',
+      description: 'The previous value of given state.',
+    }
+  ]}
+ />
