@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "src/index.ts",
   "author": "Moises Machuca Valverde <rolan.machuca@gmail.com> (https://www.moisesmachuca.com)",
-  "homepage": "https://raddix.dev",
+  "homepage": "https://raddix.dev/hooks/use-previous",
   "repository": {
     "type": "git",
     "url": "https://github.com/gdvu/raddix.git"
