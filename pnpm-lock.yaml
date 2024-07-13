@@ -274,6 +274,18 @@ importers:
         specifier: '>=16.8.0'
         version: 18.2.0(react@18.2.0)
 
+  packages/hooks/use-document-title:
+    dependencies:
+      '@raddix/use-isomorphic-effect':
+        specifier: workspace:*
+        version: link:../use-isomorphic-effect
+      react:
+        specifier: '>=16.8.0'
+        version: 18.2.0
+      react-dom:
+        specifier: '>=16.8.0'
+        version: 18.2.0(react@18.2.0)
+
   packages/hooks/use-event-listener:
     dependencies:
       react:
