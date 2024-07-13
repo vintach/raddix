@@ -69,6 +69,10 @@
           "path": "/hooks/use-debounce"
         },
         {
+          "title": "usePrevious",
+          "path": "/hooks/use-previous"
+        },
+        {
           "title": "useToggle",
           "path": "/hooks/use-toggle"
         }
