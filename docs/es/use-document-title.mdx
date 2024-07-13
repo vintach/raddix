@@ -1,0 +1,45 @@
+---
+title: useDocumentTitle
+description: Actualiza dinámicamente el título de una página web.
+---
+
+## Instalación
+
+Instala el custom hook desde su linea de comando.
+
+<Snippet pkg text='@raddix/use-document-title' />
+
+## Uso
+
+```tsx
+import { useState } from 'react';
+import { useDocumentTitle } from '@raddix/use-document-title';
+
+export default function App() {
+  const [count, setCount] = useState(0)
+  useDocumentTitle(`Clicked ${count} times.`);
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+        Increment Count: {count}
+    </button>
+  )
+}
+```
+
+## API
+
+### Parámetros
+
+<ApiTable
+  head={{
+    name: 'Nombre'
+  }}
+  data={[
+    {
+      name: 'title',
+      type: 'string',
+      description: 'El título que se establecerá para el documento.',
+    }
+  ]}
+ />

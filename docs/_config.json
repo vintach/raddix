@@ -13,6 +13,10 @@
           "path": "/hooks/use-click-outside"
         },
         {
+          "title": "useDocumentTitle",
+          "path": "/hooks/use-document-title"
+        },
+        {
           "title": "useEventListener",
           "path": "/hooks/use-event-listener"
         },
