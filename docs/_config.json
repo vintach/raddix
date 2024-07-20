@@ -29,8 +29,16 @@
           "path": "/hooks/use-media-query"
         },
         {
+          "title": "useScrollLock",
+          "path": "/hooks/use-scroll-lock"
+        },
+        {
           "title": "useScrollPosition",
           "path": "/hooks/use-scroll-position"
+        },
+        {
+          "title": "useScrollSpy",
+          "path": "/hooks/use-scroll-spy"
         },
         {
           "title": "useWindowSize",
@@ -63,6 +71,10 @@
         {
           "title": "useCounter",
           "path": "/hooks/use-counter"
+        },
+        {
+          "title": "useCountDown",
+          "path": "/hooks/use-count-down"
         },
         {
           "title": "useDebounce",
@@ -101,20 +113,6 @@
         {
           "title": "useIsomorphicEffect",
           "path": "/hooks/use-isomorphic-effect"
-        }
-      ]
-    },
-    {
-      "title": "Utilities",
-      "heading": true,
-      "children": [
-        {
-          "title": "useCountDown",
-          "path": "/hooks/use-count-down"
-        },
-        {
-          "title": "useScrollSpy",
-          "path": "/hooks/use-scroll-spy"
         }
       ]
     }
