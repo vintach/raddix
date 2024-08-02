@@ -237,9 +237,6 @@ importers:
 
   packages/hooks/use-clipboard:
     dependencies:
-      '@raddix/use-timeout':
-        specifier: workspace:*
-        version: link:../use-timeout
       react:
         specifier: '>=16.8.0'
         version: 18.2.0
