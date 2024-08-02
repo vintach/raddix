@@ -360,9 +360,6 @@ importers:
 
   packages/hooks/use-scroll-position:
     dependencies:
-      '@raddix/use-event-listener':
-        specifier: workspace:*
-        version: link:../use-event-listener
       react:
         specifier: '>=16.8.0'
         version: 18.2.0
@@ -414,9 +411,6 @@ importers:
 
   packages/hooks/use-window-size:
     dependencies:
-      '@raddix/use-event-listener':
-        specifier: workspace:*
-        version: link:../use-event-listener
       react:
         specifier: '>=16.8.0'
         version: 18.2.0
