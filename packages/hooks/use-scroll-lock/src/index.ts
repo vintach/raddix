@@ -1,38 +1,36 @@
 import { useLayoutEffect, useRef } from 'react';
 
-interface UseScrollLockOptions {
-  target?: string;
-}
-
 interface OriginalStyle {
   overflow: string;
   paddingRight: string;
 }
 
-export const useScrollLock = ({ target }: UseScrollLockOptions = {}): void => {
+export const useScrollLock = (): void => {
   const originalStyle = useRef<OriginalStyle | null>(null);
 
-  useLayoutEffect(() => {
-    const element: HTMLElement = target
-      ? document.querySelector(target) ?? document.body
-      : document.body;
+  const preventTouch = (e: Event) => {
+    e.preventDefault();
+    return false;
+  };
 
-    const width =
-      element === document.body ? window.innerWidth : element.offsetWidth;
-    const scrollbarWidth = width - element.scrollWidth;
-    const paddingRight = window.getComputedStyle(element).paddingRight;
-    const overflow = window.getComputedStyle(element).overflow;
-    const right = scrollbarWidth + parseInt(paddingRight, 10) || 0;
+  useLayoutEffect(() => {
+    const scrollbarWidth = window.innerWidth - document.body.scrollWidth;
+    const paddingRight = window.getComputedStyle(document.body).paddingRight;
+    const overflow = window.getComputedStyle(document.body).overflow;
+    const right = scrollbarWidth + parseInt(paddingRight, 10);
 
     originalStyle.current = { overflow, paddingRight };
-    element.style.paddingRight = `${right}px`;
-    element.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${right}px`;
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('touchmove', preventTouch, { passive: false });
 
     return () => {
       if (originalStyle.current) {
-        element.style.overflow = originalStyle.current.overflow;
-        element.style.paddingRight = originalStyle.current.paddingRight;
+        document.body.style.overflow = originalStyle.current.overflow;
+        document.body.style.paddingRight = originalStyle.current.paddingRight;
       }
+
+      document.removeEventListener('touchmove', preventTouch);
     };
-  }, [target]);
+  }, []);
 };

@@ -1,37 +1,44 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { renderHook } from '@testing-library/react';
 import { useScrollLock } from '../src';
 
 describe('useScrollLock test:', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     document.body.style.overflow = 'auto';
+    document.body.style.paddingRight = '0px';
+
+    jest.spyOn(document, 'addEventListener');
+    jest.spyOn(document, 'removeEventListener');
   });
 
-  it('should lock and unlock scrolling in the body of the document', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it('should block the scroll and add the touchmove event', () => {
     const { unmount } = renderHook(() => useScrollLock());
+    const touchMoveEvent = new Event('touchmove');
+    const scrollbarWidth = window.innerWidth - document.body.scrollWidth;
+    touchMoveEvent.preventDefault = jest.fn();
+    document.dispatchEvent(touchMoveEvent);
 
+    expect(touchMoveEvent.preventDefault).toHaveBeenCalled();
     expect(document.body.style.overflow).toBe('hidden');
+    expect(document.body.style.paddingRight).toBe(`${scrollbarWidth}px`);
+
+    expect(document.addEventListener).toHaveBeenCalledWith(
+      'touchmove',
+      expect.any(Function),
+      { passive: false }
+    );
+
     unmount();
     expect(document.body.style.overflow).toBe('auto');
-  });
+    expect(document.body.style.paddingRight).toBe('0px');
 
-  it('should lock and unlock scrolling in the target element by selector', () => {
-    const target = document.createElement('div');
-    target.id = 'test';
-    document.body.appendChild(target);
-    target.style.overflow = 'scroll';
-
-    const { unmount } = renderHook(() => useScrollLock({ target: '#test' }));
-
-    expect(target.style.overflow).toBe('hidden');
-    unmount();
-    expect(target.style.overflow).toBe('scroll');
-  });
-
-  it('Should lock and unlock scrolling in the document body if the target element is not found', () => {
-    const { unmount } = renderHook(() => useScrollLock({ target: '#testing' }));
-
-    expect(document.body.style.overflow).toBe('hidden');
-    unmount();
-    expect(document.body.style.overflow).toBe('auto');
+    expect(document.removeEventListener).toHaveBeenCalledWith(
+      'touchmove',
+      expect.any(Function)
+    );
   });
 });
