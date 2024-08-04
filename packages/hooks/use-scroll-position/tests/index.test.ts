@@ -42,9 +42,17 @@ describe('useScrollPosition test:', () => {
     expect(result.current).toEqual({ x: 0, y: 0 });
 
     act(() => {
-      document.documentElement.scrollTop = 100;
-      document.documentElement.scrollLeft = 50;
-      document.dispatchEvent(new Event('scroll'));
+      Object.defineProperty(window, 'scrollY', {
+        value: 100,
+        configurable: true
+      });
+
+      Object.defineProperty(window, 'scrollX', {
+        value: 50,
+        configurable: true
+      });
+
+      window.dispatchEvent(new Event('scroll'));
     });
 
     expect(result.current).toEqual({ x: 50, y: 100 });

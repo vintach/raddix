@@ -33,8 +33,7 @@
   ],
   "peerDependencies": {
     "react": ">=16.8.0",
-    "react-dom": ">=16.8.0",
-    "@raddix/use-timeout": "workspace:*"
+    "react-dom": ">=16.8.0"
   },
   "clean-package": "../../../clean-package.config.json",
   "tsup": {
