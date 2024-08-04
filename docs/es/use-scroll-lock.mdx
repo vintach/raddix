@@ -1,0 +1,56 @@
+---
+title: useScrollLock
+description: Deshabilita el desplazamiento en el cuerpo del documento.
+---
+
+## Características
+
+- Elimina la barra de desplazamiento del documento, conservando el ancho de la página.
+- Funciona en cualquier navegador de escritorio o móvil.
+
+## Instalación
+
+Instala el custom hook desde su linea de comando.
+
+<Snippet pkg text='@raddix/use-scroll-lock' />
+
+## Uso
+
+Una vez que el componente que utiliza el hook `useScrollLock` se monta, se deshabilita el desplazamiento
+en el cuerpo del documento. Cuando se desmonta el componente el hook devuelve una función de limpieza
+que restaura el estilo de desbordamiento original.
+
+```jsx
+import { useState } from 'react';
+import { useScrollLock } from '@raddix/use-scroll-lock';
+
+function Modal({ handleClose }) {
+  useScrollLock();
+
+  return (
+    <dialog>
+      <button onClick={handleClose}>Close</button>
+      <h2>Modal</h2>
+    </dialog>
+  )
+}
+
+export default function App() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      {isOpen && <Modal handleClose={() => setIsOpen(false)} />}
+      <button className="primary" onClick={() => setIsOpen(true)}>
+          Open Modal
+      </button>
+    </>
+  );
+}
+```
+
+## API
+
+### Parámetros
+
+El hook `useScrollLock` no acepta ningun parámetro.

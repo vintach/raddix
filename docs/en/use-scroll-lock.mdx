@@ -1,0 +1,56 @@
+---
+title: useScrollLock
+description: Disables scrolling in the document body.
+---
+
+## Features
+
+- Removes the scroll bar from the document, while preserving the width of the page.
+- Works on any desktop or mobile browser.
+
+## Installation
+
+Install the custom hook from your command line.
+
+<Snippet pkg text='@raddix/use-scroll-lock' />
+
+## Usage
+
+Once the component using the `useScrollLock` hook is mounted, scrolling is disabled
+in the document body. When the component is unmounted, the hook returns a cleanup function
+that restores the original overflow style.
+
+```jsx
+import { useState } from 'react';
+import { useScrollLock } from '@raddix/use-scroll-lock';
+
+function Modal({ handleClose }) {
+  useScrollLock();
+
+  return (
+    <dialog>
+      <button onClick={handleClose}>Close</button>
+      <h2>Modal</h2>
+    </dialog>
+  )
+}
+
+export default function App() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      {isOpen && <Modal handleClose={() => setIsOpen(false)} />}
+      <button className="primary" onClick={() => setIsOpen(true)}>
+          Open Modal
+      </button>
+    </>
+  );
+}
+```
+
+## API
+
+### Parameters
+
+The `useScrollLock` hook does not accept any parameters.
