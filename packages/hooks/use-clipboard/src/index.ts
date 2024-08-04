@@ -1,5 +1,4 @@
-import { useTimeout } from '@raddix/use-timeout';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export type UseClipboard = (options?: {
   timeout?: number;
@@ -10,7 +9,7 @@ export type UseClipboard = (options?: {
 export const useClipboard: UseClipboard = (options = {}) => {
   const { timeout = 2000, onError, onSuccess } = options;
   const [isCopied, setIsCopied] = useState(false);
-  const { run } = useTimeout(() => setIsCopied(false), timeout, false);
+  const idTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const copy = (data: string) => {
     if ('clipboard' in navigator) {
@@ -19,13 +18,19 @@ export const useClipboard: UseClipboard = (options = {}) => {
         .then(() => {
           setIsCopied(true);
           onSuccess?.();
-          run();
+          idTimeout.current = setTimeout(() => setIsCopied(false), timeout);
         })
         .catch(err => onError?.(err));
     } else {
       onError?.(new Error('navigator.clipboard is not supported'));
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (idTimeout.current) clearTimeout(idTimeout.current);
+    };
+  }, []);
 
   return [isCopied, copy];
 };
