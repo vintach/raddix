@@ -1,5 +1,11 @@
 # @raddix/use-scroll-position
 
+## 1.1.0
+
+### Minor Changes
+
+- 0aee7d1: Remove @raddix/use-event-listener of peerDependencies
+
 ## 1.0.1
 
 ### Patch Changes
