@@ -1,6 +1,5 @@
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useEffect } from 'react';
-import type { Keys } from './keys';
 
 type Event = ReactKeyboardEvent | KeyboardEvent;
 type KeyboardHandler = (event: Event) => void;
@@ -15,7 +14,7 @@ interface Options {
 
 type UseKeyboard = (
   handler: KeyboardHandler,
-  shortcut?: Keys[],
+  shortcut?: string[],
   options?: Options
 ) => KeyboardResult;
 
